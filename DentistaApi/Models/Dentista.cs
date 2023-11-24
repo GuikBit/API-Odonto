@@ -4,7 +4,6 @@ namespace DentistaApi.Models
 {
     public class Dentista : User
     {
-        public string CRO {  get; set; }
 
         [InverseProperty("Dentista")]
         public ICollection<Consulta> Consultas { get; } = new List<Consulta>();
