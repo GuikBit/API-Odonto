@@ -45,7 +45,6 @@ public class DentistaController : ControllerBase
             Telefone = obj.Telefone,
             Cpf = obj.Cpf,
             dataNasc = obj.dataNasc,
-            CRO = obj.CRO,
             Especialidade = espec,
 
         };
