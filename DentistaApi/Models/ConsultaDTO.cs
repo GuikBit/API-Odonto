@@ -3,13 +3,13 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DentistaApi.Models
 {
-    public class Consulta
+    public class ConsultaDTO
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int? Id { get; set; }
         public string ProcedimentoConsulta { get; set; } = "";
-        public DateOnly DataConsulta { get; set; }
+        public string DataConsulta { get; set; }
         public string HoraConsulta { get; set; } = "";
         public string? TempoPrevisto { get; set; }
 

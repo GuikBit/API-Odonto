@@ -46,10 +46,39 @@ public class DashBordController : Controller
 
     [HttpGet]
     [Route("{id}")]
-    public double[] DashBordDentista(int id)
+    public IActionResult DashBordDentista(int id)
     {
-        return new double[0];
+        try
+        {
+            var consultas = db.Consultas.Where(c => c.Dentista.Id == id);
+            var agora = DateTime.Now;
+
+            var ultimos6Meses = Enumerable.Range(6, 12)
+            .Select(offset => agora.AddMonths(+offset))
+            .ToList();
+
+            var totalConsultasPorMes = ultimos6Meses.Select(dataAtual => consultas.Count(c => c.DataConsulta.Month == dataAtual.Month && c.DataConsulta.Year == dataAtual.Year)).ToArray();
+
+            Dashbords dashbord = new()
+            {
+                meses = RetornaMeses(),
+                qtdPorMes = totalConsultasPorMes,
+                dentistas = null,
+                qtdPorDentista = null,
+                espec = null,
+                qtdPorEspec = null
+
+            };
+
+            return Ok(dashbord);
+        }
+        catch (Exception ex)
+        {
+
+            return StatusCode(500, $"Erro interno: {ex.Message}");
+        }
     }
+    
 
     private readonly AppDbContext db = new();
 
@@ -73,37 +102,24 @@ public class DashBordController : Controller
 
     private static string[] RetornaMeses()
     {
-        var agora = DateTime.Now;
+        string[] nomesUltimos6Meses = new string[6];
 
-        var ultimos6Meses = Enumerable.Range(0, 6)
-        .Select(offset => agora.AddMonths(-offset))
-        .ToList();
+        // Obtém o primeiro dia do mês atual
+        DateTime primeiroDiaDoMes = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
 
-        Dictionary<int, string> mesesDoAno = new Dictionary<int, string>
+        // Preenche o array com os nomes dos últimos 6 meses
+        for (int i = 0; i < 6; i++)
         {
-                { 1, "Janeiro" },
-                { 2, "Fevereiro" },
-                { 3, "Março" },
-                { 4, "Abril" },
-                { 5, "Maio" },
-                { 6, "Junho" },
-                { 7, "Julho" },
-                { 8, "Agosto" },
-                { 9, "Setembro" },
-                { 10, "Outubro" },
-                { 11, "Novembro" },
-                { 12, "Dezembro" }
-        };
-        string[] meses = new string[6];
-        var i = 0;
-        foreach (var item in ultimos6Meses)
-        {
-            meses[i] = mesesDoAno[item.Month];
-            i++;
+            DateTime mesAtual = primeiroDiaDoMes.AddMonths(-i);
+            string nomeMes = mesAtual.ToString("MMMM");
+            nomesUltimos6Meses[i] = nomeMes;
         }
 
-        return meses;
-    }
+        return nomesUltimos6Meses;
+    
+
+    //return meses;
+}
     private string[] Dentistas(List<Dentista> dentistas)
     {
         ;
@@ -120,23 +136,25 @@ public class DashBordController : Controller
     }
     private double[] TotalPorEspec(List<Consulta> consultas, List<Especialidade> especs)
     {
-       
-        var totalEspec = especs.Select(espec => consultas.Count(c => c.Dentista.Especialidade.Id == espec.Id)).ToArray();
 
-        var totalConsultas = consultas.Count();
+            var totalEspec = especs.Select(espec => consultas.Count(c => c.Dentista.Especialidade.Id == espec.Id)).ToArray();
+            
+            var totalConsultas = consultas.Count();
 
-        if(totalConsultas > 0)
-        {
-            var total = totalEspec.Select(qtd => Math.Round((qtd / (double)totalConsultas) * 1, 2)).ToArray();
-            return (double[])total;
+            if (totalConsultas > 0)
+            {
+                var total = totalEspec.Select(qtd => Math.Round((qtd / (double)totalConsultas) * 1, 2)).ToArray();
+                return (double[])total;
+            }
+            else
+            {
+                var total = totalEspec.Select(qtd => 0.0).ToArray();
+                return (double[])total;
+            }
+
         }
-        else {
-            var total = totalEspec.Select(qtd => 0.0).ToArray();
-            return (double[])total;
-        }
+ 
 
-        
-    }
 
     private string[] Especialidades(List<Especialidade> espec)    {
        

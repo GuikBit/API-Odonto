@@ -36,9 +36,9 @@ public class AuthService : IAuthService{
     {
         User? usuario = db.Pacientes.FirstOrDefault(x => x.Login == user.Login);
 
-        if (usuario == null)
+        if (usuario == null)            
         {
-            usuario =  db.Dentistas.FirstOrDefault(x => x.Login == user.Login);
+            usuario = db.Dentistas.FirstOrDefault(x => x.Login == user.Login);
         }
         if (usuario == null)
         {

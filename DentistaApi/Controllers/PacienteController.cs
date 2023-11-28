@@ -18,12 +18,13 @@ public class PacienteController : ControllerBase
 
         var paciPacientes = db.Pacientes
             .Where(x => x.Ativo == true)
+            .Include(p=> p.Consultas)
             .Include(p => p.Anamnese)
             .Include(p => p.Endereco)
             .Include(p => p.Responsavel)
             .ToList();
 
-
+        paciPacientes.ToList().ForEach(p => p.Consultas.Clear());
         return Ok(paciPacientes);
     }
     [HttpGet]
@@ -43,14 +44,39 @@ public class PacienteController : ControllerBase
 
     [HttpGet]
     [Route("/v1/paciente/consultas/{id}")]
-    public ActionResult<Paciente> GetByConsultasId(int id)
+    public ActionResult<IList<ConsultaDTO>> GetByConsultasId(int id)
     {
-        var pacienteConsultas = db.Pacientes
-            .Where(x => x.Ativo == true)
-            .Include(p => p.Consultas)
-            .FirstOrDefault(p => p.Id == id);
 
-        return pacienteConsultas == null ? NotFound() : Ok(pacienteConsultas);
+        var consulta = db.Consultas
+               .Include(p => p.Paciente)
+               .Include(p => p.Dentista)
+               .Include(p => p.Dentista.Especialidade)
+               .Where(p => p.Paciente.Id == id)
+               .OrderBy(p=>p.DataConsulta)
+               .ToList();
+
+        consulta.ToList().ForEach(p => p.Paciente.Consultas.Clear());
+        consulta.ToList().ForEach(p => p.Dentista.Consultas.Clear());
+
+        IList<ConsultaDTO> lista = new List<ConsultaDTO>();
+        foreach (var cons in consulta)
+        {
+            ConsultaDTO c = new ConsultaDTO();
+            c.Id = cons.Id;
+            c.TempoPrevisto = cons.TempoPrevisto;
+            c.ProcedimentoConsulta = cons.ProcedimentoConsulta;
+            c.Dentista = cons.Dentista;
+            c.DataConsulta = cons.DataConsulta.ToString();
+            c.HoraConsulta = cons.HoraConsulta;
+            c.Paciente = cons.Paciente;
+            c.Pagamento = cons.Pagamento;
+
+            lista.Add(c);
+        }
+
+        //return lista;
+
+        return lista == null ? NotFound() : Ok(lista);
     }
 
     [HttpPost]

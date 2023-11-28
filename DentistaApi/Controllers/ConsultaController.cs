@@ -1,8 +1,10 @@
+using System;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using DentistaApi.Data;
 using DentistaApi.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -20,12 +22,35 @@ public class ConsultaController : ControllerBase
                                     .Include(p => p.Paciente)
                                     .Include(p => p.Pagamento)
                                     .Include(p => p.Dentista.Especialidade)
+                                    .OrderBy(p => p.DataConsulta)
                                     .ToList();
 
+
+        return Ok(ajustaConsultas(consultas));
+    }
+
+    private IList<ConsultaDTO> ajustaConsultas(List<Consulta> consultas)
+    {
         consultas.ToList().ForEach(p => p.Paciente.Consultas.Clear());
         consultas.ToList().ForEach(p => p.Dentista.Consultas.Clear());
 
-        return Ok(consultas);
+        IList<ConsultaDTO> lista = new List<ConsultaDTO>();
+        foreach (var consulta in consultas)
+        {
+            ConsultaDTO c = new ConsultaDTO();
+            c.Id = consulta.Id;
+            c.TempoPrevisto = consulta.TempoPrevisto;
+            c.ProcedimentoConsulta = consulta.ProcedimentoConsulta;
+            c.Dentista = consulta.Dentista;
+            c.DataConsulta = consulta.DataConsulta.ToString();
+            c.HoraConsulta = consulta.HoraConsulta;
+            c.Paciente = consulta.Paciente;
+            c.Pagamento = consulta.Pagamento;
+
+            lista.Add(c);
+        }
+
+        return lista;
     }
 
     [HttpGet]
@@ -46,7 +71,7 @@ public class ConsultaController : ControllerBase
     }
 
     [HttpPost]
-    public ActionResult<Consulta> Post(Consulta obj)
+    public ActionResult<Consulta> Post(ConsultaDTO obj)
     {
 
         var dentista = db.Dentistas.First(x => x.Id == obj.Dentista.Id);
@@ -59,7 +84,7 @@ public class ConsultaController : ControllerBase
             Dentista = dentista,
             Paciente = paciente,
             ProcedimentoConsulta = obj.ProcedimentoConsulta,
-            DataConsulta = obj.DataConsulta,
+            DataConsulta = stringDateFormatada(obj.DataConsulta),
             HoraConsulta = obj.HoraConsulta,
             TempoPrevisto = obj.TempoPrevisto
         };
@@ -71,6 +96,9 @@ public class ConsultaController : ControllerBase
         return Ok();
 
     }
+
+
+
 
     [HttpPut("{id}")]
     public IActionResult Put(int id, Consulta obj)
@@ -103,5 +131,41 @@ public class ConsultaController : ControllerBase
 
     private readonly AppDbContext db = new();
 
+    private DateOnly stringDateFormatada(string dataConsulta)
+    {
+        string formato = "dd/MM/yyyy";
 
+        try
+        {
+            DateTime dateTime = DateTime.ParseExact(dataConsulta, formato, null);
+
+            DateOnly dataOnly = DateOnly.FromDateTime(dateTime);
+            return dataOnly;
+        }
+        catch (FormatException)
+        {
+            DateTime dateTime = DateTime.ParseExact("00/00/0000", formato, null);
+            DateOnly dataOnly = DateOnly.FromDateTime(dateTime);
+            return dataOnly;
+        }
+    }
+
+    private DateOnly dateStringFormadata(string dataConsulta)
+    {
+        string formato = "dd/MM/yyyy";
+
+        try
+        {
+            DateTime dateTime = DateTime.ParseExact(dataConsulta, formato, null);
+
+            DateOnly dataOnly = DateOnly.FromDateTime(dateTime);
+            return dataOnly;
+        }
+        catch (FormatException)
+        {
+            DateTime dateTime = DateTime.ParseExact("00/00/0000", formato, null);
+            DateOnly dataOnly = DateOnly.FromDateTime(dateTime);
+            return dataOnly;
+        }
+    }
 }
