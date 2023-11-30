@@ -103,11 +103,7 @@ public class DashBordController : Controller
     private static string[] RetornaMeses()
     {
         string[] nomesUltimos6Meses = new string[6];
-
-        // Obtém o primeiro dia do mês atual
         DateTime primeiroDiaDoMes = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
-
-        // Preenche o array com os nomes dos últimos 6 meses
         for (int i = 0; i < 6; i++)
         {
             DateTime mesAtual = primeiroDiaDoMes.AddMonths(-i);
@@ -116,9 +112,7 @@ public class DashBordController : Controller
         }
 
         return nomesUltimos6Meses;
-    
 
-    //return meses;
 }
     private string[] Dentistas(List<Dentista> dentistas)
     {
