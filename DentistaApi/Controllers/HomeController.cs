@@ -112,7 +112,7 @@ public class HomeController : ControllerBase
         novo.SetSenhaHash();
         novo.Telefone = obj.Telefone;
         novo.Cpf = obj.Cpf;
-        novo.dataNasc = obj.dataNasc;
+        novo.DataNascimento = obj.DataNascimento;
         novo.SetRole();
         novo.Endereco = obj.Endereco;
         novo.Responsavel = obj.Responsavel;

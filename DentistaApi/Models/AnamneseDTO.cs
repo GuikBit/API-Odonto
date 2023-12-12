@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DentistaApi.Models
 {
-    public class Anamnese
+    public class AnamneseDTO
 
     {
         [Key]
@@ -17,8 +17,6 @@ namespace DentistaApi.Models
         public bool Hipertensao { get; set; }
         public bool Gravida { get; set; }
         public bool TraumatismoFace { get; set; }
-        public int PacienteId { get; set; }
-        public Paciente Paciente { get; set; }
 
 
     }

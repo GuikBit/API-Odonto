@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
 
 namespace DentistaApi.Controllers;
 
@@ -18,26 +19,56 @@ public class PacienteController : ControllerBase
 
         var paciPacientes = db.Pacientes
             .Where(x => x.Ativo == true)
-            .Include(p=> p.Consultas)
-            .Include(p => p.Anamnese)
-            .Include(p => p.Endereco)
-            .Include(p => p.Responsavel)
+            //.Include(p=> p.Consultas)
+            //.Include(p => p.Anamnese)
+            //.Include(p => p.Endereco)
+            //.Include(p => p.Responsavel)
+            .OrderBy(p => p.Nome)
             .ToList();
 
         paciPacientes.ToList().ForEach(p => p.Consultas.Clear());
+        //paciPacientes.ToList().ForEach(p => p.Endereco.Clear());
         return Ok(paciPacientes);
+    }
+
+    [HttpGet]
+    [Route("/v1/pacientes")]
+    public ActionResult<IList<Paciente>> GetPacientesWeb([FromQuery] int page, [FromQuery] int size)
+    {
+
+        int indiceInicial = (page - 1) * size;
+
+
+        IList<Paciente> pacientesDaPagina = db.Pacientes
+            .Where(x => x.Ativo == true)
+            .Skip(indiceInicial)
+            .Take(size)
+            .OrderBy(p => p.Nome)
+            .ToList();
+
+
+        return pacientesDaPagina == null ? NotFound() : Ok(pacientesDaPagina);
+
+    }
+
+    [HttpGet]
+    [Route("/v1/paciente/total")]
+    public ActionResult<int> getTotalPacientes() {
+
+        int totalPacientes = db.Pacientes.Count();
+
+        return Ok(totalPacientes);
     }
     [HttpGet]
     [Route("{id}")]
     public ActionResult<Paciente> GetById(int id)
     {
         var pacienteCompleto = db.Pacientes
-                   .Where(x => x.Ativo == true)
+                   .Where(x => x.Id == id)
                    .Include(p => p.Endereco)
                    .Include(p => p.Anamnese)
                    .Include(p => p.Responsavel)
-                   .FirstOrDefault(p => p.Id == id);
-
+                   .FirstOrDefault();
 
         return pacienteCompleto == null ? NotFound() : Ok(pacienteCompleto);
     }
@@ -52,7 +83,7 @@ public class PacienteController : ControllerBase
                .Include(p => p.Dentista)
                .Include(p => p.Dentista.Especialidade)
                .Where(p => p.Paciente.Id == id)
-               .OrderBy(p=>p.DataConsulta)
+               .OrderBy(p => p.DataConsulta)
                .ToList();
 
         consulta.ToList().ForEach(p => p.Paciente.Consultas.Clear());
@@ -80,15 +111,69 @@ public class PacienteController : ControllerBase
     }
 
     [HttpPost]
-    public ActionResult<Paciente> Post(Paciente obj)
+    public ActionResult<Paciente> Post(PacienteDTO obj)
     {
         if (obj == null)
             return BadRequest();
 
-        obj.SetSenhaHash();
-        obj.SetRole();
+        Paciente novo = new Paciente();
+        novo.Nome = obj.Nome;
+        novo.Email = obj.Email;
+        novo.Login = obj.Login;
+        novo.Senha = obj.Senha;
+        novo.Telefone = obj.Telefone;
+        novo.Cpf = obj.Cpf;
+        novo.DataNascimento = obj.DataNascimento;
+        novo.NumPasta = obj.NumPasta;
+        novo.SetSenhaHash();
+        novo.SetRole();
 
-        db.Pacientes.Add(obj);
+        db.Pacientes.Add(novo);
+        db.SaveChanges();
+
+        Paciente p = db.Pacientes.OrderByDescending(x => x.Id).FirstOrDefault();
+
+        novo.Id = p.Id;
+
+        Anamnese anamnese = new Anamnese();
+
+        anamnese.Paciente = p;
+        anamnese.PacienteId = (int)p.Id;
+
+        anamnese.ProblemaSaude = obj.Anamnese.ProblemaSaude;
+        anamnese.Tratamento = obj.Anamnese.Tratamento;
+        anamnese.Remedio = obj.Anamnese.Remedio;
+        anamnese.Alergia = obj.Anamnese.Alergia;
+        anamnese.SangramentoExcessivo = obj.Anamnese.SangramentoExcessivo;
+        anamnese.Hipertensao = obj.Anamnese.Hipertensao;
+        anamnese.Gravida = obj.Anamnese.Gravida;
+        anamnese.TraumatismoFace = obj.Anamnese.TraumatismoFace;
+
+        Responsavel resp = new Responsavel();
+        resp.Paciente = p;
+        resp.PacienteId = (int)p.Id;
+
+        resp.Nome = obj.Responsavel.Nome;
+        resp.Cpf = obj.Responsavel.Cpf;
+        resp.Telefone = obj.Responsavel.Telefone;
+
+        Endereco end = new Endereco();
+        end.Paciente = p;
+        end.PacienteId = (int)p.Id;
+
+        end.Cep = obj.Endereco.Cep;
+        end.Logradouro = obj.Endereco.Logradouro;
+        end.Cidade = obj.Endereco.Cidade;
+        end.Bairro = obj.Endereco.Bairro;
+        end.Numero = obj.Endereco.Numero;
+        end.Complemento = obj.Endereco.Complemento;
+        end.Referencia = obj.Endereco.Referencia;
+
+        db.Enderecos.Add(end);
+        db.Responsavel.Add(resp);
+        db.Anamneses.Add(anamnese);
+        db.Pacientes.Update(novo);
+
         db.SaveChanges();
 
 
@@ -125,6 +210,23 @@ public class PacienteController : ControllerBase
         db.SaveChanges();
 
         return NoContent();
+    }
+
+    [HttpGet]
+    [Route("/v1/paciente/validaLogin")]
+    public ActionResult validaLoginPaciente(string login)
+    {
+        Paciente paciente = db.Pacientes.FirstOrDefault(p => p.Login == login);
+        if (paciente == null)
+        {
+            return Ok();
+        }
+        else
+        {
+            return BadRequest();
+        }
+
+      
     }
 
 

@@ -23,6 +23,31 @@ public class DentistaController : ControllerBase
     }
 
     [HttpGet]
+    [Route("/v1/dentistas")]
+    public ActionResult<IList<Dentista>> GetDentistaWeb([FromQuery] int page, [FromQuery] int size)
+    {
+        int indiceInicial = (page - 1) * size;
+
+        var dentDentistas = db.Dentistas
+            .Include(d => d.Especialidade)
+            .Skip(indiceInicial)
+            .Take(size)
+            .ToList();
+
+        return dentDentistas == null ? NotFound() : Ok(dentDentistas);
+        
+    }
+    [HttpGet]
+    [Route("/v1/dentistas/total")]
+    public ActionResult<int> getTotalConsultas()
+    {
+
+        int total = db.Dentistas.Count();
+
+        return Ok(total);
+    }
+
+    [HttpGet]
     [Route("{id}")]
     public ActionResult<Dentista> GetById(int id)
     {
@@ -44,7 +69,7 @@ public class DentistaController : ControllerBase
             Senha   = obj.Senha,
             Telefone = obj.Telefone,
             Cpf = obj.Cpf,
-            dataNasc = obj.dataNasc,
+            DataNascimento = obj.DataNascimento,
             Especialidade = espec,
 
         };

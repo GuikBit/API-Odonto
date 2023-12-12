@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DentistaApi.Models
 {
-    public class Responsavel
+    public class ResponsavelDTO
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -11,9 +11,6 @@ namespace DentistaApi.Models
         public string Nome { get; set; } = "";
         public string Cpf { get; set; } = "";
         public string Telefone { get; set; } = "";
-
-        public int PacienteId { get; set; }
-        public Paciente Paciente { get; set; }
 
     }
 

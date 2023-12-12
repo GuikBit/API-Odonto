@@ -3,6 +3,7 @@ using System;
 using DentistaApi.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DentistaApi.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231205142110_InicialCreate")]
+    partial class InicialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.13");
@@ -31,10 +34,6 @@ namespace DentistaApi.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("DataCadastro")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("DataNascimento")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
@@ -59,6 +58,10 @@ namespace DentistaApi.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Telefone")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("dataNasc")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
@@ -166,10 +169,6 @@ namespace DentistaApi.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("DataNascimento")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -194,6 +193,10 @@ namespace DentistaApi.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Telefone")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("dataNasc")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
@@ -226,10 +229,6 @@ namespace DentistaApi.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Logradouro")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("Numero")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -238,6 +237,10 @@ namespace DentistaApi.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Referencia")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Rua")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
@@ -281,10 +284,6 @@ namespace DentistaApi.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("DataNascimento")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -295,9 +294,6 @@ namespace DentistaApi.Migrations
 
                     b.Property<string>("Nome")
                         .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("NumPasta")
                         .HasColumnType("TEXT");
 
                     b.Property<int?>("PacienteId")
@@ -312,6 +308,10 @@ namespace DentistaApi.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Telefone")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("dataNasc")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
@@ -361,7 +361,7 @@ namespace DentistaApi.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("PacienteId")
+                    b.Property<int?>("PacienteId")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Telefone")

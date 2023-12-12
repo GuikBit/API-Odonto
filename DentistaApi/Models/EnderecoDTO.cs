@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace DentistaApi.Models
 {
 
-    public class Endereco
+    public class EnderecoDTO
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -16,8 +16,7 @@ namespace DentistaApi.Models
         public string Numero { get; set; } = "";
         public string Complemento { get; set; } = "";
         public string Referencia { get; set; } = "";
-        public int PacienteId { get; set; }
-        public Paciente Paciente { get; set; }
+
 
     }
 }

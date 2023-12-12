@@ -22,7 +22,7 @@ namespace DentistaApi.Models
         [Required]
         public string Cpf { get; set; } = "";
         [Required]
-        public string dataNasc { get; set; } = "";
+        public string DataNascimento { get; set; } = "";
         public string DataCadastro { get; set; } = DateTime.Now.ToString("dd/MM/yyyy HH:mm");
         public bool Ativo { get; set; } = true;
         public string Role { get; set; } = "";

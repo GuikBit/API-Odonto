@@ -54,6 +54,38 @@ public class ConsultaController : ControllerBase
     }
 
     [HttpGet]
+    [Route("/v1/consultas")]
+    public ActionResult<IList<Consulta>> GetConsultasWeb([FromQuery] int page, [FromQuery] int size)
+    {
+
+        int indiceInicial = (page - 1) * size;
+
+
+        var consultasDaPagina = db.Consultas
+            .Include(p => p.Dentista)
+            .Include(p => p.Paciente)
+            .Include(p => p.Pagamento)
+            .Include(p => p.Dentista.Especialidade)
+            .Skip(indiceInicial)
+            .Take(size)
+            .OrderBy(x => x.DataConsulta)
+            .ToList();
+
+
+        return consultasDaPagina == null ? NotFound() : Ok(ajustaConsultas(consultasDaPagina));
+
+    }
+    [HttpGet]
+    [Route("/v1/consultas/total")]
+    public ActionResult<int> getTotalConsultas()
+    {
+
+        int total = db.Consultas.Count();
+
+        return Ok(total);
+    }
+
+    [HttpGet]
     [Route("{id}")]
     public ActionResult<Consulta> GetById(int id)
     {

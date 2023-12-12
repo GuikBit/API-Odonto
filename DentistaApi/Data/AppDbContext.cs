@@ -14,6 +14,7 @@ namespace DentistaApi.Data
         public DbSet<Pagamento> Pagamentos { get; set; }
         public DbSet<Anamnese> Anamneses { get; set; }
         public DbSet<Endereco> Enderecos { get; set; }
+        public DbSet<Responsavel> Responsavel { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlite("DataSource=app.db;Cache=Shared");
