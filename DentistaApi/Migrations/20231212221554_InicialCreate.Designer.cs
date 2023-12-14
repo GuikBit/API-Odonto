@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DentistaApi.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231116132821_AjustePacienteConsulta")]
-    partial class AjustePacienteConsulta
+    [Migration("20231212221554_InicialCreate")]
+    partial class InicialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,6 +34,10 @@ namespace DentistaApi.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("DataCadastro")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("DataNascimento")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
@@ -61,10 +65,6 @@ namespace DentistaApi.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("dataNasc")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
                     b.HasKey("Id");
 
                     b.ToTable("Administrador");
@@ -84,6 +84,9 @@ namespace DentistaApi.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<bool>("Hipertensao")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("PacienteId")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("ProblemaSaude")
@@ -166,6 +169,10 @@ namespace DentistaApi.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("DataNascimento")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -190,10 +197,6 @@ namespace DentistaApi.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Telefone")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("dataNasc")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
@@ -226,15 +229,18 @@ namespace DentistaApi.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Logradouro")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Numero")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Referencia")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                    b.Property<int>("PacienteId")
+                        .HasColumnType("INTEGER");
 
-                    b.Property<string>("Rua")
+                    b.Property<string>("Referencia")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
@@ -267,9 +273,6 @@ namespace DentistaApi.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("AnamneseId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<bool>("Ativo")
                         .HasColumnType("INTEGER");
 
@@ -281,12 +284,13 @@ namespace DentistaApi.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Email")
+                    b.Property<string>("DataNascimento")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("EnderecoId")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Login")
                         .IsRequired()
@@ -296,7 +300,10 @@ namespace DentistaApi.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("ResponsavelId")
+                    b.Property<string>("NumPasta")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("PacienteId")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Role")
@@ -311,17 +318,10 @@ namespace DentistaApi.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("dataNasc")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("AnamneseId");
-
-                    b.HasIndex("EnderecoId");
-
-                    b.HasIndex("ResponsavelId");
+                    b.HasIndex("PacienteId")
+                        .IsUnique();
 
                     b.ToTable("Pacientes");
                 });
@@ -363,6 +363,9 @@ namespace DentistaApi.Migrations
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasColumnType("TEXT");
+
+                    b.Property<int>("PacienteId")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Telefone")
                         .IsRequired()
@@ -602,16 +605,16 @@ namespace DentistaApi.Migrations
             modelBuilder.Entity("DentistaApi.Models.Paciente", b =>
                 {
                     b.HasOne("DentistaApi.Models.Anamnese", "Anamnese")
-                        .WithMany()
-                        .HasForeignKey("AnamneseId");
+                        .WithOne("Paciente")
+                        .HasForeignKey("DentistaApi.Models.Paciente", "PacienteId");
 
                     b.HasOne("DentistaApi.Models.Endereco", "Endereco")
-                        .WithMany()
-                        .HasForeignKey("EnderecoId");
+                        .WithOne("Paciente")
+                        .HasForeignKey("DentistaApi.Models.Paciente", "PacienteId");
 
                     b.HasOne("DentistaApi.Models.Responsavel", "Responsavel")
-                        .WithMany()
-                        .HasForeignKey("ResponsavelId");
+                        .WithOne("Paciente")
+                        .HasForeignKey("DentistaApi.Models.Paciente", "PacienteId");
 
                     b.Navigation("Anamnese");
 
@@ -671,14 +674,32 @@ namespace DentistaApi.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("DentistaApi.Models.Anamnese", b =>
+                {
+                    b.Navigation("Paciente")
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("DentistaApi.Models.Dentista", b =>
                 {
                     b.Navigation("Consultas");
                 });
 
+            modelBuilder.Entity("DentistaApi.Models.Endereco", b =>
+                {
+                    b.Navigation("Paciente")
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("DentistaApi.Models.Paciente", b =>
                 {
                     b.Navigation("Consultas");
+                });
+
+            modelBuilder.Entity("DentistaApi.Models.Responsavel", b =>
+                {
+                    b.Navigation("Paciente")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

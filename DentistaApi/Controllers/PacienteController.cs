@@ -214,19 +214,59 @@ public class PacienteController : ControllerBase
 
     [HttpGet]
     [Route("/v1/paciente/validaLogin")]
-    public ActionResult validaLoginPaciente(string login)
+    public bool validaLoginPaciente(string login)
     {
         Paciente paciente = db.Pacientes.FirstOrDefault(p => p.Login == login);
         if (paciente == null)
         {
-            return Ok();
+            return true;
         }
         else
         {
-            return BadRequest();
+            return false;
         }
 
       
+    }
+    [HttpGet]
+    [Route("/v1/paciente/validaCPF")]
+    public bool validaCpfPaciente(string cpf)
+    {
+        Paciente paciente = db.Pacientes.FirstOrDefault(p => p.Cpf == cpf);
+        if (paciente != null)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+
+
+    }
+
+    [HttpGet]
+    [Route("/v1/paciente/buscarPaciente")]
+    public ActionResult<IList<Paciente>> buscarPaciente([FromQuery] string search, [FromQuery] int page, [FromQuery] int size)
+    {
+        try
+        {
+            int indiceInicial = (page - 1) * size;
+
+            var pacientes = db.Pacientes.Where(p => p.Nome.ToUpper().Contains(search.ToUpper()))
+                .OrderBy(p => p.Nome)
+                .Skip(indiceInicial)
+                .Take(size)
+                .ToList();
+
+            return Ok(pacientes); 
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new { message = "Ocorreu um erro interno" });
+        }
+
+
     }
 
 

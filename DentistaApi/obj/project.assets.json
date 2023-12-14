@@ -3256,11 +3256,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Guilherme\\Desktop\\Facul\\4periodo\\ApiDentista\\DentistaApi\\DentistaApi.csproj",
+      "projectUniqueName": "C:\\Users\\Guilherme\\Desktop\\MyRepo\\GitHub\\OdontoAPI\\DentistaApi\\DentistaApi.csproj",
       "projectName": "DentistaApi",
-      "projectPath": "C:\\Users\\Guilherme\\Desktop\\Facul\\4periodo\\ApiDentista\\DentistaApi\\DentistaApi.csproj",
+      "projectPath": "C:\\Users\\Guilherme\\Desktop\\MyRepo\\GitHub\\OdontoAPI\\DentistaApi\\DentistaApi.csproj",
       "packagesPath": "C:\\Users\\Guilherme\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Guilherme\\Desktop\\Facul\\4periodo\\ApiDentista\\DentistaApi\\obj\\",
+      "outputPath": "C:\\Users\\Guilherme\\Desktop\\MyRepo\\GitHub\\OdontoAPI\\DentistaApi\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Guilherme\\AppData\\Roaming\\NuGet\\NuGet.Config",

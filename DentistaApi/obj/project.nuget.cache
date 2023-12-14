@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "o93wqnpNfQtCSZw8EDq+FmC+rvQ/H8H5QmaaQ/cX+Vm0JZmqBduNV+kZBbXMYUeW0AG8qQLH3vAN9T5g7P6jGA==",
+  "dgSpecHash": "Av2zKMXdsDbMHYikl2n3ZCVDCQiJlZqIDL/kaeOe8ynZooT1PjKBqOwllPLOShTfEfM1xg/5CRINupYelmmNOA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Guilherme\\Desktop\\Facul\\4periodo\\ApiDentista\\DentistaApi\\DentistaApi.csproj",
+  "projectFilePath": "C:\\Users\\Guilherme\\Desktop\\MyRepo\\GitHub\\OdontoAPI\\DentistaApi\\DentistaApi.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Guilherme\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\Guilherme\\.nuget\\packages\\json.net\\1.0.33\\json.net.1.0.33.nupkg.sha512",

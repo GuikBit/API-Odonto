@@ -23,7 +23,7 @@ namespace DentistaApi.Migrations
                     Senha = table.Column<string>(type: "TEXT", nullable: false),
                     Telefone = table.Column<string>(type: "TEXT", nullable: false),
                     Cpf = table.Column<string>(type: "TEXT", nullable: false),
-                    dataNasc = table.Column<string>(type: "TEXT", nullable: false),
+                    DataNascimento = table.Column<string>(type: "TEXT", nullable: false),
                     DataCadastro = table.Column<string>(type: "TEXT", nullable: false),
                     Ativo = table.Column<bool>(type: "INTEGER", nullable: false),
                     Role = table.Column<string>(type: "TEXT", nullable: false)
@@ -99,7 +99,7 @@ namespace DentistaApi.Migrations
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Rua = table.Column<string>(type: "TEXT", nullable: false),
+                    Logradouro = table.Column<string>(type: "TEXT", nullable: false),
                     Bairro = table.Column<string>(type: "TEXT", nullable: false),
                     Cidade = table.Column<string>(type: "TEXT", nullable: false),
                     Cep = table.Column<string>(type: "TEXT", nullable: false),
@@ -152,7 +152,7 @@ namespace DentistaApi.Migrations
                     Nome = table.Column<string>(type: "TEXT", nullable: false),
                     Cpf = table.Column<string>(type: "TEXT", nullable: false),
                     Telefone = table.Column<string>(type: "TEXT", nullable: false),
-                    PacienteId = table.Column<int>(type: "INTEGER", nullable: true)
+                    PacienteId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -278,7 +278,7 @@ namespace DentistaApi.Migrations
                     Senha = table.Column<string>(type: "TEXT", nullable: false),
                     Telefone = table.Column<string>(type: "TEXT", nullable: false),
                     Cpf = table.Column<string>(type: "TEXT", nullable: false),
-                    dataNasc = table.Column<string>(type: "TEXT", nullable: false),
+                    DataNascimento = table.Column<string>(type: "TEXT", nullable: false),
                     DataCadastro = table.Column<string>(type: "TEXT", nullable: false),
                     Ativo = table.Column<bool>(type: "INTEGER", nullable: false),
                     Role = table.Column<string>(type: "TEXT", nullable: false)
@@ -299,6 +299,7 @@ namespace DentistaApi.Migrations
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    NumPasta = table.Column<string>(type: "TEXT", nullable: true),
                     PacienteId = table.Column<int>(type: "INTEGER", nullable: true),
                     Nome = table.Column<string>(type: "TEXT", nullable: false),
                     Email = table.Column<string>(type: "TEXT", nullable: false),
@@ -306,7 +307,7 @@ namespace DentistaApi.Migrations
                     Senha = table.Column<string>(type: "TEXT", nullable: false),
                     Telefone = table.Column<string>(type: "TEXT", nullable: false),
                     Cpf = table.Column<string>(type: "TEXT", nullable: false),
-                    dataNasc = table.Column<string>(type: "TEXT", nullable: false),
+                    DataNascimento = table.Column<string>(type: "TEXT", nullable: false),
                     DataCadastro = table.Column<string>(type: "TEXT", nullable: false),
                     Ativo = table.Column<bool>(type: "INTEGER", nullable: false),
                     Role = table.Column<string>(type: "TEXT", nullable: false)
