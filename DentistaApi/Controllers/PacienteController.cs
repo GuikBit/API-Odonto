@@ -1,10 +1,8 @@
 using DentistaApi.Data;
 using DentistaApi.Models;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
 
 namespace DentistaApi.Controllers;
 
@@ -233,7 +231,7 @@ public class PacienteController : ControllerBase
     public bool validaCpfPaciente(string cpf)
     {
         Paciente paciente = db.Pacientes.FirstOrDefault(p => p.Cpf == cpf);
-        if (paciente != null)
+        if (paciente == null)
         {
             return false;
         }

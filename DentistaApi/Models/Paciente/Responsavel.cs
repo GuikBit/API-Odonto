@@ -1,8 +1,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
-namespace DentistaApi.Models
-{
+namespace DentistaApi.Models { 
     public class Responsavel
     {
         [Key]

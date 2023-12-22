@@ -1,11 +1,8 @@
 using DentistaApi.Data;
-using DentistaApi.Models;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
-using DentistaApi.Services;
 using Microsoft.EntityFrameworkCore;
+using DentistaApi.Models;
 
 namespace DentistaApi.Controllers;
 [Authorize]
@@ -111,6 +108,39 @@ public class DentistaController : ControllerBase
         db.SaveChanges();
 
         return NoContent();
+    }
+
+    [HttpGet]
+    [Route("/v1/dentista/validaLogin")]
+    public bool validaLoginDentista(string login)
+    {
+        Dentista dentista = db.Dentistas.FirstOrDefault(p => p.Login == login);
+        if (dentista == null)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+
+
+    }
+    [HttpGet]
+    [Route("/v1/dentista/validaCPF")]
+    public bool validaCpfDentista(string cpf)
+    {
+        Dentista dentista = db.Dentistas.FirstOrDefault(p => p.Cpf == cpf);
+        if (dentista == null)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+
+
     }
 
     private readonly AppDbContext db = new();

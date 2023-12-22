@@ -1,8 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace DentistaApi.Models
-{
+namespace DentistaApi.Models { 
 
     public class Endereco
     {

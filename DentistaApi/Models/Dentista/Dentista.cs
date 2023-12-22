@@ -13,9 +13,9 @@ namespace DentistaApi.Models
 
         public void SetRole()
         {
-            if (this.Role == null || this.Role == "")
+            if (Role == null || Role == "")
             {
-                this.Role = "Dentista";
+                Role = "Dentista";
             }
 
         }

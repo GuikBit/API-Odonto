@@ -2,8 +2,7 @@
 using DentistaApi.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System.Collections.Immutable;
+
 
 namespace DentistaApi.Controllers;
 

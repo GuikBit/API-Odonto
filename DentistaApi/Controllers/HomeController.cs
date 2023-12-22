@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
-using DentistaApi.Services;
 using DentistaApi.Models;
 using DentistaApi.Data;
+using DentistaApi.Services;
 
 namespace AtletaBackend.Controllers;
 

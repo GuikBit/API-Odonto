@@ -1,6 +1,8 @@
 using DentistaApi.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using DentistaApi.Models;
+
 
 namespace DentistaApi.Data
 {

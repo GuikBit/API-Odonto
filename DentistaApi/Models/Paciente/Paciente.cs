@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.Runtime.CompilerServices;
+
 
 namespace DentistaApi.Models
 {
@@ -22,9 +22,9 @@ namespace DentistaApi.Models
 
         public void SetRole()
         {
-            if (this.Role == null || this.Role == "")
+            if (Role == null || Role == "")
             {
-                this.Role = "Paciente";
+                Role = "Paciente";
             }
 
         }
