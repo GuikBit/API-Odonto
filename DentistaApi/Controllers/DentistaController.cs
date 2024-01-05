@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using DentistaApi.Models;
+using System.Text.Json.Serialization;
+using System.Text.Json;
 
 namespace DentistaApi.Controllers;
 [Authorize]
@@ -44,20 +46,71 @@ public class DentistaController : ControllerBase
         return Ok(total);
     }
 
+    //[HttpGet]
+    //[Route("{id}")]
+    //public ActionResult<Dentista> GetById(int id)
+    //{
+
+    //    var dentDentista = db.Dentistas
+    // .Where(d => d.Id == id)
+    // .Include(d => d.Especialidade)
+    // .Include(d => d.Consultas.OrderBy(c => c.DataConsulta))
+    // .FirstOrDefault(); // Use FirstOrDefault() para obter apenas um dentista
+
+    //    if (dentDentista == null)
+    //    {
+    //        return NotFound();
+    //    }
+
+    //    var jsonSerializerOptions = new JsonSerializerOptions
+    //    {
+    //        ReferenceHandler = ReferenceHandler.Preserve,
+    //        MaxDepth = 32 // Defina o máximo permitido se necessário
+    //    };
+
+    //    var jsonDentista = JsonSerializer.Serialize(dentDentista, jsonSerializerOptions);
+
+    //    return Ok(jsonDentista);
+    //}
     [HttpGet]
     [Route("{id}")]
     public ActionResult<Dentista> GetById(int id)
     {
+        try{
+            var dentDentista = db.Dentistas
+            .Where(d => d.Id == id)
+            .Include(d => d.Especialidade)
+            .FirstOrDefault();
 
-        var dentDentista = db.Dentistas.FirstOrDefault(x => x.Id == id);
+            var consultasDent = db.Consultas
+                .Where(d => d.Dentista.Id == id)
+                .Include(p => p.Paciente)
+                .Include(p => p.Pagamento)
+                .OrderBy(c => c.DataConsulta).ToList();
 
-        return dentDentista == null ? NotFound() : Ok(dentDentista);
+            if(consultasDent != null)
+            {
+                foreach (var consulta in consultasDent)
+                {
+                    consulta.Dentista = null;
+                    consulta.Paciente.Consultas = null;
+                }
+
+                dentDentista.Consultas = consultasDent;
+            }
+
+            return dentDentista == null ? NotFound() : Ok(dentDentista);
+        }
+        catch (Exception e) {
+            return NotFound();
+        }  
     }
 
     [HttpPost]
     public ActionResult<Dentista> Post(Dentista obj)
     {
         var espec = db.Especialidades.FirstOrDefault(x => x.Id == obj.Especialidade.Id);
+        
         Dentista novo = new Dentista()
         {
             Nome = obj.Nome,
@@ -131,7 +184,7 @@ public class DentistaController : ControllerBase
     public bool validaCpfDentista(string cpf)
     {
         Dentista dentista = db.Dentistas.FirstOrDefault(p => p.Cpf == cpf);
-        if (dentista == null)
+        if (dentista != null)
         {
             return false;
         }

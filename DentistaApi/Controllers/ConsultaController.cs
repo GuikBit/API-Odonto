@@ -37,7 +37,7 @@ public class ConsultaController : ControllerBase
             c.TempoPrevisto = consulta.TempoPrevisto;
             c.ProcedimentoConsulta = consulta.ProcedimentoConsulta;
             c.Dentista = consulta.Dentista;
-            c.DataConsulta = consulta.DataConsulta.ToString();
+            c.DataConsulta = consulta.DataConsulta;
             c.HoraConsulta = consulta.HoraConsulta;
             c.Paciente = consulta.Paciente;
             c.Pagamento = consulta.Pagamento;
@@ -111,7 +111,7 @@ public class ConsultaController : ControllerBase
             Dentista = dentista,
             Paciente = paciente,
             ProcedimentoConsulta = obj.ProcedimentoConsulta,
-            DataConsulta = stringDateFormatada(obj.DataConsulta),
+            DataConsulta = obj.DataConsulta,
             HoraConsulta = obj.HoraConsulta,
             TempoPrevisto = obj.TempoPrevisto
         };

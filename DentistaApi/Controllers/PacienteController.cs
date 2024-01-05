@@ -29,34 +29,34 @@ public class PacienteController : ControllerBase
         return Ok(paciPacientes);
     }
 
-    [HttpGet]
-    [Route("/v1/pacientes")]
-    public ActionResult<IList<Paciente>> GetPacientesWeb([FromQuery] int page, [FromQuery] int size)
-    {
+    //[HttpGet]
+    //[Route("/v1/pacientes")]
+    //public ActionResult<IList<Paciente>> GetPacientesWeb([FromQuery] int page, [FromQuery] int size)
+    //{
 
-        int indiceInicial = (page - 1) * size;
-
-
-        IList<Paciente> pacientesDaPagina = db.Pacientes
-            .Where(x => x.Ativo == true)
-            .Skip(indiceInicial)
-            .Take(size)
-            .OrderBy(p => p.Nome)
-            .ToList();
+    //    int indiceInicial = (page - 1) * size;
 
 
-        return pacientesDaPagina == null ? NotFound() : Ok(pacientesDaPagina);
+    //    IList<Paciente> pacientesDaPagina = db.Pacientes
+    //        .Where(x => x.Ativo == true)
+    //        .Skip(indiceInicial)
+    //        .Take(size)
+    //        .OrderBy(p => p.Nome)
+    //        .ToList();
 
-    }
 
-    [HttpGet]
-    [Route("/v1/paciente/total")]
-    public ActionResult<int> getTotalPacientes() {
+    //    return pacientesDaPagina == null ? NotFound() : Ok(pacientesDaPagina);
 
-        int totalPacientes = db.Pacientes.Count();
+    //}
 
-        return Ok(totalPacientes);
-    }
+    //[HttpGet]
+    //[Route("/v1/paciente/total")]
+    //public ActionResult<int> getTotalPacientes() {
+
+    //    int totalPacientes = db.Pacientes.Count();
+
+    //    return Ok(totalPacientes);
+    //}
     [HttpGet]
     [Route("{id}")]
     public ActionResult<Paciente> GetById(int id)
@@ -67,6 +67,22 @@ public class PacienteController : ControllerBase
                    .Include(p => p.Anamnese)
                    .Include(p => p.Responsavel)
                    .FirstOrDefault();
+
+        pacienteCompleto.Endereco.Paciente = null;
+        pacienteCompleto.Anamnese.Paciente = null;
+        pacienteCompleto.Responsavel.Paciente = null;
+
+        var consultas = db.Consultas
+            .Where(x => x.Paciente.Id == id)
+            .Include(c => c.Dentista)
+            .Include(c => c.Dentista.Especialidade)
+            .Include(c => c.Pagamento)
+            .ToList();
+
+        consultas.ToList().ForEach(x => x.Dentista.Consultas = null);
+        consultas.ToList().ForEach(x => x.Paciente = null);
+
+        pacienteCompleto.Consultas = consultas;
 
         return pacienteCompleto == null ? NotFound() : Ok(pacienteCompleto);
     }
@@ -95,7 +111,7 @@ public class PacienteController : ControllerBase
             c.TempoPrevisto = cons.TempoPrevisto;
             c.ProcedimentoConsulta = cons.ProcedimentoConsulta;
             c.Dentista = cons.Dentista;
-            c.DataConsulta = cons.DataConsulta.ToString();
+            c.DataConsulta = cons.DataConsulta;
             c.HoraConsulta = cons.HoraConsulta;
             c.Paciente = cons.Paciente;
             c.Pagamento = cons.Pagamento;
@@ -231,7 +247,7 @@ public class PacienteController : ControllerBase
     public bool validaCpfPaciente(string cpf)
     {
         Paciente paciente = db.Pacientes.FirstOrDefault(p => p.Cpf == cpf);
-        if (paciente == null)
+        if (paciente != null)
         {
             return false;
         }

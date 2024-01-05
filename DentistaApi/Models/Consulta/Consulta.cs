@@ -11,8 +11,10 @@ namespace DentistaApi.Models
         public int? Id { get; set; }
         public string ProcedimentoConsulta { get; set; } = "";
         public DateOnly DataConsulta { get; set; }
+        public TimeOnly HoraConsulta2 { get; set; }
         public string HoraConsulta { get; set; } = "";
         public string? TempoPrevisto { get; set; }
+        public DateTime? DataHoraAtendimento { get; set; }
 
         [ForeignKey("PacienteId")]
         public Paciente Paciente { get; set; }
@@ -22,6 +24,14 @@ namespace DentistaApi.Models
 
         [ForeignKey("PagamentoId")]
         public Pagamento? Pagamento { get; set; }
+
+        public void setIniciarConsulta()
+        {
+            if(DataHoraAtendimento != null) 
+            {
+                DataHoraAtendimento = DateTime.Now;
+            }
+        }
 
 
     }

@@ -6,7 +6,7 @@ namespace DentistaApi.Models
     {
 
         [InverseProperty("Dentista")]
-        public ICollection<Consulta> Consultas { get; } = new List<Consulta>();
+        public ICollection<Consulta> Consultas { get; set; } = new List<Consulta>();
 
         [ForeignKey("EspecialidadeId")]
         public Especialidade? Especialidade { get; set; }
@@ -19,5 +19,9 @@ namespace DentistaApi.Models
             }
 
         }
+        //public void SetConsulta(List<Consulta> lista)
+        //{
+        //    con
+        //}
     }
 }

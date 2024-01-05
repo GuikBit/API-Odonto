@@ -17,7 +17,7 @@ namespace DentistaApi.Models
         public Responsavel? Responsavel { get; set; }
 
         [InverseProperty("Paciente")]
-        public ICollection<Consulta> Consultas { get; } = new List<Consulta>();
+        public ICollection<Consulta> Consultas { get; set; } = new List<Consulta>();
 
 
         public void SetRole()
