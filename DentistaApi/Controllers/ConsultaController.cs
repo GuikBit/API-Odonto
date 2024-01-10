@@ -23,30 +23,38 @@ public class ConsultaController : ControllerBase
 
         return Ok(ajustaConsultas(consultas));
     }
-
-    private IList<ConsultaDTO> ajustaConsultas(List<Consulta> consultas)
+    private IList<Consulta> ajustaConsultas(List<Consulta> consultas)
     {
         consultas.ToList().ForEach(p => p.Paciente.Consultas.Clear());
         consultas.ToList().ForEach(p => p.Dentista.Consultas.Clear());
 
-        IList<ConsultaDTO> lista = new List<ConsultaDTO>();
-        foreach (var consulta in consultas)
-        {
-            ConsultaDTO c = new ConsultaDTO();
-            c.Id = consulta.Id;
-            c.TempoPrevisto = consulta.TempoPrevisto;
-            c.ProcedimentoConsulta = consulta.ProcedimentoConsulta;
-            c.Dentista = consulta.Dentista;
-            c.DataConsulta = consulta.DataConsulta;
-            c.HoraConsulta = consulta.HoraConsulta;
-            c.Paciente = consulta.Paciente;
-            c.Pagamento = consulta.Pagamento;
-
-            lista.Add(c);
-        }
-
-        return lista;
+        return consultas;
     }
+
+    //private IList<ConsultaDTO> ajustaConsultas(List<Consulta> consultas)
+    //{
+    //    consultas.ToList().ForEach(p => p.Paciente.Consultas.Clear());
+    //    consultas.ToList().ForEach(p => p.Dentista.Consultas.Clear());
+
+    //    IList<ConsultaDTO> lista = new List<ConsultaDTO>();
+    //    foreach (var consulta in consultas)
+    //    {
+    //        ConsultaDTO c = new ConsultaDTO();
+    //        c.Id = consulta.Id;
+
+    //        c.ProcedimentoConsulta = consulta.ProcedimentoConsulta;
+    //        c.Dentista = consulta.Dentista;
+    //        c.DataConsulta = consulta.DataConsulta;
+    //        c.HoraConsulta = consulta.HoraConsulta;
+    //        c.Paciente = consulta.Paciente;
+    //        c.Pagamento = consulta.Pagamento;
+
+    //        lista.Add(c);
+    //    }
+
+    //    return lista;
+    //}
+
 
     [HttpGet]
     [Route("/v1/consultas")]
@@ -98,22 +106,28 @@ public class ConsultaController : ControllerBase
     }
 
     [HttpPost]
-    public ActionResult<Consulta> Post(ConsultaDTO obj)
+    public ActionResult<Consulta> Post(Consulta obj)
     {
 
         var dentista = db.Dentistas.First(x => x.Id == obj.Dentista.Id);
         var paciente = db.Pacientes.First(x => x.Id == obj.Paciente.Id);
-        //var pagamento = db.Pagamentos.FirstOrDefault(x => x.Id == obj.Pagamento.Id);
+        
 
-        Consulta nova = new Consulta
+        Consulta nova = new Consulta();
+        nova.Paciente = paciente;
+        nova.Dentista = dentista;
+        nova.Pagamento = new Pagamento();
+        nova.ProcedimentoConsulta = obj.ProcedimentoConsulta;
+        nova.DataConsulta = obj.DataConsulta;
+        nova.TempoPrevisto = obj.TempoPrevisto;
+        nova.setTempoPrevisto(obj.TempoPrevisto);
+
+        nova.ConsultaEspecialidade = new ConsultaEspecialidade
         {
-            Pagamento = new Pagamento(),
-            Dentista = dentista,
-            Paciente = paciente,
-            ProcedimentoConsulta = obj.ProcedimentoConsulta,
-            DataConsulta = obj.DataConsulta,
-            HoraConsulta = obj.HoraConsulta,
-            TempoPrevisto = obj.TempoPrevisto
+            Tipo = obj.ConsultaEspecialidade.Tipo,
+            TipoAparelho = obj.ConsultaEspecialidade.TipoAparelho,
+            Descricao = obj.ConsultaEspecialidade.Descricao,
+            ValorBase = obj.ConsultaEspecialidade.ValorBase
         };
 
         db.Consultas.Add(nova);
@@ -124,6 +138,46 @@ public class ConsultaController : ControllerBase
 
     }
 
+    [HttpGet]
+    [Route("/v1/consultas/novaespec")]
+    public ActionResult<ConsultaEspecialidade> GetEspecConsulta()
+    {
+        var lista = db.ConsultaEspecialidades.ToList();
+
+        return lista == null ? NotFound() : Ok(lista);
+    }
+
+    [HttpPost]
+    [Route("/v1/consultas/novaespec")]
+    public ActionResult<ConsultaEspecialidade> PostEspecConsulta(ConsultaEspecialidade obj)
+    {
+        try
+        {
+            if(obj != null )
+            {
+                ConsultaEspecialidade novo = new ConsultaEspecialidade();
+                novo.Tipo = obj.Tipo;
+                novo.Descricao = obj.Descricao;  
+                novo.ValorBase = obj.ValorBase;
+                novo.TipoAparelho = obj.TipoAparelho;
+
+                db.ConsultaEspecialidades.Add(novo);
+                db.SaveChanges();
+
+                return Ok();
+            }
+            else
+            {
+                return NotFound();
+            }
+            
+        }
+        catch (Exception e)
+        {
+            return NotFound();
+        }
+        
+    }
 
 
 

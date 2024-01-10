@@ -94,6 +94,23 @@ namespace DentistaApi.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ConsultaEspecialidades",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Tipo = table.Column<string>(type: "TEXT", nullable: false),
+                    TipoAparelho = table.Column<string>(type: "TEXT", nullable: false),
+                    Descricao = table.Column<string>(type: "TEXT", nullable: false),
+                    ValorBase = table.Column<double>(type: "REAL", nullable: false),
+                    DataCadastro = table.Column<string>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ConsultaEspecialidades", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Enderecos",
                 columns: table => new
                 {
@@ -119,8 +136,7 @@ namespace DentistaApi.Migrations
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Tipo = table.Column<string>(type: "TEXT", nullable: false),
-                    ValorBase = table.Column<double>(type: "REAL", nullable: false)
+                    Tipo = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -136,7 +152,9 @@ namespace DentistaApi.Migrations
                     ValorTotal = table.Column<double>(type: "REAL", nullable: false),
                     FormaDePagamento = table.Column<string>(type: "TEXT", nullable: false),
                     Pago = table.Column<bool>(type: "INTEGER", nullable: false),
-                    DataDoPagamento = table.Column<DateOnly>(type: "TEXT", nullable: false)
+                    Desconto = table.Column<double>(type: "REAL", nullable: false),
+                    Acrecimo = table.Column<double>(type: "REAL", nullable: false),
+                    DataDoPagamento = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -339,16 +357,25 @@ namespace DentistaApi.Migrations
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     ProcedimentoConsulta = table.Column<string>(type: "TEXT", nullable: false),
-                    DataConsulta = table.Column<DateOnly>(type: "TEXT", nullable: false),
-                    HoraConsulta = table.Column<string>(type: "TEXT", nullable: false),
-                    TempoPrevisto = table.Column<string>(type: "TEXT", nullable: true),
+                    DataConsulta = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    DataConsultaReserva = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    TempoPrevisto = table.Column<int>(type: "INTEGER", nullable: false),
+                    DataHoraInicioAtendimento = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    DataHoraFimAtendimento = table.Column<DateTime>(type: "TEXT", nullable: true),
                     PacienteId = table.Column<int>(type: "INTEGER", nullable: false),
                     DentistaId = table.Column<int>(type: "INTEGER", nullable: false),
-                    PagamentoId = table.Column<int>(type: "INTEGER", nullable: true)
+                    PagamentoId = table.Column<int>(type: "INTEGER", nullable: true),
+                    ConsultaEspecialidadeId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Consultas", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Consultas_ConsultaEspecialidades_ConsultaEspecialidadeId",
+                        column: x => x.ConsultaEspecialidadeId,
+                        principalTable: "ConsultaEspecialidades",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Consultas_Dentistas_DentistaId",
                         column: x => x.DentistaId,
@@ -406,6 +433,11 @@ namespace DentistaApi.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_Consultas_ConsultaEspecialidadeId",
+                table: "Consultas",
+                column: "ConsultaEspecialidadeId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Consultas_DentistaId",
                 table: "Consultas",
                 column: "DentistaId");
@@ -461,6 +493,9 @@ namespace DentistaApi.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "ConsultaEspecialidades");
 
             migrationBuilder.DropTable(
                 name: "Dentistas");

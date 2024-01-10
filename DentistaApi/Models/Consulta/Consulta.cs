@@ -10,11 +10,11 @@ namespace DentistaApi.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int? Id { get; set; }
         public string ProcedimentoConsulta { get; set; } = "";
-        public DateOnly DataConsulta { get; set; }
-        public TimeOnly HoraConsulta2 { get; set; }
-        public string HoraConsulta { get; set; } = "";
-        public string? TempoPrevisto { get; set; }
-        public DateTime? DataHoraAtendimento { get; set; }
+        public DateTime DataConsulta { get; set; }
+        public DateTime? DataConsultaReserva { get; set; }
+        public int TempoPrevisto { get; set; }
+        public DateTime? DataHoraInicioAtendimento { get; set; }
+        public DateTime? DataHoraFimAtendimento { get; set; }
 
         [ForeignKey("PacienteId")]
         public Paciente Paciente { get; set; }
@@ -25,12 +25,37 @@ namespace DentistaApi.Models
         [ForeignKey("PagamentoId")]
         public Pagamento? Pagamento { get; set; }
 
+        
+        public ConsultaEspecialidade ConsultaEspecialidade { get; set; }
+
+
         public void setIniciarConsulta()
         {
-            if(DataHoraAtendimento != null) 
+            if (DataHoraInicioAtendimento != null)
             {
-                DataHoraAtendimento = DateTime.Now;
+                DataHoraInicioAtendimento = DateTime.Now;
             }
+        }
+
+        public void setFinalizarConsulta()
+        {
+            if (DataHoraFimAtendimento != null)
+            {
+                DataHoraFimAtendimento = DateTime.Now;
+            }
+        }
+
+        public void setTempoPrevisto(int obj)
+        {
+            if (obj == 1)
+            {
+                DataConsultaReserva = DataConsulta.AddMinutes(60);
+            }
+            else
+            {
+                DataConsultaReserva = DataConsulta.AddMinutes(30);
+            }
+
         }
 
 

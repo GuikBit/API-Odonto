@@ -115,21 +115,23 @@ namespace DentistaApi.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateOnly>("DataConsulta")
+                    b.Property<int>("ConsultaEspecialidadeId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("DataConsulta")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime?>("DataHoraAtendimento")
+                    b.Property<DateTime?>("DataConsultaReserva")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("DataHoraFimAtendimento")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("DataHoraInicioAtendimento")
                         .HasColumnType("TEXT");
 
                     b.Property<int>("DentistaId")
                         .HasColumnType("INTEGER");
-
-                    b.Property<string>("HoraConsulta")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<TimeOnly>("HoraConsulta2")
-                        .HasColumnType("TEXT");
 
                     b.Property<int>("PacienteId")
                         .HasColumnType("INTEGER");
@@ -141,10 +143,12 @@ namespace DentistaApi.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("TempoPrevisto")
-                        .HasColumnType("TEXT");
+                    b.Property<int>("TempoPrevisto")
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ConsultaEspecialidadeId");
 
                     b.HasIndex("DentistaId");
 
@@ -153,6 +157,36 @@ namespace DentistaApi.Migrations
                     b.HasIndex("PagamentoId");
 
                     b.ToTable("Consultas");
+                });
+
+            modelBuilder.Entity("DentistaApi.Models.ConsultaEspecialidade", b =>
+                {
+                    b.Property<int?>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("DataCadastro")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Descricao")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Tipo")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("TipoAparelho")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<double>("ValorBase")
+                        .HasColumnType("REAL");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ConsultaEspecialidades");
                 });
 
             modelBuilder.Entity("DentistaApi.Models.Dentista", b =>
@@ -332,8 +366,14 @@ namespace DentistaApi.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateOnly>("DataDoPagamento")
+                    b.Property<double>("Acrecimo")
+                        .HasColumnType("REAL");
+
+                    b.Property<DateTime>("DataDoPagamento")
                         .HasColumnType("TEXT");
+
+                    b.Property<double>("Desconto")
+                        .HasColumnType("REAL");
 
                     b.Property<string>("FormaDePagamento")
                         .IsRequired()
@@ -570,6 +610,12 @@ namespace DentistaApi.Migrations
 
             modelBuilder.Entity("DentistaApi.Models.Consulta", b =>
                 {
+                    b.HasOne("DentistaApi.Models.ConsultaEspecialidade", "ConsultaEspecialidade")
+                        .WithMany()
+                        .HasForeignKey("ConsultaEspecialidadeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("DentistaApi.Models.Dentista", "Dentista")
                         .WithMany("Consultas")
                         .HasForeignKey("DentistaId")
@@ -585,6 +631,8 @@ namespace DentistaApi.Migrations
                     b.HasOne("DentistaApi.Models.Pagamento", "Pagamento")
                         .WithMany()
                         .HasForeignKey("PagamentoId");
+
+                    b.Navigation("ConsultaEspecialidade");
 
                     b.Navigation("Dentista");
 

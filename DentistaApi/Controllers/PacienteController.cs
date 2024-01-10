@@ -108,11 +108,10 @@ public class PacienteController : ControllerBase
         {
             ConsultaDTO c = new ConsultaDTO();
             c.Id = cons.Id;
-            c.TempoPrevisto = cons.TempoPrevisto;
+            
             c.ProcedimentoConsulta = cons.ProcedimentoConsulta;
             c.Dentista = cons.Dentista;
-            c.DataConsulta = cons.DataConsulta;
-            c.HoraConsulta = cons.HoraConsulta;
+            c.DataConsulta = cons.DataConsulta;            
             c.Paciente = cons.Paciente;
             c.Pagamento = cons.Pagamento;
 

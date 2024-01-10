@@ -8,11 +8,11 @@ namespace DentistaApi.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int? Id { get; set; }
-
-        public string descricao { get; set; }
-
-        public double valor {  get; set; }
-
+        public string Tipo { get; set; }
+        public string TipoAparelho { get; set; }
+        public string Descricao { get; set; }
+        public double ValorBase {  get; set; }
         public string DataCadastro { get; set; } = DateTime.Now.ToString("dd/MM/yyyy HH:mm");
+        
     }
 }

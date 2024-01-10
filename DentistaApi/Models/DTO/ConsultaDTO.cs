@@ -9,7 +9,7 @@ namespace DentistaApi.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int? Id { get; set; }
         public string ProcedimentoConsulta { get; set; } = "";
-        public DateOnly DataConsulta { get; set; }
+        public DateTime DataConsulta { get; set; }
         public TimeOnly HoraConsulta2 { get; set; }
         public string HoraConsulta { get; set; } = "";
         public string? TempoPrevisto { get; set; }

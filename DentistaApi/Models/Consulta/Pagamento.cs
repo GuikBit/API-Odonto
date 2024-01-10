@@ -11,7 +11,9 @@ namespace DentistaApi.Models {
         public double ValorTotal { get; set; }
         public string FormaDePagamento { get; set; } = "";
         public bool Pago { get; set; }
-        public DateOnly DataDoPagamento { get; set; }
+        public double Desconto { get; set; }
+        public double Acrecimo { get; set; }
+        public DateTime DataDoPagamento { get; set; }
 
     }
 }
