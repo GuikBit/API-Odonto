@@ -14,7 +14,7 @@ namespace DentistaApi.Models {
         public string Cep { get; set; } = "";
         public string Numero { get; set; } = "";
         public string Complemento { get; set; } = "";
-        public string Referencia { get; set; } = "";
+        public string? Referencia { get; set; } = "";
         public int PacienteId { get; set; }
         public Paciente Paciente { get; set; }
 

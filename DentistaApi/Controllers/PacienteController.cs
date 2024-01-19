@@ -16,7 +16,7 @@ public class PacienteController : ControllerBase
     {
 
         var paciPacientes = db.Pacientes
-            .Where(x => x.Ativo == true)
+            //.Where(x => x.Ativo == true)
             //.Include(p=> p.Consultas)
             //.Include(p => p.Anamnese)
             //.Include(p => p.Endereco)
@@ -29,34 +29,7 @@ public class PacienteController : ControllerBase
         return Ok(paciPacientes);
     }
 
-    //[HttpGet]
-    //[Route("/v1/pacientes")]
-    //public ActionResult<IList<Paciente>> GetPacientesWeb([FromQuery] int page, [FromQuery] int size)
-    //{
 
-    //    int indiceInicial = (page - 1) * size;
-
-
-    //    IList<Paciente> pacientesDaPagina = db.Pacientes
-    //        .Where(x => x.Ativo == true)
-    //        .Skip(indiceInicial)
-    //        .Take(size)
-    //        .OrderBy(p => p.Nome)
-    //        .ToList();
-
-
-    //    return pacientesDaPagina == null ? NotFound() : Ok(pacientesDaPagina);
-
-    //}
-
-    //[HttpGet]
-    //[Route("/v1/paciente/total")]
-    //public ActionResult<int> getTotalPacientes() {
-
-    //    int totalPacientes = db.Pacientes.Count();
-
-    //    return Ok(totalPacientes);
-    //}
     [HttpGet]
     [Route("{id}")]
     public ActionResult<Paciente> GetById(int id)
@@ -108,10 +81,10 @@ public class PacienteController : ControllerBase
         {
             ConsultaDTO c = new ConsultaDTO();
             c.Id = cons.Id;
-            
+
             c.ProcedimentoConsulta = cons.ProcedimentoConsulta;
             c.Dentista = cons.Dentista;
-            c.DataConsulta = cons.DataConsulta;            
+            c.DataConsulta = cons.DataConsulta;
             c.Paciente = cons.Paciente;
             c.Pagamento = cons.Pagamento;
 
@@ -195,31 +168,96 @@ public class PacienteController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public IActionResult Put(int id, Paciente obj)
+    public IActionResult Put(int id, PacienteDTO obj)
     {
-        if (id != obj.Id)
+        try
+        {
+            var paciente = db.Pacientes.FirstOrDefault(x => x.Id == id);
+            var pAnamnese = db.Anamneses.FirstOrDefault(x => x.PacienteId == id);
+            var pEndereco = db.Enderecos.FirstOrDefault(x => x.PacienteId == id);
+            var pResponsavel = db.Responsavel.FirstOrDefault(x => x.PacienteId == id);
+
+            if (paciente != null && pAnamnese != null && pEndereco != null && pResponsavel != null && obj.Anamnese != null && obj.Responsavel != null && obj.Endereco != null)
+            {
+                paciente.Nome = obj.Nome;
+                paciente.Email = obj.Email;
+                paciente.Telefone = obj.Telefone;
+                paciente.NumPasta = obj.NumPasta;
+
+                pAnamnese.ProblemaSaude = obj.Anamnese.ProblemaSaude;
+                pAnamnese.Tratamento = obj.Anamnese.Tratamento;
+                pAnamnese.Remedio = obj.Anamnese.Remedio;
+                pAnamnese.Alergia = obj.Anamnese.Alergia;
+                pAnamnese.SangramentoExcessivo = obj.Anamnese.SangramentoExcessivo;
+                pAnamnese.Hipertensao = obj.Anamnese.Hipertensao;
+                pAnamnese.Gravida = obj.Anamnese.Gravida;
+                pAnamnese.TraumatismoFace = obj.Anamnese.TraumatismoFace;
+
+                pResponsavel.Nome = obj.Responsavel.Nome;
+                pResponsavel.Cpf = obj.Responsavel.Cpf;
+                pResponsavel.Telefone = obj.Responsavel.Telefone;
+
+                pEndereco.Cep = obj.Endereco.Cep;
+                pEndereco.Logradouro = obj.Endereco.Logradouro;
+                pEndereco.Cidade = obj.Endereco.Cidade;
+                pEndereco.Bairro = obj.Endereco.Bairro;
+                pEndereco.Numero = obj.Endereco.Numero;
+                pEndereco.Complemento = obj.Endereco.Complemento;
+                pEndereco.Referencia = obj.Endereco.Referencia;
+
+
+                db.Pacientes.Update(paciente);
+                db.Anamneses.Update(pAnamnese);
+                db.Enderecos.Update(pEndereco);
+                db.Responsavel.Update(pResponsavel);
+
+                db.SaveChanges();
+                return NoContent();
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
+        catch (Exception ex)
+        {
+
             return BadRequest();
+        }
 
-        db.Pacientes.Update(obj);
-        db.SaveChanges();
-
-        return NoContent();
     }
 
-    [HttpDelete("{id}")]
-    public IActionResult Delete(int id)
+
+    [HttpDelete]
+    [Route("/v1/paciente/inativar/{id}")]
+    public IActionResult InativarPaciente(int id)
     {
-        if (db.Pacientes == null)
-            return NotFound();
 
         var obj = db.Pacientes.FirstOrDefault(x => x.Id == id);
 
         if (obj == null)
             return NotFound();
 
-        //obj.Ativo = false;
-        //db.Pacientes.Update(obj);
-        db.Pacientes.Remove(obj);
+        obj.Ativo = false;
+        db.Pacientes.Update(obj);
+        //db.Pacientes.Remove(obj);
+        db.SaveChanges();
+
+        return NoContent();
+    }
+    [HttpDelete]
+    [Route("/v1/paciente/reativar/{id}")]
+    public IActionResult ReativarPaciente(int id)
+    {
+
+        var obj = db.Pacientes.FirstOrDefault(x => x.Id == id);
+
+        if (obj == null)
+            return NotFound();
+
+        obj.Ativo = true;
+        db.Pacientes.Update(obj);
+
         db.SaveChanges();
 
         return NoContent();
@@ -239,8 +277,9 @@ public class PacienteController : ControllerBase
             return false;
         }
 
-      
+
     }
+
     [HttpGet]
     [Route("/v1/paciente/validaCPF")]
     public bool validaCpfPaciente(string cpf)
@@ -272,7 +311,7 @@ public class PacienteController : ControllerBase
                 .Take(size)
                 .ToList();
 
-            return Ok(pacientes); 
+            return Ok(pacientes);
         }
         catch (Exception ex)
         {
@@ -281,7 +320,6 @@ public class PacienteController : ControllerBase
 
 
     }
-
 
 
     private readonly AppDbContext db = new();

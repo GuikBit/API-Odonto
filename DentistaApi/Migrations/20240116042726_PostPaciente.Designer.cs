@@ -3,6 +3,7 @@ using System;
 using DentistaApi.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DentistaApi.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240116042726_PostPaciente")]
+    partial class PostPaciente
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.13");
@@ -399,15 +402,18 @@ namespace DentistaApi.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Cpf")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Nome")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<int>("PacienteId")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Telefone")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");

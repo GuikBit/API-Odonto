@@ -15,6 +15,7 @@ namespace DentistaApi.Models
         public int TempoPrevisto { get; set; }
         public DateTime? DataHoraInicioAtendimento { get; set; }
         public DateTime? DataHoraFimAtendimento { get; set; }
+        public Boolean Ausente { get; set; } = false;
 
         [ForeignKey("PacienteId")]
         public Paciente Paciente { get; set; }
@@ -47,13 +48,14 @@ namespace DentistaApi.Models
 
         public void setTempoPrevisto(int obj)
         {
-            if (obj == 1)
+            var data = DataConsulta;
+
+            switch (obj)
             {
-                DataConsultaReserva = DataConsulta.AddMinutes(60);
-            }
-            else
-            {
-                DataConsultaReserva = DataConsulta.AddMinutes(30);
+                case 1: { DataConsultaReserva = data.AddMinutes(15); break; }
+                case 2: { DataConsultaReserva = data.AddMinutes(30); break; }
+                case 3: { DataConsultaReserva = data.AddMinutes(45); break; }
+                case 4: { DataConsultaReserva = data.AddMinutes(60); break; }
             }
 
         }
