@@ -2,7 +2,7 @@
 using DentistaApi.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-
+using System.Globalization;
 
 namespace DentistaApi.Controllers;
 
@@ -106,7 +106,7 @@ public class DashBordController : Controller
         for (int i = 0; i < 6; i++)
         {
             DateTime mesAtual = primeiroDiaDoMes.AddMonths(-i);
-            string nomeMes = mesAtual.ToString("MMMM");
+            string nomeMes = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(mesAtual.ToString("MMMM"));
             nomesUltimos6Meses[i] = nomeMes;
         }
 
@@ -120,30 +120,58 @@ public class DashBordController : Controller
 
         return (string[])nomes;
     }
+    //private int[] TotalConsultasPorDentista(List<Consulta> consultas, List<Dentista> dentistas)
+    //{
+
+    //     var total = dentistas.Select(dentista => consultas.Count(c => c.Dentista.Id == dentista.Id)).ToArray();
+
+    //    return (int[])total;
+    //}
     private int[] TotalConsultasPorDentista(List<Consulta> consultas, List<Dentista> dentistas)
     {
-        
-         var total = dentistas.Select(dentista => consultas.Count(c => c.Dentista.Id == dentista.Id)).ToArray();
+        // Obtém a data atual
+        DateTime dataAtual = DateTime.Now;
 
-        return (int[])total;
+        // Inicializa o vetor bidimensional para armazenar os totais mensais
+        int[] resultados = new int[6];
+
+        // Itera sobre os últimos 6 meses
+        for (int i = 0; i < 6; i++)
+        {
+            DateTime dataReferencia = dataAtual.AddMonths(-i);
+
+            // Filtra as consultas para o mês atual
+            var consultasMensais = consultas
+                .Where(c => c.DataConsulta.Month == dataReferencia.Month && c.DataConsulta.Year == dataReferencia.Year)
+                .ToList();
+
+            // Para cada dentista, calcula o total de consultas no mês
+            for (int j = 0; j < dentistas.Count; j++)
+            {
+                Dentista dentista = dentistas[j];
+                resultados[i] = consultasMensais.Count(c => c.Dentista.Id == dentista.Id);
+            }
+        }
+
+        return resultados;
     }
-    private double[] TotalPorEspec(List<Consulta> consultas, List<Especialidade> especs)
+    private int[] TotalPorEspec(List<Consulta> consultas, List<Especialidade> especs)
     {
 
-            var totalEspec = especs.Select(espec => consultas.Count(c => c.Dentista.Especialidade.Id == espec.Id)).ToArray();
-            
-            var totalConsultas = consultas.Count();
+        var totalEspec = especs.Select(espec => consultas.Count(c => c.Dentista.Especialidade.Id == espec.Id)).ToArray();
+        return totalEspec;
+            //var totalConsultas = consultas.Count();
 
-            if (totalConsultas > 0)
-            {
-                var total = totalEspec.Select(qtd => Math.Round((qtd / (double)totalConsultas) * 1, 2)).ToArray();
-                return (double[])total;
-            }
-            else
-            {
-                var total = totalEspec.Select(qtd => 0.0).ToArray();
-                return (double[])total;
-            }
+            //if (totalConsultas > 0)
+            //{
+            //    var total = totalEspec.Select(qtd => Math.Round((qtd / (double)totalConsultas) * 1, 2)).ToArray();
+            //    return (double[])total;
+            //}
+            //else
+            //{
+            //    var total = totalEspec.Select(qtd => 0.0).ToArray();
+            //    return (double[])total;
+            //}
 
         }
  

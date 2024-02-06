@@ -82,7 +82,8 @@ public class PacienteController : ControllerBase
             ConsultaDTO c = new ConsultaDTO();
             c.Id = cons.Id;
 
-            c.ProcedimentoConsulta = cons.ProcedimentoConsulta;
+            c.Observacao = cons.Observacao;
+            c.Procedimentos = cons.Procedimentos;
             c.Dentista = cons.Dentista;
             c.DataConsulta = cons.DataConsulta;
             c.Paciente = cons.Paciente;

@@ -9,7 +9,8 @@ namespace DentistaApi.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int? Id { get; set; }
-        public string ProcedimentoConsulta { get; set; } = "";
+        public string Observacao { get; set; } = "";
+        public string Procedimentos { get; set; } = "";
         public DateTime DataConsulta { get; set; }
         public DateTime? DataConsultaReserva { get; set; }
         public int TempoPrevisto { get; set; }
@@ -32,7 +33,7 @@ namespace DentistaApi.Models
 
         public void setIniciarConsulta()
         {
-            if (DataHoraInicioAtendimento != null)
+            if (DataHoraInicioAtendimento == null)
             {
                 DataHoraInicioAtendimento = DateTime.Now;
             }
@@ -40,7 +41,7 @@ namespace DentistaApi.Models
 
         public void setFinalizarConsulta()
         {
-            if (DataHoraFimAtendimento != null)
+            if (DataHoraFimAtendimento == null)
             {
                 DataHoraFimAtendimento = DateTime.Now;
             }
@@ -60,6 +61,14 @@ namespace DentistaApi.Models
 
         }
 
+        public void setAusentarPaciente()
+        {
+            Ausente = true;
+        }
 
+        public void setPresencaPaciente()
+        {
+            Ausente = false;
+        }
     }
 }

@@ -3,6 +3,7 @@ using System;
 using DentistaApi.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DentistaApi.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240126140636_ConsultaAjuste")]
+    partial class ConsultaAjuste
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.13");
@@ -181,6 +184,10 @@ namespace DentistaApi.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Tipo")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("TipoAparelho")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
@@ -371,7 +378,7 @@ namespace DentistaApi.Migrations
                     b.Property<double>("Acrecimo")
                         .HasColumnType("REAL");
 
-                    b.Property<DateTime?>("DataDoPagamento")
+                    b.Property<DateTime>("DataDoPagamento")
                         .HasColumnType("TEXT");
 
                     b.Property<double>("Desconto")
