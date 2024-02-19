@@ -30,12 +30,10 @@ namespace DentistaApi.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("DataCadastro")
-                        .IsRequired()
+                    b.Property<DateTime>("DataCadastro")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("DataNascimento")
-                        .IsRequired()
+                    b.Property<DateTime>("DataNascimento")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Email")
@@ -205,12 +203,10 @@ namespace DentistaApi.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("DataCadastro")
-                        .IsRequired()
+                    b.Property<DateTime>("DataCadastro")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("DataNascimento")
-                        .IsRequired()
+                    b.Property<DateTime>("DataNascimento")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Email")
@@ -316,12 +312,10 @@ namespace DentistaApi.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("DataCadastro")
-                        .IsRequired()
+                    b.Property<DateTime>("DataCadastro")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("DataNascimento")
-                        .IsRequired()
+                    b.Property<DateTime>("DataNascimento")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Email")
@@ -378,7 +372,6 @@ namespace DentistaApi.Migrations
                         .HasColumnType("REAL");
 
                     b.Property<string>("FormaDePagamento")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("Pago")
