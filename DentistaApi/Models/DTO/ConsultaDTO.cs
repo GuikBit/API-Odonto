@@ -26,7 +26,7 @@ namespace DentistaApi.Models
         //public Pagamento? Pagamento { get; set; }
         public int? Id { get; set; }
         public string Observacao { get; set; } = "";
-        public string Procedimentos { get; set; } = "";
+        public string? Procedimentos { get; set; } = "";
         public DateTime DataConsulta { get; set; }
         public string HoraConsulta { get; set; }
         public DateTime? DataConsultaReserva { get; set; }

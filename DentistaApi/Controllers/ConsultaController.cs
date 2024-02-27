@@ -206,18 +206,50 @@ public class ConsultaController : ControllerBase
         
     }
 
+    [HttpPost]
+    [Route("/v1/consultas/procedimento")]
+    public ActionResult PostProcedimento(Consulta novo)
+    {
+        try
+        {
+            var consulta = db.Consultas.FirstOrDefault(c => c.Id == novo.Id);
+            if(consulta == null)
+            {
+                return BadRequest();
+            }
+            consulta.Procedimentos = novo.Procedimentos;
+            consulta.setFinalizarConsulta();
+            db.SaveChanges();
 
+            return NoContent();            
+
+        }
+        catch(Exception e)
+        {
+            return BadRequest();
+        }
+    }
 
     [HttpPut("{id}")]
-    public IActionResult Put(int id, Consulta obj)
+    public IActionResult Put(int id,  PutConsultaDTO obj)
     {
-        if (id != obj.Id)
-            return BadRequest();
+        try
+        {
+            var consulta = db.Consultas.FirstOrDefault(c => c.Id == id);
+            if(consulta == null)
+            {
+                return BadRequest();
+            }
+            consulta.DataConsulta = ajustaDataConsulta(obj.DataConsulta, obj.HoraConsulta);
+            consulta.setTempoPrevisto(consulta.TempoPrevisto);
+            db.SaveChanges();
 
-        db.Consultas.Update(obj);
-        db.SaveChanges();
-
-        return NoContent();
+            return Ok();
+        }
+        catch (Exception e )
+        {
+            return BadRequest("Houve um erro ao editar a consulta");
+        }
     }
 
     [HttpDelete("{id}")]
@@ -239,7 +271,7 @@ public class ConsultaController : ControllerBase
 
     [HttpGet]
     [Route("/v1/consulta/iniciar/{id}")]
-    public ActionResult iniciarConsulta( int id)
+    public ActionResult<Consulta> iniciarConsulta( int id)
     {
         if (id == 0 || id == null)
         {
@@ -252,10 +284,12 @@ public class ConsultaController : ControllerBase
             return BadRequest();
         }
 
-        consulta.setIniciarConsulta();
+        consulta.setIniciarConsulta();        
         db.SaveChanges();
 
-        return Ok();
+        consulta = db.Consultas.FirstOrDefault(x => x.Id.Equals(id));
+
+        return Ok(consulta);
     }
 
     [HttpGet]

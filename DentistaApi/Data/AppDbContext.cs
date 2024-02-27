@@ -20,7 +20,8 @@ namespace DentistaApi.Data
         public DbSet<ConsultaEspecialidade> ConsultaEspecialidades { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite("DataSource=app.db;Cache=Shared");
+            //optionsBuilder.UseMySQL("server=localhost:3306;uid=root;pwd=root;database=dbDentista");
+             optionsBuilder.UseSqlite("DataSource=app.db;Cache=Shared");
         }
     }
 }
