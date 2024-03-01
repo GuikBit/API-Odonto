@@ -132,7 +132,8 @@ public class DashBordController : Controller
                     consulta.DataHoraInicioAtendimento?.Year == mes.Year &&
                     consulta.Pagamento != null &&
                     consulta.Pagamento.Pago &&
-                    consulta.Pagamento.ValorTotal != 0)
+                    consulta.Pagamento.ValorTotal != 0
+                    )
                 .Sum(consulta =>
                     consulta.Pagamento.ValorTotal - consulta.Pagamento.Desconto + consulta.Pagamento.Acrecimo);
 

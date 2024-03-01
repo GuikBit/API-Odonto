@@ -99,6 +99,7 @@ public class ConsultaController : ControllerBase
             .Include(p => p.Dentista)
             .Include(p => p.Paciente)
             .Include(p => p.Pagamento)
+            .Include(p => p.Pagamento.Parcelas)
             .Include(p => p.ConsultaEspecialidade)
             .FirstOrDefault(p => p.Id == id);
 
@@ -122,12 +123,23 @@ public class ConsultaController : ControllerBase
             nova.Paciente = paciente;
             nova.Dentista = dentista;
             nova.ConsultaEspecialidade = consEspec;
-            nova.Pagamento = new Pagamento();
+
             nova.Observacao = obj.Observacao;
             nova.Procedimentos = obj.Procedimentos;
             nova.DataConsulta = ajustaDataConsulta(obj.DataConsulta, obj.HoraConsulta);
             nova.TempoPrevisto = obj.TempoPrevisto;
-            nova.setTempoPrevisto(obj.TempoPrevisto);            
+            nova.setTempoPrevisto(obj.TempoPrevisto);  
+
+            nova.Pagamento = new Pagamento();
+            Parcela novo = new Parcela();
+
+            novo.ValorParcela = nova.ConsultaEspecialidade.ValorBase;
+            DateTime dateTime = nova.DataConsulta;
+
+            novo.DataVencimento = dateTime.AddDays(7);
+
+            nova.Pagamento.Parcelas.Add(novo);
+
 
             db.Consultas.Add(nova);
             db.SaveChanges();

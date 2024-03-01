@@ -15,7 +15,7 @@ namespace DentistaApi.Migrations
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "7.0.13");
+            modelBuilder.HasAnnotation("ProductVersion", "7.0.14");
 
             modelBuilder.Entity("DentistaApi.Models.Administrador", b =>
                 {
@@ -141,7 +141,7 @@ namespace DentistaApi.Migrations
                     b.Property<int>("PacienteId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("PagamentoId")
+                    b.Property<int>("PagamentoId")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Procedimentos")
@@ -358,21 +358,18 @@ namespace DentistaApi.Migrations
 
             modelBuilder.Entity("DentistaApi.Models.Pagamento", b =>
                 {
-                    b.Property<int?>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
                     b.Property<double>("Acrecimo")
                         .HasColumnType("REAL");
 
-                    b.Property<DateTime?>("DataDoPagamento")
-                        .HasColumnType("TEXT");
-
                     b.Property<double>("Desconto")
                         .HasColumnType("REAL");
 
-                    b.Property<string>("FormaDePagamento")
-                        .HasColumnType("TEXT");
+                    b.Property<bool>("FatFechado")
+                        .HasColumnType("INTEGER");
 
                     b.Property<bool>("Pago")
                         .HasColumnType("INTEGER");
@@ -380,9 +377,46 @@ namespace DentistaApi.Migrations
                     b.Property<double>("ValorTotal")
                         .HasColumnType("REAL");
 
+                    b.Property<int>("qtdParcela")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("Id");
 
                     b.ToTable("Pagamentos");
+                });
+
+            modelBuilder.Entity("DentistaApi.Models.Parcela", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime?>("DataPagamento")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("DataVencimento")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("EhEntrada")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("FormaDePagamento")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("PagamentoId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("Pago")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<double>("ValorParcela")
+                        .HasColumnType("REAL");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PagamentoId");
+
+                    b.ToTable("Parcela");
                 });
 
             modelBuilder.Entity("DentistaApi.Models.Responsavel", b =>
@@ -622,7 +656,9 @@ namespace DentistaApi.Migrations
 
                     b.HasOne("DentistaApi.Models.Pagamento", "Pagamento")
                         .WithMany()
-                        .HasForeignKey("PagamentoId");
+                        .HasForeignKey("PagamentoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("ConsultaEspecialidade");
 
@@ -661,6 +697,13 @@ namespace DentistaApi.Migrations
                     b.Navigation("Endereco");
 
                     b.Navigation("Responsavel");
+                });
+
+            modelBuilder.Entity("DentistaApi.Models.Parcela", b =>
+                {
+                    b.HasOne("DentistaApi.Models.Pagamento", null)
+                        .WithMany("Parcelas")
+                        .HasForeignKey("PagamentoId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -734,6 +777,11 @@ namespace DentistaApi.Migrations
             modelBuilder.Entity("DentistaApi.Models.Paciente", b =>
                 {
                     b.Navigation("Consultas");
+                });
+
+            modelBuilder.Entity("DentistaApi.Models.Pagamento", b =>
+                {
+                    b.Navigation("Parcelas");
                 });
 
             modelBuilder.Entity("DentistaApi.Models.Responsavel", b =>
