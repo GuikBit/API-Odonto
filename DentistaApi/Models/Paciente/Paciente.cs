@@ -19,6 +19,8 @@ namespace DentistaApi.Models
         [InverseProperty("Paciente")]
         public ICollection<Consulta> Consultas { get; set; } = new List<Consulta>();
 
+        public string? FotoPerfil { get; set; }
+
 
         public void SetRole()
         {

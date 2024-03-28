@@ -29,7 +29,6 @@ public class PacienteController : ControllerBase
         return Ok(paciPacientes);
     }
 
-
     [HttpGet]
     [Route("{id}")]
     public ActionResult<Paciente> GetById(int id)
@@ -114,6 +113,7 @@ public class PacienteController : ControllerBase
         novo.NumPasta = obj.NumPasta;
         novo.SetSenhaHash();
         novo.SetRole();
+        SalvarFotoPerfilPaciente(obj.Id, obj.fotoPerfil);
 
         db.Pacientes.Add(novo);
         db.SaveChanges();
@@ -246,6 +246,7 @@ public class PacienteController : ControllerBase
 
         return NoContent();
     }
+
     [HttpDelete]
     [Route("/v1/paciente/reativar/{id}")]
     public IActionResult ReativarPaciente(int id)
@@ -322,6 +323,43 @@ public class PacienteController : ControllerBase
 
     }
 
+    [HttpPost]
+    [Route("/v1/paciente/alterarFoto")]
+    public ActionResult AlterarFotoPerfil(int pacienteId, IFormFile novaFotoPerfil)
+    {
+        if(pacienteId != null && novaFotoPerfil != null) {
+            if(SalvarFotoPerfilPaciente(pacienteId, novaFotoPerfil))
+                return Ok();
+            return BadRequest("Nao foi possivel salvar a foto de perfil");
+            
+        }
+        return BadRequest("Houve um erro ao enviar a foto de perfil");
+    }
+    private Boolean SalvarFotoPerfilPaciente(int patientId, IFormFile file)
+    {
 
+        var paciente = db.Pacientes.FirstOrDefault(p => p.Id == patientId);
+        if (paciente == null || file == null || file.Length == 0)
+            return false;
+
+        var uploadDirectory = Path.Combine(Directory.GetCurrentDirectory(), "uploads", "Fotos_Perfil");
+        if (!Directory.Exists(uploadDirectory))
+        {
+            Directory.CreateDirectory(uploadDirectory);
+        }
+
+        var fileName = $"{patientId}{Path.GetExtension(file.FileName)}";
+        var filePath = Path.Combine(uploadDirectory, fileName);
+
+        using (var stream = new FileStream(filePath, FileMode.Create))
+        {
+             file.CopyToAsync(stream);
+        }
+
+        paciente.FotoPerfil = filePath;
+        db.SaveChangesAsync();
+
+        return true;
+    }
     private readonly AppDbContext db = new();
 }

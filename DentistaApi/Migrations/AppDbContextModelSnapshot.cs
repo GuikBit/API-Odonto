@@ -19,7 +19,7 @@ namespace DentistaApi.Migrations
 
             modelBuilder.Entity("DentistaApi.Models.Administrador", b =>
                 {
-                    b.Property<int?>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -192,7 +192,7 @@ namespace DentistaApi.Migrations
 
             modelBuilder.Entity("DentistaApi.Models.Dentista", b =>
                 {
-                    b.Property<int?>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -301,7 +301,7 @@ namespace DentistaApi.Migrations
 
             modelBuilder.Entity("DentistaApi.Models.Paciente", b =>
                 {
-                    b.Property<int?>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -320,6 +320,9 @@ namespace DentistaApi.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("FotoPerfil")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Login")

@@ -13,5 +13,7 @@ namespace DentistaApi.Models
 
         public ResponsavelDTO? Responsavel { get; set; }
 
+        public IFormFile? fotoPerfil { get; set; }
+
     }
 }

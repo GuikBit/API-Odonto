@@ -1,4 +1,5 @@
 using DentistaApi.Data;
+using DentistaApi.Migrations;
 using DentistaApi.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -179,7 +180,7 @@ public class ConsultaController : ControllerBase
     }
 
     [HttpGet]
-    [Route("/v1/consultas/novaespec")]
+    [Route("/v1/consulta/novaespec")]
     public ActionResult<ConsultaEspecialidade> GetEspecConsulta()
     {
         var lista = db.ConsultaEspecialidades.ToList();
@@ -188,7 +189,7 @@ public class ConsultaController : ControllerBase
     }
 
     [HttpPost]
-    [Route("/v1/consultas/novaespec")]
+    [Route("/v1/consulta/novaespec")]
     public ActionResult<ConsultaEspecialidade> PostEspecConsulta(ConsultaEspecialidade obj)
     {
         try
@@ -219,7 +220,7 @@ public class ConsultaController : ControllerBase
     }
 
     [HttpPost]
-    [Route("/v1/consultas/procedimento")]
+    [Route("/v1/consulta/procedimento")]
     public ActionResult PostProcedimento(Consulta novo)
     {
         try
@@ -364,7 +365,74 @@ public class ConsultaController : ControllerBase
 
         return Ok();
     }
+    
+    [HttpPost]
+    [Route("/v1/consulta/salvarPagamento")]
+    public ActionResult salvarPagamentoConsulta(Consulta obj)
+    {
+        if(obj == null)
+        {
+            return BadRequest();
+        }
+        var pagamento = db.Pagamentos.Include(x => x.Parcelas).FirstOrDefault(x => x.Id == obj.Pagamento.Id);
 
+        if (pagamento == null)
+        {
+            return BadRequest();
+        }
+
+        if(obj.Pagamento.Parcelas.ToList().Count > pagamento.Parcelas.ToList().Count) {
+
+            foreach (var item in obj.Pagamento.Parcelas)
+            {
+                if(item.Id != 0)
+                {
+                    var parcela = db.Parcela.FirstOrDefault(x => x.Id == item.Id);
+                    if (parcela != null) { 
+                        parcela.ValorParcela = item.ValorParcela;
+                        parcela.DataPagamento = item.DataPagamento;
+                        parcela.EhEntrada = item.EhEntrada;
+                        parcela.Pago = item.Pago;
+                        parcela.DataVencimento = item.DataVencimento;
+                        parcela.FormaDePagamento = item.FormaDePagamento;
+
+                        pagamento.FatFechado = true;
+
+                        db.SaveChanges();
+                    }
+                }
+                else if(item.Id == 0)
+                {
+                    Parcela novo = new Parcela();
+                    novo.FormaDePagamento = item.FormaDePagamento;
+                    novo.DataPagamento = item.DataPagamento;
+                    novo.Pago = item.Pago;
+                    novo.EhEntrada = item.EhEntrada == true ? true : false;
+                    novo.ValorParcela = item.ValorParcela;
+                    novo.DataPagamento = item.DataPagamento;
+                    novo.DataVencimento = item.DataVencimento;
+                    novo.FormaDePagamento = item.FormaDePagamento;
+
+                    pagamento.Parcelas.Add(novo);
+                }
+            }
+            pagamento.FatFechado = true;
+            pagamento.Acrecimo = obj.Pagamento.Acrecimo;
+            pagamento.Desconto = obj.Pagamento.Desconto;
+            pagamento.qtdParcela = pagamento.Parcelas.Count();
+            pagamento.ValorTotal = pagamento.Parcelas.Sum(x => x.ValorParcela);
+        }
+        
+        
+
+        db.SaveChanges();
+        
+        
+
+        return Ok();
+    }
+   
+    
     private readonly AppDbContext db = new();
 
 
