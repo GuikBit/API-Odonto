@@ -137,7 +137,7 @@ public class ConsultaController : ControllerBase
             novo.ValorParcela = nova.ConsultaEspecialidade.ValorBase;
             DateTime dateTime = nova.DataConsulta;
 
-            novo.DataVencimento = dateTime.AddDays(7);
+            //novo.DataVencimento = dateTime.AddDays(7);
 
             nova.Pagamento.Parcelas.Add(novo);
 
@@ -396,7 +396,7 @@ public class ConsultaController : ControllerBase
                         parcela.DataVencimento = item.DataVencimento;
                         parcela.FormaDePagamento = item.FormaDePagamento;
 
-                        pagamento.FatFechado = true;
+                        //pagamento.FatFechado = true;
 
                         db.SaveChanges();
                     }

@@ -1,75 +1,75 @@
-using DentistaApi.Data;
-using DentistaApi.Models;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Mvc;
+//using DentistaApi.Data;
+//using DentistaApi.Models;
+//using Microsoft.AspNetCore.Authorization;
+//using Microsoft.AspNetCore.Http.HttpResults;
+//using Microsoft.AspNetCore.Mvc;
 
-namespace DentistaApi.Controllers;
-[Authorize]
-[ApiController]
-[Route("v1/[controller]")]
-public class EnderecoController : ControllerBase
-{
-    [HttpGet]
-    public ActionResult<IList<Endereco>> Get()
-    {
+//namespace DentistaApi.Controllers;
+//[Authorize]
+//[ApiController]
+//[Route("v1/[controller]")]
+//public class EnderecoController : ControllerBase
+//{
+//    [HttpGet]
+//    public ActionResult<IList<Endereco>> Get()
+//    //{
 
-        var enEnderecos = db.Enderecos.ToList();
+//        var enEnderecos = db.Enderecos.ToList();
 
-        return Ok(enEnderecos);
-    }
+//        return Ok(enEnderecos);
+//    }
 
-    [HttpGet]
-    [Route("{id}")]
-    public ActionResult<Endereco> GetById(int id)
-    {
+//    [HttpGet]
+//    [Route("{id}")]
+//    public ActionResult<Endereco> GetById(int id)
+//    {
 
-        var enEndereco = db.Enderecos.FirstOrDefault(x => x.Id == id);
+//        var enEndereco = db.Enderecos.FirstOrDefault(x => x.Id == id);
 
-        return enEndereco == null ? NotFound() : Ok(enEndereco);
-    }
+//        return enEndereco == null ? NotFound() : Ok(enEndereco);
+//    }
 
-    [HttpPost]
-    public ActionResult<Endereco> Post(Endereco obj)
-    {
-
-
-        db.Enderecos.Add(obj);
-        db.SaveChanges();
+//    [HttpPost]
+//    public ActionResult<Endereco> Post(Endereco obj)
+//    {
 
 
-        return CreatedAtAction(nameof(GetById), new { id = obj.Id }, obj);
+//        db.Enderecos.Add(obj);
+//        db.SaveChanges();
 
-    }
 
-    [HttpPut("{id}")]
-    public IActionResult Put(int id, Endereco obj)
-    {
-        if (id != obj.Id)
-            return BadRequest();
+//        return CreatedAtAction(nameof(GetById), new { id = obj.Id }, obj);
 
-        db.Enderecos.Update(obj);
-        db.SaveChanges();
+//    }
 
-        return NoContent();
-    }
+//    [HttpPut("{id}")]
+//    public IActionResult Put(int id, Endereco obj)
+//    {
+//        if (id != obj.Id)
+//            return BadRequest();
 
-    [HttpDelete("{id}")]
-    public IActionResult Delete(int id)
-    {
-        if (db.Enderecos == null)
-            return NotFound();
+//        db.Enderecos.Update(obj);
+//        db.SaveChanges();
 
-        var obj = db.Enderecos.FirstOrDefault(x => x.Id == id);
+//        return NoContent();
+//    }
 
-        if (obj == null)
-            return NotFound();
+//    [HttpDelete("{id}")]
+//    public IActionResult Delete(int id)
+//    {
+//        if (db.Enderecos == null)
+//            return NotFound();
 
-        db.Enderecos.Remove(obj);
-        db.SaveChanges();
+//        var obj = db.Enderecos.FirstOrDefault(x => x.Id == id);
 
-        return NoContent();
-    }
+//        if (obj == null)
+//            return NotFound();
 
-    private readonly AppDbContext db = new();
-}
+//        db.Enderecos.Remove(obj);
+//        db.SaveChanges();
+
+//        return NoContent();
+//    }
+
+//    private readonly AppDbContext db = new();
+//}

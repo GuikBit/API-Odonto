@@ -13,7 +13,7 @@ namespace DentistaApi.Models
         public double ValorParcela { get; set; }
         public DateTime? DataPagamento { get; set; }
         public DateTime? DataVencimento { get; set; }
-        public int? FormaDePagamento { get; set; }
+        public int FormaDePagamento { get; set; }
 
     }
 }
