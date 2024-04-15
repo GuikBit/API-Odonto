@@ -199,6 +199,10 @@ namespace DentistaApi.Migrations
                     b.Property<bool>("Ativo")
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("CorDentista")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Cpf")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -403,7 +407,7 @@ namespace DentistaApi.Migrations
                     b.Property<bool>("EhEntrada")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("FormaDePagamento")
+                    b.Property<int>("FormaDePagamento")
                         .HasColumnType("INTEGER");
 
                     b.Property<int?>("PagamentoId")

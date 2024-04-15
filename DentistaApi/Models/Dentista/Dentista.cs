@@ -11,6 +11,8 @@ namespace DentistaApi.Models
         [ForeignKey("EspecialidadeId")]
         public Especialidade? Especialidade { get; set; }
 
+        public string CorDentista { get; set; } = "";
+
         public void SetRole()
         {
             if (Role == null || Role == "")
