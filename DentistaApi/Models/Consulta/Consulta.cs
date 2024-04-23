@@ -26,8 +26,7 @@ namespace DentistaApi.Models
 
         [ForeignKey("PagamentoId")]
         public Pagamento Pagamento { get; set; }
-
-        
+        public string CorDentista { get; set; }
         public ConsultaEspecialidade ConsultaEspecialidade { get; set; }
 
 

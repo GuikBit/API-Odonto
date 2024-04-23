@@ -76,13 +76,12 @@ public class DentistaController : ControllerBase
             {
                 foreach (var consulta in consultasDent)
                 {
+                    consulta.CorDentista = consulta.Dentista.CorDentista;
                     consulta.Dentista = null;
                     consulta.Paciente.Consultas = null;
                 }
-
                 dentDentista.Consultas = consultasDent;
             }
-
             return dentDentista == null ? NotFound() : Ok(dentDentista);
         }
         catch (Exception e) {

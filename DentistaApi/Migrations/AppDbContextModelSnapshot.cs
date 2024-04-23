@@ -119,6 +119,10 @@ namespace DentistaApi.Migrations
                     b.Property<int>("ConsultaEspecialidadeId")
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("CorDentista")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<DateTime>("DataConsulta")
                         .HasColumnType("TEXT");
 
