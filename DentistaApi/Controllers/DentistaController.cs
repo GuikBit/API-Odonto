@@ -80,7 +80,7 @@ public class DentistaController : ControllerBase
                     consulta.Dentista = null;
                     consulta.Paciente.Consultas = null;
                 }
-                dentDentista.Consultas = consultasDent;
+                dentDentista.Consultas = (ICollection<Consulta>)consultasDent;
             }
             return dentDentista == null ? NotFound() : Ok(dentDentista);
         }
