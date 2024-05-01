@@ -178,6 +178,10 @@ namespace DentistaApi.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("DataUpdade")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Descricao")
                         .IsRequired()
                         .HasColumnType("TEXT");

@@ -180,16 +180,23 @@ public class ConsultaController : ControllerBase
     }
 
     [HttpGet]
-    [Route("/v1/consulta/novaespec")]
+    [Route("/v1/consulta/especialidade")]
     public ActionResult<ConsultaEspecialidade> GetEspecConsulta()
     {
-        var lista = db.ConsultaEspecialidades.ToList();
+        try { 
+            var lista = db.ConsultaEspecialidades.ToList();
 
-        return lista == null ? NotFound() : Ok(lista);
+            return lista == null ? NotFound() : Ok(lista);
+
+        }catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+        
     }
 
     [HttpPost]
-    [Route("/v1/consulta/novaespec")]
+    [Route("/v1/consulta/especialidade")]
     public ActionResult<ConsultaEspecialidade> PostEspecConsulta(ConsultaEspecialidade obj)
     {
         try
@@ -199,7 +206,7 @@ public class ConsultaController : ControllerBase
                 ConsultaEspecialidade novo = new ConsultaEspecialidade();
                 novo.Tipo = obj.Tipo;
                 novo.Descricao = obj.Descricao;  
-                novo.ValorBase = obj.ValorBase;
+                novo.ValorBase = obj.ValorBase;               
 
                 db.ConsultaEspecialidades.Add(novo);
                 db.SaveChanges();
@@ -214,10 +221,58 @@ public class ConsultaController : ControllerBase
         }
         catch (Exception e)
         {
-            return NotFound();
+            return BadRequest();
         }
         
     }
+    [HttpPut]
+    [Route("/v1/consulta/especialidade")]
+    public ActionResult PutEspecConsulta(ConsultaEspecialidade obj)
+    {
+        try
+        {
+            var let = db.ConsultaEspecialidades.FirstOrDefault(x => x.Id == obj.Id);
+            if (let == null)
+            {
+                return NotFound();
+            }
+            let.DataUpdade = DateTime.Now.ToString("dd/MM/yyyy HH:mm");
+            db.ConsultaEspecialidades.Update(let);
+            db.SaveChanges();
+            //db.Entry(let).CurrentValues.SetValues(obj);
+            //db.SaveChanges();
+
+            return Ok();
+        }
+        catch (Exception e)
+        {
+            return BadRequest($"Erro ao atualizar a especialidade: {e.Message}");
+        }
+    }
+
+    [HttpDelete]
+    [Route("/v1/consulta/especialidade/{id}")]
+    public ActionResult DeleteEspecConsulta(int id)
+    {
+        try
+        {
+            var especialidade = db.ConsultaEspecialidades.FirstOrDefault(x => x.Id == id);
+            if (especialidade == null)
+            {
+                return NotFound();
+            }
+
+            db.Remove(especialidade);
+            db.SaveChanges();
+
+            return Ok();
+        }
+        catch (Exception e)
+        {
+            return BadRequest($"Erro ao deletar a especialidade: {e.Message}");
+        }
+    }
+
 
     [HttpPost]
     [Route("/v1/consulta/procedimento")]

@@ -12,6 +12,10 @@ namespace DentistaApi.Models
         public string Descricao { get; set; }
         public double ValorBase {  get; set; }
         public string DataCadastro { get; set; } = DateTime.Now.ToString("dd/MM/yyyy HH:mm");
-        
+        public string? DataUpdade { get; set; } 
+
+
+
+
     }
 }
