@@ -8,7 +8,7 @@ namespace DentistaApi.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int? Id { get; set; }
-        public string Tipo { get; set; } = "";
-        //public double ValorBase { get; set; }
+        public string? Tipo { get; set; }
+        public string? Descricao { get; set; }
     }
 }

@@ -27,6 +27,9 @@ namespace DentistaApi.Models
         public bool Ativo { get; set; } = true;
         public string Role { get; set; } = "";
 
+        public int OrganizacaoId { get; set; }
+        public Organizacao IdOrganizacao { get; set; }
+
         public void SetSenhaHash()
         {
             Senha = Senha.GerarHash();

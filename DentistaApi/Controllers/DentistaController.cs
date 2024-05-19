@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using DentistaApi.Models;
 using System.Text.Json.Serialization;
 using System.Text.Json;
+using Microsoft.IdentityModel.Logging;
 
 namespace DentistaApi.Controllers;
 [Authorize]
@@ -13,75 +14,46 @@ namespace DentistaApi.Controllers;
 public class DentistaController : ControllerBase
 { 
     [HttpGet]
-    public ActionResult<IList<Dentista>> Get()
+    public ActionResult<IList<Dentista>> Get(int idOrg)
     {
 
-        var dentDentistas = db.Dentistas.Include(d => d.Especialidade).ToList();
+        var dentDentistas = db.Dentistas.Where(x => x.OrganizacaoId == idOrg).Include(x=> x.Especialidade).ToList();
 
         return Ok(dentDentistas);
     }
-    [HttpGet]
-    [Route("/v1/dentistas/total")]
-    public ActionResult<int> getTotalConsultas()
-    {
 
-        int total = db.Dentistas.Count();
-
-        return Ok(total);
-    }
-
-    //[HttpGet]
-    //[Route("{id}")]
-    //public ActionResult<Dentista> GetById(int id)
-    //{
-
-    //    var dentDentista = db.Dentistas
-    // .Where(d => d.Id == id)
-    // .Include(d => d.Especialidade)
-    // .Include(d => d.Consultas.OrderBy(c => c.DataConsulta))
-    // .FirstOrDefault(); // Use FirstOrDefault() para obter apenas um dentista
-
-    //    if (dentDentista == null)
-    //    {
-    //        return NotFound();
-    //    }
-
-    //    var jsonSerializerOptions = new JsonSerializerOptions
-    //    {
-    //        ReferenceHandler = ReferenceHandler.Preserve,
-    //        MaxDepth = 32 // Defina o máximo permitido se necessário
-    //    };
-
-    //    var jsonDentista = JsonSerializer.Serialize(dentDentista, jsonSerializerOptions);
-
-    //    return Ok(jsonDentista);
-    //}
     [HttpGet]
     [Route("{id}")]
-    public ActionResult<Dentista> GetById(int id)
+    public ActionResult<Dentista> GetById(int id, int idOrg)
     {
         try{
             var dentDentista = db.Dentistas
-            .Where(d => d.Id == id)
-            .Include(d => d.Especialidade)
+            .Where(d => d.Id == id && d.OrganizacaoId == idOrg && d.Ativo)
+            .Include(x => x.Especialidade)
+            .Include (x => x.IdOrganizacao)
             .FirstOrDefault();
-
-            var consultasDent = db.Consultas
-                .Where(d => d.Dentista.Id == id)
-                .Include(p => p.Paciente)
-                .Include(p => p.Pagamento)
-                .OrderBy(c => c.DataConsulta).ToList();
-
-            if(consultasDent != null)
+            if (dentDentista == null)
             {
-                foreach (var consulta in consultasDent)
-                {
-                    consulta.CorDentista = consulta.Dentista.CorDentista;
-                    consulta.Dentista = null;
-                    consulta.Paciente.Consultas = null;
-                }
-                dentDentista.Consultas = (ICollection<Consulta>)consultasDent;
+                return NotFound();
             }
+
+            var consultas = db.Consultas.Where(x=> x.DentistaId == dentDentista.Id).Include(x=> x.Paciente).Include(x=> x.Pagamento).ToList();
+
+            if( consultas.Count() > 0 )
+            {
+                foreach (var item in consultas)
+                {
+                    item.Paciente.Consultas = null;
+                    item.Paciente.IdOrganizacao = null;
+                    item.Dentista = null;
+
+                }
+            }
+            
+            dentDentista.IdOrganizacao.Dentistas = null;
+            dentDentista.Consultas = consultas;
+
+
             return dentDentista == null ? NotFound() : Ok(dentDentista);
         }
         catch (Exception e) {
@@ -94,6 +66,7 @@ public class DentistaController : ControllerBase
     {
         var espec = db.Especialidades.FirstOrDefault(x => x.Id == obj.Especialidade.Id);
         
+        
         Dentista novo = new Dentista()
         {
             Nome = obj.Nome,
@@ -104,6 +77,10 @@ public class DentistaController : ControllerBase
             Cpf = obj.Cpf,
             DataNascimento = obj.DataNascimento,
             Especialidade = espec,
+            CorDentista = obj.CorDentista,
+            EspecialidadeId = obj.EspecialidadeId,
+            OrganizacaoId = obj.OrganizacaoId,
+            //IdOrganizacao = obj.IdOrganizacao,
 
         };
         novo.SetSenhaHash();
@@ -177,6 +154,104 @@ public class DentistaController : ControllerBase
         }
 
 
+    }
+    [HttpPost]
+    [Route("/v1/dentista/especialidade")]
+    public IActionResult PostEspecialidade(Especialidade espec)
+    {
+        try
+        {
+            if (espec != null)
+            {
+                db.Especialidades.Add(espec);
+                db.SaveChanges();
+
+                return Ok();
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }catch(Exception ex)
+        {
+            return BadRequest();
+        }
+
+
+    }
+    [HttpGet]
+    [Route("/v1/dentista/especialidade")]
+    public IActionResult GetEspecialidade(int idOrg)
+    {
+        try
+        {
+            var list = db.Especialidades.ToList();
+            if (list == null)
+            {                
+                return NotFound();
+            }
+            if(list.Count == 0)
+            {
+                return Ok(list);
+            }
+
+            return Ok(list);
+            
+        }
+        catch (Exception ex)
+        {
+            return BadRequest();
+        }
+    }
+
+    [HttpDelete]
+    [Route("/v1/dentista/especialidade/{id}")]
+    public IActionResult DeleteEspecialidade(int id)
+    {
+        try
+        {
+            var espec = db.Especialidades.FirstOrDefault(x => x.Id == id);
+            if (espec == null)
+            {
+                return NotFound();
+            }
+
+            db.Especialidades.Remove(espec);
+            db.SaveChanges();
+            return Ok();
+        }
+        catch (Exception ex)
+        {
+          
+            return StatusCode(500, "Internal server error");
+        }
+    }
+
+    [HttpPut]
+    [Route("/v1/dentista/especialidade")]
+    public IActionResult putEspecialidade(int id, Especialidade espec)
+    {
+        try
+        {
+            var especialidade = db.Especialidades.FirstOrDefault(x=> x.Id == id);
+
+            if (especialidade == null)
+            {
+                return NotFound();
+            }
+            especialidade.Tipo = espec.Tipo;
+            especialidade.Descricao = espec.Descricao;
+
+            db.Especialidades.Update(especialidade);
+            db.SaveChanges();
+
+            return Ok();
+
+        }
+        catch (Exception ex)
+        {
+            return BadRequest();
+        }
     }
 
     private readonly AppDbContext db = new();

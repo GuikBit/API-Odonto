@@ -7,16 +7,15 @@ namespace DentistaApi.Models
     {
         public string? NumPasta { get; set; }
 
-        [ForeignKey("PacienteId")]
+        public int EnderecoId { get; set; }
         public Endereco? Endereco { get; set; }
 
-        [ForeignKey("PacienteId")]
+        public int AnamneseId { get; set; }
         public Anamnese? Anamnese { get; set; }
 
-        [ForeignKey("PacienteId")]
+        public int ResponsavelId { get; set; }
         public Responsavel? Responsavel { get; set; }
 
-        [InverseProperty("Paciente")]
         public ICollection<Consulta> Consultas { get; set; } = new List<Consulta>();
 
         public string? FotoPerfil { get; set; }
@@ -24,7 +23,7 @@ namespace DentistaApi.Models
 
         public void SetRole()
         {
-            if (Role == null || Role == "")
+            if (string.IsNullOrEmpty(Role))
             {
                 Role = "Paciente";
             }

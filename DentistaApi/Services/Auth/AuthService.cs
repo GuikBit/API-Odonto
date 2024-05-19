@@ -1,5 +1,6 @@
 using DentistaApi.Data;
 using DentistaApi.Models;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -16,34 +17,41 @@ public class AuthService : IAuthService{
 
     public async Task<IAuthService.IReturn<string>> Login(UserInfo user)
     {
-        User? usuario = FindByUser(user);        
+       User usuario = FindByUser(user);
+
+       // int orgId = usuario.IdOrganizacao.Id;
+
+        int orgId2 = usuario.OrganizacaoId;
 
         if (usuario == null)
             return new Return<string>(EReturnStatus.Error, null,
-                "Login não existe.");
+                "Login não existe.", null);
 
         if (!ValidaSenha(usuario, user))
             return new Return<string>(EReturnStatus.Error, null,
-                "Senha inválida.");
+                "Senha inválida.", null);
 
         string token = GenerateToken(usuario);
 
-        return new Return<string>(EReturnStatus.Success, usuario, token);
+        var organizacao = db.Organizacao.FirstOrDefault(x => x.Id == orgId2);
+
+        return new Return<string>(EReturnStatus.Success, usuario, token, organizacao);
     }
 
-    private  User FindByUser(UserInfo user)
+    private dynamic FindByUser(UserInfo user)
     {
-        User? usuario = db.Pacientes.FirstOrDefault(x => x.Login == user.Login);
+        var paciente = db.Pacientes.FirstOrDefault(x => x.Login == user.Login);
+        var dentista = db.Dentistas.FirstOrDefault(x => x.Login == user.Login);
+        var administrador = db.Administrador.FirstOrDefault(x => x.Login == user.Login);
 
-        if (usuario == null)            
-        {
-            usuario = db.Dentistas.FirstOrDefault(x => x.Login == user.Login);
-        }
-        if (usuario == null)
-        {
-            usuario =  db.Administrador.FirstOrDefault(x => x.Login == user.Login);
-        }        
-        return usuario;
+        if (paciente != null)
+            return paciente;
+        else if (dentista != null)
+            return dentista;
+        else if (administrador != null)
+            return administrador;
+        else
+            return null;
     }
     private bool ValidaSenha(User user, UserInfo userInfo)
     {
@@ -87,17 +95,18 @@ public class AuthService : IAuthService{
     private readonly IConfiguration configuration;
     public class Return<T> : IAuthService.IReturn<T>
     {
-        public Return(EReturnStatus status, User usuario, T result)
+        public Return(EReturnStatus status, User usuario, T result, Organizacao org)
         {
             Status = status;
             Result = result;
             Usuario = usuario;
+            Organizacao = org;
         }
 
         public EReturnStatus Status { get; private set; }
         public T Result { get; private set; }
         public User Usuario { get; private set; }
+        public Organizacao Organizacao { get; private set; }
 
-        
-    }
+}
 }

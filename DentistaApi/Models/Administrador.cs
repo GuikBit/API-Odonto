@@ -1,10 +1,14 @@
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Runtime.CompilerServices;
+
 namespace DentistaApi.Models
 {
     public class Administrador : User
     {
+
         public void SetRole()
         {
-            if (this.Role == null || this.Role == "")
+            if (string.IsNullOrEmpty(Role))
             {
                 this.Role = "Admin";
             }

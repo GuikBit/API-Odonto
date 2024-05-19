@@ -11,9 +11,6 @@ namespace DentistaApi.Models {
         public string? Cpf { get; set; } = "";
         public string? Telefone { get; set; } = "";
 
-        public int PacienteId { get; set; }
-        public Paciente Paciente { get; set; }
-
     }
 
 }

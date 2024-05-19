@@ -7,7 +7,7 @@ namespace DentistaApi.Models {
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int? Id { get; set; }
+        public int Id { get; set; }
         public string Logradouro { get; set; } = "";
         public string Bairro { get; set; } = "";
         public string Cidade { get; set; } = "";
@@ -15,8 +15,7 @@ namespace DentistaApi.Models {
         public string Numero { get; set; } = "";
         public string Complemento { get; set; } = "";
         public string? Referencia { get; set; } = "";
-        public int PacienteId { get; set; }
-        public Paciente Paciente { get; set; }
+
 
     }
 }

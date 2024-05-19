@@ -16,15 +16,43 @@ public class HomeController : ControllerBase
         this.authService = authService;
     }
 
-    [HttpPost("Login")]
+    public class LoginResponse
+    {
+        public object Logado { get; set; }
+        public Organizacao Org { get; set; }
+    }
+    [HttpPost("login")]
     public async Task<IActionResult> Login([FromBody] UserInfo userInfo)
     {
         var UserLogado = await authService.Login(userInfo);
 
+        //var org = await buscaOrganizacao(UserLogado.Usuario.IdOrganizacao.Id);
+
         if (UserLogado.Status == EReturnStatus.Success)
+        {
+            //var response = new LoginResponse
+            //{
+            //    Logado = UserLogado,
+            //    Org = (Organizacao) org
+            //};
             return Ok(UserLogado);
+        }
         else
+        {
             return BadRequest(UserLogado);
+        }
+    }
+
+    private async Task<IActionResult> buscaOrganizacao(int idOrganizacao)
+    {
+        var org = db.Organizacao.FirstOrDefault(x => x.Id == idOrganizacao);
+
+        if(org == null)
+        {
+            return BadRequest();
+        }
+
+        return Ok(org);
     }
 
     [HttpPost("Admin")]
@@ -58,50 +86,7 @@ public class HomeController : ControllerBase
 
     private Paciente SalvaInfo(Paciente obj)
     {
-        // Endereco novoEndereco = new Endereco
-        // {
-        //     Cep = obj.Endereco.Cep,
-        //     Rua = obj.Endereco.Rua,
-        //     Complemento = obj.Endereco.Complemento,
-        //     Bairro = obj.Endereco.Bairro,
-        //     Numero = obj.Endereco.Numero,
-        //     Cidade = obj.Endereco.Cidade
-        // };
-
-
-
-        // Responsavel novoResponsavel = new Responsavel
-        // {
-        //     Cpf = obj.Responsavel.Cpf,
-        //     Nome = obj.Responsavel.Nome,
-        //     Telefone = obj.Responsavel.Telefone
-        // };
-
-        // Anamnese novaAnamnese = new Anamnese
-        // {
-        //     Tratamento = obj.Anamnese.Tratamento,
-        //     Alergia = obj.Anamnese.Alergia,
-        //     Gravida = obj.Anamnese.Gravida,
-        //     SangramentoExcessivo = obj.Anamnese.SangramentoExcessivo,
-        //     Hipertensao = obj.Anamnese.Hipertensao,
-        //     TraumatismoFace = obj.Anamnese.TraumatismoFace,
-        //     Remedio = obj.Anamnese.Remedio
-        // };
-
-        // Paciente novo = new Paciente();
-
-        // novo.Nome = obj.Nome;
-        // novo.Email = obj.Email;
-        // novo.Login = obj.Login;
-        // novo.Senha = obj.Senha;
-        // novo.SetSenhaHash();
-        // novo.Telefone = obj.Telefone;
-        // novo.Cpf = obj.Cpf;
-        // novo.dataNasc = obj.dataNasc;
-        // novo.SetRole();
-        // novo.Endereco = novoEndereco;
-        // novo.Responsavel = novoResponsavel;
-        // novo.Anamnese = novaAnamnese;
+        
 
         Paciente novo = new Paciente();
 
@@ -131,9 +116,36 @@ public class HomeController : ControllerBase
     public ActionResult<Paciente> GetById(int id)
     {
 
-        var paciPaciente = db.Pacientes.FirstOrDefault(x => x.Id == id);
+        var paciPaciente = db.Administrador.FirstOrDefault(x => x.Id == id);
+
 
         return paciPaciente == null ? NotFound() : Ok(paciPaciente);
+    }
+
+
+
+
+
+    [HttpPost("Organizacao")]
+    public ActionResult PostOrganizacao([FromBody] Organizacao novo)
+    {
+        try
+        {
+            if (novo == null)
+            {
+                return BadRequest("Nem uma informacao foi passada");
+            }
+
+            db.Organizacao.Add(novo);
+            db.SaveChanges();
+
+            return Ok();
+
+        }
+        catch (Exception e)
+        {
+            return BadRequest("" + e.Message);
+        }
     }
 
 

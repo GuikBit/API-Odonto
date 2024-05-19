@@ -1,6 +1,9 @@
-﻿namespace DentistaApi.Models.Empresa
+﻿namespace DentistaApi.Models;
+
+public class Funcionario : User
 {
-    public class Funcionario
-    {
-    }
+
+    public int IdCargo { get; set; }
+    public Cargo cargo { get; set; }
+    
 }

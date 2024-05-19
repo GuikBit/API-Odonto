@@ -5,17 +5,18 @@ namespace DentistaApi.Models
     public class Dentista : User
     {
 
-        [InverseProperty("Dentista")]
-        public ICollection<Consulta> Consultas { get; set; } = new List<Consulta>();
+        public ICollection<Consulta>? Consultas { get; set; } = new List<Consulta>();
 
-        [ForeignKey("EspecialidadeId")]
+        public int? EspecialidadeId { get; set; }
         public Especialidade? Especialidade { get; set; }
+        public int? CargoId { get; set; }
+        public Cargo? Cargo { get; set; }
 
         public string CorDentista { get; set; } = "";
 
         public void SetRole()
         {
-            if (Role == null || Role == "")
+            if (string.IsNullOrEmpty(Role))
             {
                 Role = "Dentista";
             }

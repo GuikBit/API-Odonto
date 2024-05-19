@@ -12,7 +12,7 @@ namespace DentistaApi.Controllers;
 public class PacienteController : ControllerBase
 {
     [HttpGet]
-    public ActionResult<IList<Paciente>> Get()
+    public ActionResult<IList<Paciente>> Get(int idOrg)
     {
 
         var paciPacientes = db.Pacientes
@@ -21,6 +21,9 @@ public class PacienteController : ControllerBase
             //.Include(p => p.Anamnese)
             //.Include(p => p.Endereco)
             //.Include(p => p.Responsavel)
+
+            .Where(x=> x.OrganizacaoId == idOrg && x.Ativo)
+
             .OrderBy(p => p.Nome)
             .ToList();
 
@@ -40,9 +43,9 @@ public class PacienteController : ControllerBase
                    .Include(p => p.Responsavel)
                    .FirstOrDefault();
 
-        pacienteCompleto.Endereco.Paciente = null;
-        pacienteCompleto.Anamnese.Paciente = null;
-        pacienteCompleto.Responsavel.Paciente = null;
+        pacienteCompleto.Endereco = null;
+        //pacienteCompleto.Anamnese.Paciente = null;
+        //pacienteCompleto.Responsavel.Paciente = null;
 
         var consultas = db.Consultas
             .Where(x => x.Paciente.Id == id)
@@ -79,14 +82,13 @@ public class PacienteController : ControllerBase
         foreach (var cons in consulta)
         {
             ConsultaDTO c = new ConsultaDTO();
-            c.Id = cons.Id;
 
             c.Observacao = cons.Observacao;
             c.Procedimentos = cons.Procedimentos;
-            c.Dentista = cons.Dentista;
+            //c.Dentista = cons.Dentista;
             c.DataConsulta = cons.DataConsulta;
-            c.Paciente = cons.Paciente;
-            c.Pagamento = cons.Pagamento;
+            //c.Paciente = cons.Paciente;
+            //c.Pagamento = cons.Pagamento;
 
             lista.Add(c);
         }
@@ -97,7 +99,7 @@ public class PacienteController : ControllerBase
     }
 
     [HttpPost]
-    public ActionResult<Paciente> Post(PacienteDTO obj)
+    public ActionResult<Paciente> Post(Paciente obj)
     {
         if (obj == null)
             return BadRequest();
@@ -113,55 +115,14 @@ public class PacienteController : ControllerBase
         novo.NumPasta = obj.NumPasta;
         novo.SetSenhaHash();
         novo.SetRole();
-        SalvarFotoPerfilPaciente(obj.Id, obj.fotoPerfil);
+        //SalvarFotoPerfilPaciente(obj.Id, obj.fotoPerfil);
+        novo.Anamnese = obj.Anamnese;
+        novo.Endereco = obj.Endereco;
+        novo.Responsavel = obj.Responsavel;
+        novo.OrganizacaoId = obj.OrganizacaoId;
 
         db.Pacientes.Add(novo);
-        db.SaveChanges();
-
-        Paciente p = db.Pacientes.OrderByDescending(x => x.Id).FirstOrDefault();
-
-        novo.Id = p.Id;
-
-        Anamnese anamnese = new Anamnese();
-
-        anamnese.Paciente = p;
-        anamnese.PacienteId = (int)p.Id;
-
-        anamnese.ProblemaSaude = obj.Anamnese.ProblemaSaude;
-        anamnese.Tratamento = obj.Anamnese.Tratamento;
-        anamnese.Remedio = obj.Anamnese.Remedio;
-        anamnese.Alergia = obj.Anamnese.Alergia;
-        anamnese.SangramentoExcessivo = obj.Anamnese.SangramentoExcessivo;
-        anamnese.Hipertensao = obj.Anamnese.Hipertensao;
-        anamnese.Gravida = obj.Anamnese.Gravida;
-        anamnese.TraumatismoFace = obj.Anamnese.TraumatismoFace;
-
-        Responsavel resp = new Responsavel();
-        resp.Paciente = p;
-        resp.PacienteId = (int)p.Id;
-
-        resp.Nome = obj.Responsavel.Nome;
-        resp.Cpf = obj.Responsavel.Cpf;
-        resp.Telefone = obj.Responsavel.Telefone;
-
-        Endereco end = new Endereco();
-        end.Paciente = p;
-        end.PacienteId = (int)p.Id;
-
-        end.Cep = obj.Endereco.Cep;
-        end.Logradouro = obj.Endereco.Logradouro;
-        end.Cidade = obj.Endereco.Cidade;
-        end.Bairro = obj.Endereco.Bairro;
-        end.Numero = obj.Endereco.Numero;
-        end.Complemento = obj.Endereco.Complemento;
-        end.Referencia = obj.Endereco.Referencia;
-
-        db.Enderecos.Add(end);
-        db.Responsavel.Add(resp);
-        db.Anamneses.Add(anamnese);
-        db.Pacientes.Update(novo);
-
-        db.SaveChanges();
+        db.SaveChanges();      
 
 
         return Ok();
@@ -174,29 +135,35 @@ public class PacienteController : ControllerBase
         try
         {
             var paciente = db.Pacientes.FirstOrDefault(x => x.Id == id);
-            var pAnamnese = db.Anamneses.FirstOrDefault(x => x.PacienteId == id);
-            var pEndereco = db.Enderecos.FirstOrDefault(x => x.PacienteId == id);
-            var pResponsavel = db.Responsavel.FirstOrDefault(x => x.PacienteId == id);
+            //var pAnamnese = db.Anamnese.FirstOrDefault(x => x. == id);
+            var pEndereco = db.Endereco.FirstOrDefault(x => paciente.Id == id);
+            //var pResponsavel = db.Responsavel.FirstOrDefault(x => x.PacienteId == id);
 
-            if (paciente != null && pAnamnese != null && pEndereco != null && pResponsavel != null && obj.Anamnese != null && obj.Responsavel != null && obj.Endereco != null)
+            if (paciente != null 
+                //&& pAnamnese != null 
+                && pEndereco != null 
+                //&& pResponsavel != null 
+                && obj.Anamnese != null 
+                && obj.Responsavel != null 
+                && obj.Endereco != null)
             {
                 paciente.Nome = obj.Nome;
                 paciente.Email = obj.Email;
                 paciente.Telefone = obj.Telefone;
                 paciente.NumPasta = obj.NumPasta;
 
-                pAnamnese.ProblemaSaude = obj.Anamnese.ProblemaSaude;
-                pAnamnese.Tratamento = obj.Anamnese.Tratamento;
-                pAnamnese.Remedio = obj.Anamnese.Remedio;
-                pAnamnese.Alergia = obj.Anamnese.Alergia;
-                pAnamnese.SangramentoExcessivo = obj.Anamnese.SangramentoExcessivo;
-                pAnamnese.Hipertensao = obj.Anamnese.Hipertensao;
-                pAnamnese.Gravida = obj.Anamnese.Gravida;
-                pAnamnese.TraumatismoFace = obj.Anamnese.TraumatismoFace;
+                //pAnamnese.ProblemaSaude = obj.Anamnese.ProblemaSaude;
+                //pAnamnese.Tratamento = obj.Anamnese.Tratamento;
+                //pAnamnese.Remedio = obj.Anamnese.Remedio;
+                //pAnamnese.Alergia = obj.Anamnese.Alergia;
+                //pAnamnese.SangramentoExcessivo = obj.Anamnese.SangramentoExcessivo;
+                //pAnamnese.Hipertensao = obj.Anamnese.Hipertensao;
+                //pAnamnese.Gravida = obj.Anamnese.Gravida;
+                //pAnamnese.TraumatismoFace = obj.Anamnese.TraumatismoFace;
 
-                pResponsavel.Nome = obj.Responsavel.Nome;
-                pResponsavel.Cpf = obj.Responsavel.Cpf;
-                pResponsavel.Telefone = obj.Responsavel.Telefone;
+                //pResponsavel.Nome = obj.Responsavel.Nome;
+                //pResponsavel.Cpf = obj.Responsavel.Cpf;
+                //pResponsavel.Telefone = obj.Responsavel.Telefone;
 
                 pEndereco.Cep = obj.Endereco.Cep;
                 pEndereco.Logradouro = obj.Endereco.Logradouro;
@@ -208,9 +175,9 @@ public class PacienteController : ControllerBase
 
 
                 db.Pacientes.Update(paciente);
-                db.Anamneses.Update(pAnamnese);
-                db.Enderecos.Update(pEndereco);
-                db.Responsavel.Update(pResponsavel);
+               // db.Anamnese.Update(pAnamnese);
+                db.Endereco.Update(pEndereco);
+//                db.Responsavel.Update(pResponsavel);
 
                 db.SaveChanges();
                 return NoContent();

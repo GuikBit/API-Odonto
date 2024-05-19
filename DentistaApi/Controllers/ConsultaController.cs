@@ -1,10 +1,11 @@
 using DentistaApi.Data;
-using DentistaApi.Migrations;
 using DentistaApi.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Globalization;
+using static Org.BouncyCastle.Asn1.Cmp.Challenge;
 
 namespace DentistaApi.Controllers;
 [Authorize]
@@ -116,9 +117,21 @@ public class ConsultaController : ControllerBase
 
         try
         {
-            var dentista = db.Dentistas.First(x => x.Id == obj.Dentista.Id);
-            var paciente = db.Pacientes.First(x => x.Id == obj.Paciente.Id);
-            var consEspec = db.ConsultaEspecialidades.First(x => x.Id == obj.ConsultaEspecialidade.Id);
+            //Random random = new Random();
+
+            //int randDentista = random.Next(4, 9);
+
+            //int randPaciente = random.Next(10, 26);
+
+            //int randonDia = random.Next(1, 30);
+
+            //int randHora = random.Next(8, 18);
+
+            //int randTempo = random.Next(1, 4);
+
+            var dentista = db.Dentistas.First(x => x.Id == obj.dentistaId);
+            var paciente = db.Pacientes.First(x => x.Id == obj.pacienteId);
+            var consEspec = db.ConsultaEspecialidades.First(x => x.Id == obj.ConsultaEspecialidadeId);
 
             Consulta nova = new Consulta();
             nova.Paciente = paciente;
@@ -127,17 +140,21 @@ public class ConsultaController : ControllerBase
 
             nova.Observacao = obj.Observacao;
             nova.Procedimentos = obj.Procedimentos;
+            //DateTime dateTime = DateTime.Parse("2024-01-"+ randonDia.ToString() +"T11:00:00.000Z"); randHora.ToString()+":00"
+
             nova.DataConsulta = ajustaDataConsulta(obj.DataConsulta, obj.HoraConsulta);
+
             nova.TempoPrevisto = obj.TempoPrevisto;
-            nova.setTempoPrevisto(obj.TempoPrevisto);  
+            nova.setTempoPrevisto(obj.TempoPrevisto);
+            nova.CorDentista = dentista.CorDentista;
 
             nova.Pagamento = new Pagamento();
             Parcela novo = new Parcela();
 
             novo.ValorParcela = nova.ConsultaEspecialidade.ValorBase;
-            DateTime dateTime = nova.DataConsulta;
+            DateTime date = nova.DataConsulta;
 
-            //novo.DataVencimento = dateTime.AddDays(7);
+            novo.DataVencimento = date.AddDays(7);
 
             nova.Pagamento.Parcelas.Add(novo);
 

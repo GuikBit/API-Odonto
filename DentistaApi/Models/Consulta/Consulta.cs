@@ -18,15 +18,16 @@ public class Consulta
     public DateTime? DataHoraFimAtendimento { get; set; }
     public Boolean Ausente { get; set; } = false;
 
-    [ForeignKey("PacienteId")]
+    public int PacienteId { get; set; }
     public Paciente Paciente { get; set; }
 
-    [ForeignKey("DentistaId")]
+    public int? DentistaId { get; set; }
     public Dentista Dentista { get; set; }
 
-    [ForeignKey("PagamentoId")]
+    public int? PagamentoId { get; set; }
     public Pagamento Pagamento { get; set; }
     public string CorDentista { get; set; }
+    public int? ConsultaEspecialidadeId { get; set; }
     public ConsultaEspecialidade ConsultaEspecialidade { get; set; }
 
 
