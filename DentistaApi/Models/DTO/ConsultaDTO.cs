@@ -7,15 +7,14 @@ namespace DentistaApi.Models
     {
 
         public string Observacao { get; set; } = "";
-        public string Procedimentos { get; set; } = "";
+        public string? Procedimentos { get; set; }
         public DateTime DataConsulta { get; set; }
         public string HoraConsulta { get; set; }
-
         public int TempoPrevisto { get; set; }
-
         public bool Ausente { get; set; } = false;
-
-        public int pacienteId { get; set; }
+        public string? NomePaciente { get; set; }
+        public string? Telefone { get; set; }
+        public int? pacienteId { get; set; }
       // public Paciente Paciente { get; set; }
 
        public int dentistaId { get; set; }

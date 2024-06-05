@@ -10,20 +10,19 @@ public class Consulta
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int? Id { get; set; }
     public string Observacao { get; set; } = "";
-    public string Procedimentos { get; set; } = "";
+    public string? Procedimentos { get; set; }
     public DateTime DataConsulta { get; set; }
     public DateTime? DataConsultaReserva { get; set; }
     public int TempoPrevisto { get; set; }
     public DateTime? DataHoraInicioAtendimento { get; set; }
     public DateTime? DataHoraFimAtendimento { get; set; }
-    public Boolean Ausente { get; set; } = false;
-
-    public int PacienteId { get; set; }
-    public Paciente Paciente { get; set; }
-
+    public bool Ausente { get; set; } = false;
+    public int? PacienteId { get; set; }
+    public Paciente? Paciente { get; set; }
+    public string? NomePaciente { get; set; } 
+    public string? Telefone { get; set; }
     public int? DentistaId { get; set; }
     public Dentista Dentista { get; set; }
-
     public int? PagamentoId { get; set; }
     public Pagamento Pagamento { get; set; }
     public string CorDentista { get; set; }

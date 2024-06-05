@@ -13,6 +13,12 @@ namespace DentistaApi.Controllers;
 [Route("v1/[controller]")]
 public class ConsultaController : ControllerBase
 {
+    public class ProcedimentoRequest
+    {
+        public int Id { get; set; }
+        public string Procedimentos { get; set; }
+    }
+
     [HttpGet]
     public ActionResult<IList<Consulta>> Get()
     {
@@ -29,8 +35,15 @@ public class ConsultaController : ControllerBase
     }
     private IList<Consulta> ajustaConsultas(List<Consulta> consultas)
     {
-        consultas.ToList().ForEach(p => p.Paciente.Consultas.Clear());
-        consultas.ToList().ForEach(p => p.Dentista.Consultas.Clear());
+        foreach (var consulta in consultas)
+        {
+            if (consulta.NomePaciente == null)
+            {
+                consulta.Paciente.Consultas.Clear();
+            }
+
+            consulta.Dentista.Consultas.Clear();
+        }
 
         return consultas;
     }
@@ -99,14 +112,27 @@ public class ConsultaController : ControllerBase
 
         var consulta = db.Consultas
             .Include(p => p.Dentista)
-            .Include(p => p.Paciente)
             .Include(p => p.Pagamento)
             .Include(p => p.Pagamento.Parcelas)
             .Include(p => p.ConsultaEspecialidade)
             .FirstOrDefault(p => p.Id == id);
 
-        consulta.Paciente.Consultas.Clear();
         consulta.Dentista.Consultas.Clear();
+
+        if (consulta != null && consulta.NomePaciente == null)
+        {
+            var consultaP = db.Consultas
+            .Include(p => p.Dentista)
+            .Include(p => p.Pagamento)
+            .Include(p => p.Paciente)
+            .Include(p => p.Pagamento.Parcelas)
+            .Include(p => p.ConsultaEspecialidade)
+            .FirstOrDefault(p => p.Id == id);
+            
+            consulta.Paciente.Consultas.Clear();
+            
+            consulta = consultaP;
+        }
 
         return consulta == null ? NotFound() : Ok(consulta);
     }
@@ -129,12 +155,24 @@ public class ConsultaController : ControllerBase
 
             //int randTempo = random.Next(1, 4);
 
-            var dentista = db.Dentistas.First(x => x.Id == obj.dentistaId);
-            var paciente = db.Pacientes.First(x => x.Id == obj.pacienteId);
+            Consulta nova = new Consulta();
+
+            if (obj.pacienteId != null)
+            {
+                var paciente = db.Pacientes.First(x => x.Id == obj.pacienteId);
+                nova.Paciente = paciente;
+            }
+            else
+            {
+                nova.NomePaciente = obj.NomePaciente;
+                nova.Telefone = obj.Telefone;
+            }
+
+            var dentista = db.Dentistas.First(x => x.Id == obj.dentistaId);            
             var consEspec = db.ConsultaEspecialidades.First(x => x.Id == obj.ConsultaEspecialidadeId);
 
-            Consulta nova = new Consulta();
-            nova.Paciente = paciente;
+            //Consulta nova = new Consulta();
+            
             nova.Dentista = dentista;
             nova.ConsultaEspecialidade = consEspec;
 
@@ -153,11 +191,8 @@ public class ConsultaController : ControllerBase
 
             novo.ValorParcela = nova.ConsultaEspecialidade.ValorBase;
             DateTime date = nova.DataConsulta;
-
             novo.DataVencimento = date.AddDays(7);
-
             nova.Pagamento.Parcelas.Add(novo);
-
 
             db.Consultas.Add(nova);
             db.SaveChanges();
@@ -291,27 +326,26 @@ public class ConsultaController : ControllerBase
     }
 
 
-    [HttpPost]
-    [Route("/v1/consulta/procedimento")]
-    public ActionResult PostProcedimento(Consulta novo)
+    [HttpPatch]
+    [Route("procedimento")]
+    public ActionResult PostProcedimento([FromBody] ProcedimentoRequest request)
     {
         try
         {
-            var consulta = db.Consultas.FirstOrDefault(c => c.Id == novo.Id);
-            if(consulta == null)
+            var consulta = db.Consultas.FirstOrDefault(c => c.Id == request.Id);
+            if (consulta == null)
             {
-                return BadRequest();
+                return BadRequest("Consulta não encontrada.");
             }
-            consulta.Procedimentos = novo.Procedimentos;
+            consulta.Procedimentos = request.Procedimentos;
             consulta.setFinalizarConsulta();
             db.SaveChanges();
 
-            return NoContent();            
-
+            return Ok();
         }
-        catch(Exception e)
+        catch (Exception e)
         {
-            return BadRequest();
+            return BadRequest(e.Message);
         }
     }
 
@@ -504,6 +538,7 @@ public class ConsultaController : ControllerBase
         return Ok();
     }
    
+
     
     private readonly AppDbContext db = new();
 

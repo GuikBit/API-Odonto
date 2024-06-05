@@ -15,7 +15,7 @@ namespace DentistaApi.Models {
         public int qtdParcela { get; set; }
         public bool Pago { get; set; }
         public bool FatFechado { get; set; }
-        public ICollection<Parcela> Parcelas { get; set; } = new List<Parcela>();
+        public  ICollection<Parcela> Parcelas { get; set; } = new List<Parcela>();
 
     }
 }

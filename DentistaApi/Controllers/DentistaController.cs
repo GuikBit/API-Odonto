@@ -28,7 +28,7 @@ public class DentistaController : ControllerBase
     {
         try{
             var dentDentista = db.Dentistas
-            .Where(d => d.Id == id && d.OrganizacaoId == idOrg && d.Ativo)
+            .Where(d => d.Id == id && d.OrganizacaoId == idOrg)
             .Include(x => x.Especialidade)
             .Include (x => x.IdOrganizacao)
             .FirstOrDefault();
