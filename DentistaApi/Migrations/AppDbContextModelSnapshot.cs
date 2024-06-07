@@ -198,7 +198,6 @@ namespace DentistaApi.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Procedimentos")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("Telefone")
@@ -259,6 +258,10 @@ namespace DentistaApi.Migrations
 
                     b.Property<bool>("Ativo")
                         .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("CRO")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.Property<int?>("CargoId")
                         .HasColumnType("int");

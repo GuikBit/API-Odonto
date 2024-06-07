@@ -7,6 +7,14 @@
       "RelativeMoniker": "D:0:0:{1BD5CF94-4307-4AB2-807C-0A5412EC96B4}|DentistaApi\\DentistaApi.csproj|solutionrelative:dentistaapi\\controllers\\dentistacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{1BD5CF94-4307-4AB2-807C-0A5412EC96B4}|DentistaApi\\DentistaApi.csproj|c:\\users\\guilherme\\desktop\\myrepo\\github\\odontoapi\\dentistaapi\\migrations\\20240606232453_ajuste.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1BD5CF94-4307-4AB2-807C-0A5412EC96B4}|DentistaApi\\DentistaApi.csproj|solutionrelative:dentistaapi\\migrations\\20240606232453_ajuste.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1BD5CF94-4307-4AB2-807C-0A5412EC96B4}|DentistaApi\\DentistaApi.csproj|c:\\users\\guilherme\\desktop\\myrepo\\github\\odontoapi\\dentistaapi\\models\\dentista\\dentista.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1BD5CF94-4307-4AB2-807C-0A5412EC96B4}|DentistaApi\\DentistaApi.csproj|solutionrelative:dentistaapi\\models\\dentista\\dentista.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{1BD5CF94-4307-4AB2-807C-0A5412EC96B4}|DentistaApi\\DentistaApi.csproj|c:\\users\\guilherme\\desktop\\myrepo\\github\\odontoapi\\dentistaapi\\controllers\\consultacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{1BD5CF94-4307-4AB2-807C-0A5412EC96B4}|DentistaApi\\DentistaApi.csproj|solutionrelative:dentistaapi\\controllers\\consultacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -17,10 +25,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{1BD5CF94-4307-4AB2-807C-0A5412EC96B4}|DentistaApi\\DentistaApi.csproj|c:\\users\\guilherme\\desktop\\myrepo\\github\\odontoapi\\dentistaapi\\models\\consulta\\pagamento.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{1BD5CF94-4307-4AB2-807C-0A5412EC96B4}|DentistaApi\\DentistaApi.csproj|solutionrelative:dentistaapi\\models\\consulta\\pagamento.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1BD5CF94-4307-4AB2-807C-0A5412EC96B4}|DentistaApi\\DentistaApi.csproj|c:\\users\\guilherme\\desktop\\myrepo\\github\\odontoapi\\dentistaapi\\models\\dentista\\dentista.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1BD5CF94-4307-4AB2-807C-0A5412EC96B4}|DentistaApi\\DentistaApi.csproj|solutionrelative:dentistaapi\\models\\dentista\\dentista.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{1BD5CF94-4307-4AB2-807C-0A5412EC96B4}|DentistaApi\\DentistaApi.csproj|c:\\users\\guilherme\\desktop\\myrepo\\github\\odontoapi\\dentistaapi\\models\\consulta\\consulta.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -50,8 +54,21 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "20240606232453_Ajuste.cs",
+              "DocumentMoniker": "C:\\Users\\Guilherme\\Desktop\\MyRepo\\GitHub\\OdontoAPI\\DentistaApi\\Migrations\\20240606232453_Ajuste.cs",
+              "RelativeDocumentMoniker": "DentistaApi\\Migrations\\20240606232453_Ajuste.cs",
+              "ToolTip": "C:\\Users\\Guilherme\\Desktop\\MyRepo\\GitHub\\OdontoAPI\\DentistaApi\\Migrations\\20240606232453_Ajuste.cs",
+              "RelativeToolTip": "DentistaApi\\Migrations\\20240606232453_Ajuste.cs",
+              "ViewState": "AQIAAA0AAAAAAAAAAAAgwAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-06T23:26:23.461Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Document",
               "DocumentIndex": 0,
@@ -60,14 +77,14 @@
               "RelativeDocumentMoniker": "DentistaApi\\Controllers\\DentistaController.cs",
               "ToolTip": "C:\\Users\\Guilherme\\Desktop\\MyRepo\\GitHub\\OdontoAPI\\DentistaApi\\Controllers\\DentistaController.cs",
               "RelativeToolTip": "DentistaApi\\Controllers\\DentistaController.cs",
-              "ViewState": "AQIAAA4AAAAAAAAAAAAQwB4AAAAJAAAA",
+              "ViewState": "AQIAAOkAAAAAAAAAAAAswEwAAAAaAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-05-30T23:52:57.945Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 5,
               "Title": "Pagamento.cs",
               "DocumentMoniker": "C:\\Users\\Guilherme\\Desktop\\MyRepo\\GitHub\\OdontoAPI\\DentistaApi\\Models\\Consulta\\Pagamento.cs",
               "RelativeDocumentMoniker": "DentistaApi\\Models\\Consulta\\Pagamento.cs",
@@ -79,7 +96,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 8,
               "Title": "EnderecoDTO.cs",
               "DocumentMoniker": "C:\\Users\\Guilherme\\Desktop\\MyRepo\\GitHub\\OdontoAPI\\DentistaApi\\Models\\DTO\\EnderecoDTO.cs",
               "RelativeDocumentMoniker": "DentistaApi\\Models\\DTO\\EnderecoDTO.cs",
@@ -91,7 +108,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 2,
               "Title": "Dentista.cs",
               "DocumentMoniker": "C:\\Users\\Guilherme\\Desktop\\MyRepo\\GitHub\\OdontoAPI\\DentistaApi\\Models\\Dentista\\Dentista.cs",
               "RelativeDocumentMoniker": "DentistaApi\\Models\\Dentista\\Dentista.cs",
@@ -99,11 +116,12 @@
               "RelativeToolTip": "DentistaApi\\Models\\Dentista\\Dentista.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAABVAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-30T21:27:15.228Z"
+              "WhenOpened": "2024-05-30T21:27:15.228Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
               "Title": "Orcamentos.cs",
               "DocumentMoniker": "C:\\Users\\Guilherme\\Desktop\\MyRepo\\GitHub\\OdontoAPI\\DentistaApi\\Models\\Dentista\\Orcamentos.cs",
               "RelativeDocumentMoniker": "DentistaApi\\Models\\Dentista\\Orcamentos.cs",
@@ -115,7 +133,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 9,
               "Title": "DashBordController.cs",
               "DocumentMoniker": "C:\\Users\\Guilherme\\Desktop\\MyRepo\\GitHub\\OdontoAPI\\DentistaApi\\Controllers\\DashBordController.cs",
               "RelativeDocumentMoniker": "DentistaApi\\Controllers\\DashBordController.cs",
@@ -127,7 +145,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 10,
               "Title": "20240525233608_ConsultaRapida.cs",
               "DocumentMoniker": "C:\\Users\\Guilherme\\Desktop\\MyRepo\\GitHub\\OdontoAPI\\DentistaApi\\Migrations\\20240525233608_ConsultaRapida.cs",
               "RelativeDocumentMoniker": "DentistaApi\\Migrations\\20240525233608_ConsultaRapida.cs",
@@ -139,7 +157,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "Consulta.cs",
               "DocumentMoniker": "C:\\Users\\Guilherme\\Desktop\\MyRepo\\GitHub\\OdontoAPI\\DentistaApi\\Models\\Consulta\\Consulta.cs",
               "RelativeDocumentMoniker": "DentistaApi\\Models\\Consulta\\Consulta.cs",
@@ -151,7 +169,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "ConsultaController.cs",
               "DocumentMoniker": "C:\\Users\\Guilherme\\Desktop\\MyRepo\\GitHub\\OdontoAPI\\DentistaApi\\Controllers\\ConsultaController.cs",
               "RelativeDocumentMoniker": "DentistaApi\\Controllers\\ConsultaController.cs",
@@ -163,7 +181,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "ConsultaDTO.cs",
               "DocumentMoniker": "C:\\Users\\Guilherme\\Desktop\\MyRepo\\GitHub\\OdontoAPI\\DentistaApi\\Models\\DTO\\ConsultaDTO.cs",
               "RelativeDocumentMoniker": "DentistaApi\\Models\\DTO\\ConsultaDTO.cs",

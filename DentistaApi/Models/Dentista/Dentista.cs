@@ -6,7 +6,7 @@ namespace DentistaApi.Models
     {
 
         public ICollection<Consulta>? Consultas { get; set; } = new List<Consulta>();
-
+        public string CRO { get; set; }
         public int? EspecialidadeId { get; set; }
         public Especialidade? Especialidade { get; set; }
         public int? CargoId { get; set; }

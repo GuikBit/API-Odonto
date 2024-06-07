@@ -75,6 +75,7 @@ public class DentistaController : ControllerBase
             Senha   = obj.Senha,
             Telefone = obj.Telefone,
             Cpf = obj.Cpf,
+            CRO = obj.CRO,
             DataNascimento = obj.DataNascimento,
             Especialidade = espec,
             CorDentista = obj.CorDentista,
