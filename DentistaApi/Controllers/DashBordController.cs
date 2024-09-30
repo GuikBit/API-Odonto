@@ -9,87 +9,144 @@ using static DentistaApi.Models.Dashbords;
 
 namespace DentistaApi.Controllers;
 
+public class IFiltro
+{
+    public DateTime? DtInicio { get; set; }
+    public DateTime? DtFim { get; set; }
+    public int? DentistaId { get; set; }
+    public int? ProcedimentosId { get; set; }
+    public int? EspecialidadeId { get; set; }
+
+}
+
+
 [Authorize]
 [ApiController]
 [Route("v1/[controller]")]
 public class DashBordController : Controller
 {
-    [HttpGet]
-    public IActionResult Dashbords()
+    [HttpPost]
+    public IActionResult Dashbords([FromQuery] IFiltro filtros)
     {
         try
-        {
+        { 
             var dentistas = db.Dentistas.Where(d => d.Ativo).Include(d => d.Especialidade).Include(d => d.Consultas).ToList();
             dentistas.ForEach(d => { d.Consultas = null; });
 
             var procedimentos = db.ConsultaEspecialidades.ToList();
-            
+
             var especialidades = db.Especialidades.ToList();
             var consultas = db.Consultas.Include(c => c.Pagamento).Include(c => c.ConsultaEspecialidade).ToList();
             var espec = db.Especialidades.ToList();
 
             var atual = DateTime.Now;
-            //Dashbords dashbords = new()
-            //{
-            //    dentistasList = dentistas.ToList(),
-            //    procedimentos = procedimentos.ToList(),
-            //    especialidades = especialidades.ToList(),
-            //    pacientes = RetornaPacientes(),
-            //    meses = RetornaMeses(),
-            //    qtdPorMes = TotalConsultas(consultas),
-            //    dentistas = Dentistas(dentistas),
-            //    qtdPorDentista = TotalConsultasPorDentista(consultas, dentistas),
-            //    espec = Especialidades(espec),
-            //    qtdPorEspec = TotalPorEspec(consultas, espec)
 
-            //};
 
-            Dashbords dashbords = new Dashbords();
-            dashbords.Meses = RetornaMeses();
-            dashbords.QtdMes = TotalConsultas(consultas, atual);
-            dashbords.QtdPacienteMes = TotalPacientesMes(atual);
-            dashbords.QtdAtrasoMes = TotalAtrazoMes(consultas, atual);
-            dashbords.QtdFaturamentoMes = TotalFaturadoMes(consultas, atual);
-            dashbords.QtdProcedimentos = TotalProcedimentosMes(consultas, atual);
-            dashbords.QtdConsultasDentistaMes = TotalConsultasPorDentista(consultas, dentistas);
-            dashbords.QtdEspecialidade = TotalPorEspec(consultas, espec);
+            //Dashbords dashbords = new Dashbords();
 
-            dashbords.DentistasList = dentistas;
-            dashbords.Procedimentos = procedimentos;
-            dashbords.Especialidades = espec;
+            //dashbords.Meses = RetornaMeses();
+            //dashbords.QtdMes = TotalConsultas(consultas, atual);
+            //dashbords.QtdPacienteMes = TotalPacientesMes(atual);
+            //dashbords.QtdAtrasoMes = TotalAtrazoMes(consultas, atual);
+            //dashbords.QtdFaturamentoMes = TotalFaturadoMes(consultas, atual);
+            //dashbords.QtdProcedimentos = TotalProcedimentosMes(consultas, atual);
+            //dashbords.QtdConsultasDentistaMes = TotalConsultasPorDentista(consultas, dentistas);
+            //dashbords.QtdEspecialidade = TotalPorEspec(consultas, espec);
 
-         
+            //dashbords.DentistasList = dentistas;
+            //dashbords.Procedimentos = procedimentos;
+            //dashbords.Especialidades = espec;
+
+            Dashbords dashbords = new Dashbords
+            {
+                Meses = RetornaMeses(),
+                QtdMes = TotalConsultas(consultas, atual),
+                QtdPacienteMes = TotalPacientesMes(atual),
+                QtdAtrasoMes = TotalAtrazoMes(consultas, atual),
+                QtdFaturamentoMes = TotalFaturadoMes(consultas, atual),
+                QtdProcedimentos = TotalProcedimentosMes(consultas, atual),
+                QtdConsultasDentistaMes = TotalConsultasPorDentista(consultas, dentistas),
+                QtdEspecialidade = TotalPorEspec(consultas, especialidades),
+                
+                DentistasList = dentistas,
+                Procedimentos = procedimentos,
+                Especialidades = especialidades
+            };
 
 
             return Ok(dashbords);
         }
         catch (Exception ex)
         {
-            
+
             return StatusCode(500, $"Erro interno: {ex.Message}");
         }
+        //try
+        //{
+        //    var consultasQuery = db.Consultas
+        //        .Include(c => c.Pagamento)
+        //        .Include(c => c.ConsultaEspecialidade)
+        //        .AsQueryable();
+
+        //    // Aplicação dos filtros
+        //    if (filtros.Dentista != null)
+        //    {
+        //        consultasQuery = consultasQuery.Where(c => c.Dentista.Id == filtros.Dentista.Id);
+        //    }
+
+
+        //    if (filtros.Procedimentos != null)
+        //    {
+        //        consultasQuery = consultasQuery.Where(c => c.ConsultaEspecialidade.Id == filtros.Procedimentos.Id);
+        //    }
+
+        //    if (filtros.Especialidade != null)
+        //    {
+        //        consultasQuery = consultasQuery.Where(c => c.Dentista.Especialidade.Id == filtros.Especialidade.Id);
+        //    }
+
+        //    if (filtros.DtInicio != DateTime.MinValue && filtros.DtFim != DateTime.MinValue)
+        //    {
+        //        consultasQuery = consultasQuery.Where(c => c.DataConsulta >= filtros.DtInicio && c.DataConsulta <= filtros.DtFim);
+        //    }
+        //    else
+        //    {
+
+        //    }
+
+        //    var consultas = consultasQuery.ToList();
+
+        //    var dentistas = db.Dentistas.Where(d => d.Ativo).Include(d => d.Especialidade).Include(d => d.Consultas).ToList();
+        //    dentistas.ForEach(d => { d.Consultas = null; });
+
+        //    var procedimentos = db.ConsultaEspecialidades.ToList();
+        //    var especialidades = db.Especialidades.ToList();
+
+        //    var atual = DateTime.Now;
+
+        //    Dashbords dashbords = new Dashbords
+        //    {
+        //        Meses = RetornaMeses(),
+        //        QtdMes = TotalConsultas(consultas, atual),
+        //        QtdPacienteMes = TotalPacientesMes(atual),
+        //        QtdAtrasoMes = TotalAtrazoMes(consultas, atual),
+        //        QtdFaturamentoMes = TotalFaturadoMes(consultas, atual),
+        //        QtdProcedimentos = TotalProcedimentosMes(consultas, atual),
+        //        QtdConsultasDentistaMes = TotalConsultasPorDentista(consultas, dentistas),
+        //        QtdEspecialidade = TotalPorEspec(consultas, especialidades),
+        //        DentistasList = dentistas,
+        //        Procedimentos = procedimentos,
+        //        Especialidades = especialidades
+        //    };
+
+        //    return Ok(dashbords);
+        //}
+        //catch (Exception ex)
+        //{
+        //    return StatusCode(500, $"Erro interno: {ex.Message}");
+        //}
+
     }
-
-    //private List<int> TotalProcedimentosMes(List<Consulta> consultas, DateTime atual)
-    //{
-    //    var espec = db.ConsultaEspecialidades.ToList();
-
-    //    List<int> consultasPorEspecialidade = new List<int>();
-
-    //    foreach (var especialidade in espec)
-    //    {
-
-    //        string primeiroTermo = especialidade.Tipo.Split(new[] { " - " }, StringSplitOptions.RemoveEmptyEntries)[0];
-
-    //        int quantidadeConsultas = consultas.Count(c =>
-    //            c.ConsultaEspecialidade.Tipo.StartsWith(primeiroTermo)
-    //        );
-
-    //        consultasPorEspecialidade.Add(quantidadeConsultas);
-    //    }
-
-    //    return consultasPorEspecialidade;
-    //}
 
     private List<EspecialidadeConsultaDTO> TotalProcedimentosMes(List<Consulta> consultas, DateTime atual)
     {
@@ -110,11 +167,6 @@ public class DashBordController : Controller
 
         return consultasPorEspecialidade;
     }
-
-
-
-
-
 
     private List<double> TotalFaturadoMes(List<Consulta> consultas, DateTime atual)
     {
@@ -262,70 +314,27 @@ public class DashBordController : Controller
         return (string[])nomes;
     }
 
-    //private int[] TotalConsultasPorDentista(List<Consulta> consultas, List<Dentista> dentistas)
-    //{
-
-    //     var total = dentistas.Select(dentista => consultas.Count(c => c.Dentista.Id == dentista.Id)).ToArray();
-
-    //    return (int[])total;
-    //}
-    //private int[] TotalConsultasPorDentista(List<Consulta> consultas, List<Dentista> dentistas)
-    //{
-    //    // Obtém a data atual
-    //    DateTime dataAtual = DateTime.Now;
-
-    //    // Inicializa o vetor bidimensional para armazenar os totais mensais
-    //    int[] resultados = new int[6];
-
-    //    // Itera sobre os últimos 6 meses
-    //    for (int i = 0; i < 6; i++)
-    //    {
-    //        DateTime dataReferencia = dataAtual.AddMonths(-i);
-
-    //        // Filtra as consultas para o mês atual
-    //        var consultasMensais = consultas
-    //            .Where(c => c.DataConsulta.Month == dataReferencia.Month && c.DataConsulta.Year == dataReferencia.Year)
-    //            .ToList();
-
-    //        // Para cada dentista, calcula o total de consultas no mês
-    //        for (int j = 0; j < dentistas.Count; j++)
-    //        {
-    //            Dentista dentista = dentistas[j];
-    //            resultados[i] = consultasMensais.Count(c => c.Dentista.Id == dentista.Id);
-    //        }
-    //    }
-
-    //    return resultados;
-    //}
     private List<List<int>> TotalConsultasPorDentista(List<Consulta> consultas, List<Dentista> dentistas)
     {
-        // Obtém a data atual
         DateTime dataAtual = DateTime.Now;
 
-        // Inicializa a lista de listas para armazenar os totais mensais por dentista
         List<List<int>> resultados = new List<List<int>>();
 
-        // Itera sobre os últimos 6 meses
         for (int i = 0; i < 6; i++)
         {
             DateTime dataReferencia = dataAtual.AddMonths(-i + 1);
 
-            // Filtra as consultas para o mês atual
             var consultasMensais = consultas
                 .Where(c => c.DataConsulta.Month == dataReferencia.Month && c.DataConsulta.Year == dataReferencia.Year)
                 .ToList();
 
-            // Inicializa a lista de resultados para o mês atual
             List<int> resultadosDoMes = new List<int>();
 
-            // Para cada dentista, calcula o total de consultas no mês
             foreach (var dentista in dentistas)
             {
                 int totalConsultas = consultasMensais.Count(c => c.Dentista.Id == dentista.Id);
                 resultadosDoMes.Add(totalConsultas);
             }
-
-            // Adiciona a lista de resultados do mês atual à lista de listas de resultados
             resultados.Add(resultadosDoMes);
         }
 
@@ -338,13 +347,10 @@ public class DashBordController : Controller
     {
         List<int> totalPorEspec = new List<int>();
 
-        // Itera sobre todas as especialidades
         foreach (var espec in especs)
         {
-            // Calcula o total de consultas para a especialidade atual
             int totalConsultasEspec = consultas.Count(c => c.Dentista.Especialidade.Id == espec.Id);
 
-            // Adiciona o total de consultas ao resultado
             totalPorEspec.Add(totalConsultasEspec);
         }
 

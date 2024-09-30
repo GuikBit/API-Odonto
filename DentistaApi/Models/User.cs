@@ -9,15 +9,15 @@ namespace DentistaApi.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        [Required]        
+        [Required]
         public string Nome { get; set; } = "";
-        [Required]        
+        [Required]
         public string Email { get; set; } = "";
-        [Required]        
+        [Required]
         public string Login { get; set; } = "";
-        [Required]       
+        [Required]
         public string Senha { get; set; } = "";
-        [Required]        
+        [Required]
         public string Telefone { get; set; } = "";
         [Required]
         public string Cpf { get; set; } = "";
@@ -35,6 +35,7 @@ namespace DentistaApi.Models
             Senha = Senha.GerarHash();
         }
 
-       
+
     }
+
 }

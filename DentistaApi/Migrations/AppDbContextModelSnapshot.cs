@@ -130,18 +130,25 @@ namespace DentistaApi.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<string>("HrSemanais")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
                     b.Property<int>("IdUserUpdade")
                         .HasColumnType("int");
 
-                    b.Property<string>("Nome")
-                        .IsRequired()
-                        .HasColumnType("longtext");
+                    b.Property<int>("IdUsercriacao")
+                        .HasColumnType("int");
 
                     b.Property<int>("OrganizacaoId")
                         .HasColumnType("int");
 
                     b.Property<double>("Salario")
                         .HasColumnType("double");
+
+                    b.Property<string>("Titulo")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.HasKey("Id");
 
@@ -319,6 +326,27 @@ namespace DentistaApi.Migrations
                     b.HasIndex("OrganizacaoId");
 
                     b.ToTable("Dentistas");
+                });
+
+            modelBuilder.Entity("DentistaApi.Models.DetalhePedido", b =>
+                {
+                    b.Property<int>("PedidoId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProdutoId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Preco")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("Quantidade")
+                        .HasColumnType("int");
+
+                    b.HasKey("PedidoId", "ProdutoId");
+
+                    b.HasIndex("ProdutoId");
+
+                    b.ToTable("DetalhePedido");
                 });
 
             modelBuilder.Entity("DentistaApi.Models.Endereco", b =>
@@ -614,6 +642,70 @@ namespace DentistaApi.Migrations
                     b.ToTable("Parcela");
                 });
 
+            modelBuilder.Entity("DentistaApi.Models.Pedido", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DtCriacao")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime>("DtPedido")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime>("DtUpdate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<decimal>("ValorTotal")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Pedido");
+                });
+
+            modelBuilder.Entity("DentistaApi.Models.Produto", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("CategoriaId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Descricao")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime>("DtCriacao")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime>("DtUpdate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("FornecedorId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<decimal>("Preco")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("Quantidade")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Produto");
+                });
+
             modelBuilder.Entity("DentistaApi.Models.Responsavel", b =>
                 {
                     b.Property<int?>("Id")
@@ -839,13 +931,11 @@ namespace DentistaApi.Migrations
 
             modelBuilder.Entity("DentistaApi.Models.Cargo", b =>
                 {
-                    b.HasOne("DentistaApi.Models.Organizacao", "IdOrganizacao")
+                    b.HasOne("DentistaApi.Models.Organizacao", null)
                         .WithMany("Cargos")
                         .HasForeignKey("OrganizacaoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("IdOrganizacao");
                 });
 
             modelBuilder.Entity("DentistaApi.Models.Consulta", b =>
@@ -900,6 +990,25 @@ namespace DentistaApi.Migrations
                     b.Navigation("Especialidade");
 
                     b.Navigation("IdOrganizacao");
+                });
+
+            modelBuilder.Entity("DentistaApi.Models.DetalhePedido", b =>
+                {
+                    b.HasOne("DentistaApi.Models.Pedido", "Pedido")
+                        .WithMany("DetalhesPedido")
+                        .HasForeignKey("PedidoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DentistaApi.Models.Produto", "Produto")
+                        .WithMany()
+                        .HasForeignKey("ProdutoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Pedido");
+
+                    b.Navigation("Produto");
                 });
 
             modelBuilder.Entity("DentistaApi.Models.Funcionario", b =>
@@ -1051,6 +1160,11 @@ namespace DentistaApi.Migrations
             modelBuilder.Entity("DentistaApi.Models.Pagamento", b =>
                 {
                     b.Navigation("Parcelas");
+                });
+
+            modelBuilder.Entity("DentistaApi.Models.Pedido", b =>
+                {
+                    b.Navigation("DetalhesPedido");
                 });
 #pragma warning restore 612, 618
         }

@@ -26,15 +26,9 @@ public class HomeController : ControllerBase
     {
         var UserLogado = await authService.Login(userInfo);
 
-        //var org = await buscaOrganizacao(UserLogado.Usuario.IdOrganizacao.Id);
 
         if (UserLogado.Status == EReturnStatus.Success)
         {
-            //var response = new LoginResponse
-            //{
-            //    Logado = UserLogado,
-            //    Org = (Organizacao) org
-            //};
             return Ok(UserLogado);
         }
         else
@@ -72,44 +66,110 @@ public class HomeController : ControllerBase
 
     }
 
-    [HttpPost("Paciente")]
-    public ActionResult<Paciente> Post(Paciente obj)
+    [HttpPost]
+    [Route("InserirDadosTeste")]
+    public IActionResult InserirDadosTeste()
     {
-        if (obj == null)
-            return BadRequest();
+        try
+        {
+            // Data atual
+            DateTime dataAtual = DateTime.Now;
 
-        SalvaInfo(obj);
+            // Gerar 50 registros de consultas
+            for (int i = 0; i < 38; i++)
+            {
+                Random random = new Random();
 
-        return Ok();
+                // Randomização de alguns campos
+                int randDentista = random.Next(4, 9);  // ID de dentista aleatório
+                int randPaciente = random.Next(10, 26);  // ID de paciente aleatório
+                int randonDia = random.Next(1, 30); // Dia aleatório entre 1 e 28
+                int randHora = random.Next(8, 18);   // Hora aleatória entre 8h e 18h
+                int randMinuto = random.Next(0, 59); // Minuto aleatório
+                int randEspec = random.Next(1, 7);
+                // Cria uma nova consulta
+                Consulta novaConsulta = new Consulta();
 
+                // Buscar dentista e paciente aleatórios
+                var dentista = db.Dentistas.First(x => x.Id == randDentista);
+                var paciente = db.Pacientes.First(x => x.Id == randPaciente);
+                var consEspec = db.ConsultaEspecialidades.First(x => x.Id == 3); // Procedimento aleatório
+
+                novaConsulta.Paciente = paciente;
+                novaConsulta.Dentista = dentista;
+                novaConsulta.ConsultaEspecialidade = consEspec;
+
+                // Data da consulta no mês atual com dia e hora aleatórios
+                DateTime dataConsulta = new DateTime(dataAtual.Year, dataAtual.Month - 1, randonDia, randHora, randMinuto, 0);
+                novaConsulta.DataConsulta = dataConsulta;
+
+                // Definir tempo previsto de forma aleatória
+                novaConsulta.TempoPrevisto = random.Next(1, 4); // Tempo previsto de 1 a 3 horas
+                novaConsulta.setTempoPrevisto(novaConsulta.TempoPrevisto);
+                novaConsulta.CorDentista = dentista.CorDentista;
+
+                // Configuração de pagamento
+                novaConsulta.Pagamento = new Pagamento();
+                Parcela novaParcela = new Parcela
+                {
+                    ValorParcela = consEspec.ValorBase,  // Valor base do procedimento
+                    DataVencimento = dataConsulta.AddDays(7)  // Vencimento após 7 dias da consulta
+                };
+                novaConsulta.Pagamento.Parcelas.Add(novaParcela);
+
+                // Adicionar consulta ao banco de dados
+                db.Consultas.Add(novaConsulta);
+            }
+
+            // Salvar todas as consultas de uma vez
+            db.SaveChanges();
+
+            return Ok("50 registros inseridos com sucesso!");
+        }
+        catch (Exception ex)
+        {
+            return BadRequest($"Erro ao inserir registros: {ex.Message}");
+        }
     }
 
-    private Paciente SalvaInfo(Paciente obj)
-    {
-        
+    //[HttpPost("Paciente")]
+    //public ActionResult<Paciente> Post(Paciente obj)
+    //{
+    //    if (obj == null)
+    //        return BadRequest();
 
-        Paciente novo = new Paciente();
+    //    SalvaInfo(obj);
 
-        novo.Nome = obj.Nome;
-        novo.Email = obj.Email;
-        novo.Login = obj.Login;
-        novo.Senha = obj.Senha;
-        novo.SetSenhaHash();
-        novo.Telefone = obj.Telefone;
-        novo.Cpf = obj.Cpf;
-        novo.DataNascimento = obj.DataNascimento;
-        novo.SetRole();
-        novo.Endereco = obj.Endereco;
-        novo.Responsavel = obj.Responsavel;
-        novo.Anamnese = obj.Anamnese;
+    //    return Ok();
 
-        db.Pacientes.Add(novo);
-        db.SaveChanges();
+    //}
 
-        return novo;
+    //private Paciente SalvaInfo(Paciente obj)
+    //{
 
 
-    }
+    //    Paciente novo = new Paciente();
+
+    //    novo.Nome = obj.Nome;
+    //    novo.Email = obj.Email;
+    //    novo.Login = obj.Login;
+    //    novo.Senha = obj.Senha;
+    //    novo.SetSenhaHash();
+    //    novo.Telefone = obj.Telefone;
+    //    novo.Cpf = obj.Cpf;
+    //    novo.DataNascimento = obj.DataNascimento;
+    //    novo.SetRole(Role.PACIENTE);
+    //    novo.Endereco = obj.Endereco;
+    //    novo.Responsavel = obj.Responsavel;
+    //    novo.Anamnese = obj.Anamnese;
+
+    //    db.Pacientes.Add(novo);
+    //    db.SaveChanges();
+
+    //    return novo;
+
+
+    //}
 
     [HttpGet]
     [Route("{id}")]

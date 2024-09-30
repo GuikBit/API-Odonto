@@ -22,28 +22,33 @@ namespace DentistaApi.Data
         public DbSet<Organizacao> Organizacao { get; set; }
         public DbSet<Funcionario> Funcionarios { get; set; }
         public DbSet<Cargo> Cargos { get; set; }
+        //public DbSet<Produto> Produtos { get; set; }
+        //public DbSet<Categoria> Categorias { get; set; }
+        //public DbSet<Fornecedor> Fornecedores { get; set; }
+        //public DbSet<Pedido> Pedidos { get; set; }
+        //public DbSet<DetalhePedido> DetalhePedidos { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Organizacao>()
-                .HasMany(o => o.Funcionarios)
-                .WithOne(f => f.IdOrganizacao)
-                .HasForeignKey(f => f.OrganizacaoId);
+            //modelBuilder.Entity<Organizacao>()
+            //    .HasMany(o => o.Funcionarios)
+            //    .WithOne(f => f.IdOrganizacao)
+            //    .HasForeignKey(f => f.OrganizacaoId);
 
-            modelBuilder.Entity<Organizacao>()
-                .HasMany(o => o.Dentistas)
-                .WithOne(d => d.IdOrganizacao)
-                .HasForeignKey(d => d.OrganizacaoId);
+            //modelBuilder.Entity<Organizacao>()
+            //    .HasMany(o => o.Dentistas)
+            //    .WithOne(d => d.IdOrganizacao)
+            //    .HasForeignKey(d => d.OrganizacaoId);
 
-            modelBuilder.Entity<Organizacao>()
-                .HasMany(o => o.Cargos)
-                .WithOne(c => c.IdOrganizacao)
-                .HasForeignKey(c => c.OrganizacaoId);
+            //modelBuilder.Entity<Organizacao>()
+            //    .HasMany(o => o.Cargos)
+            //    .WithOne(c => c.OrganizacaoId)
+            //    .HasForeignKey(c => c.OrganizacaoId);
 
-            modelBuilder.Entity<Organizacao>()
-                .HasMany(o => o.Pacientes)
-                .WithOne(p => p.IdOrganizacao)
-                .HasForeignKey(p => p.OrganizacaoId);
+            //modelBuilder.Entity<Organizacao>()
+            //    .HasMany(o => o.Pacientes)
+            //    .WithOne(p => p.IdOrganizacao)
+            //    .HasForeignKey(p => p.OrganizacaoId);
 
             modelBuilder.Entity<Organizacao>()
                  .HasOne(o => o.Endereco)
@@ -80,10 +85,10 @@ namespace DentistaApi.Data
                 .WithMany()
                 .HasForeignKey(c => c.PagamentoId);
 
-            modelBuilder.Entity<Administrador>()
-               .HasOne(c => c.IdOrganizacao)
-               .WithMany()
-               .HasForeignKey(c => c.OrganizacaoId);
+            //modelBuilder.Entity<Administrador>()
+            //   .HasOne(c => c.IdOrganizacao)
+            //   .WithMany()
+            //   .HasForeignKey(c => c.OrganizacaoId);
 
             modelBuilder.Entity<Consulta>()
                 .HasOne(c => c.ConsultaEspecialidade)
@@ -105,6 +110,21 @@ namespace DentistaApi.Data
                 .HasOne(p => p.Responsavel)
                 .WithMany()
                 .HasForeignKey(p => p.ResponsavelId);
+
+            modelBuilder.Entity<DetalhePedido>()
+                .HasKey(dp => new { dp.PedidoId, dp.ProdutoId });
+
+            modelBuilder.Entity<DetalhePedido>()
+                .HasOne(dp => dp.Pedido)
+                .WithMany(p => p.DetalhesPedido)
+                .HasForeignKey(dp => dp.PedidoId);
+
+
+
+            //modelBuilder.Entity<DetalhePedido>()
+            //    .HasOne(dp => dp.Produto)
+            //    .WithMany(p => p.DetalhesPedido)
+            //    .HasForeignKey(dp => dp.ProdutoId);
 
             base.OnModelCreating(modelBuilder);
         }

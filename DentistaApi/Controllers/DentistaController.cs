@@ -30,7 +30,7 @@ public class DentistaController : ControllerBase
             var dentDentista = db.Dentistas
             .Where(d => d.Id == id && d.OrganizacaoId == idOrg)
             .Include(x => x.Especialidade)
-            .Include (x => x.IdOrganizacao)
+            //.Include (x => x.IdOrganizacao)
             .FirstOrDefault();
             if (dentDentista == null)
             {
@@ -44,13 +44,13 @@ public class DentistaController : ControllerBase
                 foreach (var item in consultas)
                 {
                     item.Paciente.Consultas = null;
-                    item.Paciente.IdOrganizacao = null;
+                   // item.Paciente.IdOrganizacao = null;
                     item.Dentista = null;
 
                 }
             }
             
-            dentDentista.IdOrganizacao.Dentistas = null;
+            //dentDentista.IdOrganizacao.Dentistas = null;
             dentDentista.Consultas = consultas;
 
 

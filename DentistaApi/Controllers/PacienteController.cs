@@ -328,5 +328,6 @@ public class PacienteController : ControllerBase
 
         return true;
     }
+    
     private readonly AppDbContext db = new();
 }

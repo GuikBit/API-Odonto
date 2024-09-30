@@ -67,8 +67,7 @@ public class AuthService : IAuthService{
         var claims = new[]
         {
             new Claim("Nome", usuario.Nome),
-            new Claim("Id", usuario.Id.ToString()),
-            new Claim("Role", usuario.Role),
+            new Claim("Id", usuario.Id.ToString()),           
             
         };
         var token = tokenHandler.CreateToken(GetTokenDescriptor(claims));
