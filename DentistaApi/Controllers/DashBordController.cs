@@ -26,21 +26,26 @@ public class IFiltro
 public class DashBordController : Controller
 {
     [HttpPost]
-    public IActionResult Dashbords([FromQuery] IFiltro filtros)
+    public IActionResult Dashbords([FromBody] IFiltro filtros)
     {
         try
-        { 
+        {
+            var atual = DateTime.Now;
+            var dtInicio = filtros.DtInicio ?? new DateTime(atual.Year, atual.Month, 1);
+            var dtFim = filtros.DtFim ?? atual;
+
+            var consultas = db.Consultas
+                .Include(c => c.Pagamento)
+                .Include(c => c.ConsultaEspecialidade)
+                .Where(c => c.DataConsulta >= dtInicio && c.DataConsulta <= dtFim)
+                .ToList();
+
             var dentistas = db.Dentistas.Where(d => d.Ativo).Include(d => d.Especialidade).Include(d => d.Consultas).ToList();
             dentistas.ForEach(d => { d.Consultas = null; });
 
             var procedimentos = db.ConsultaEspecialidades.ToList();
-
             var especialidades = db.Especialidades.ToList();
-            var consultas = db.Consultas.Include(c => c.Pagamento).Include(c => c.ConsultaEspecialidade).ToList();
             var espec = db.Especialidades.ToList();
-
-            var atual = DateTime.Now;
-
 
             //Dashbords dashbords = new Dashbords();
 
@@ -59,7 +64,7 @@ public class DashBordController : Controller
 
             Dashbords dashbords = new Dashbords
             {
-                Meses = RetornaMeses(),
+                Meses = RetornaMeses(dtInicio, dtFim),
                 QtdMes = TotalConsultas(consultas, atual),
                 QtdPacienteMes = TotalPacientesMes(atual),
                 QtdAtrasoMes = TotalAtrazoMes(consultas, atual),
@@ -292,13 +297,30 @@ public class DashBordController : Controller
 
 
 
-    private static List<string> RetornaMeses()
+    //private static List<string> RetornaMeses(DateTime dtInicio, DateTime dtFim)
+    //{
+    //    List<string> meses = new List<string>();
+    //    DateTime primeiroDiaDoMes = new DateTime(DateTime.Now.Year, DateTime.Now.Month + 1, 1);
+    //    for (int i = 0; i < 6; i++)
+    //    {
+    //        DateTime mesAtual = primeiroDiaDoMes.AddMonths(-i);
+    //        string nomeMes = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(mesAtual.ToString("MMMM"));
+    //        meses.Add(nomeMes);
+    //    }
+
+    //    return meses;
+    //}
+    private static List<string> RetornaMeses(DateTime dtInicio, DateTime dtFim)
     {
         List<string> meses = new List<string>();
-        DateTime primeiroDiaDoMes = new DateTime(DateTime.Now.Year, DateTime.Now.Month + 1, 1);
-        for (int i = 0; i < 6; i++)
+
+        // Ajusta o dtInicio para o primeiro dia do mês e dtFim para o último dia do mês
+        DateTime inicio = new DateTime(dtInicio.Year, dtInicio.Month, 1);
+        DateTime fim = new DateTime(dtFim.Year, dtFim.Month, DateTime.DaysInMonth(dtFim.Year, dtFim.Month));
+
+        // Itera sobre os meses entre dtInicio e dtFim
+        for (DateTime mesAtual = inicio; mesAtual <= fim; mesAtual = mesAtual.AddMonths(1))
         {
-            DateTime mesAtual = primeiroDiaDoMes.AddMonths(-i);
             string nomeMes = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(mesAtual.ToString("MMMM"));
             meses.Add(nomeMes);
         }
