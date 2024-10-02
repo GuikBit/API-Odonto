@@ -38,12 +38,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 4,
           "Children": [
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
-            },
             {
               "$type": "Document",
               "DocumentIndex": 2,
@@ -54,8 +50,7 @@
               "RelativeToolTip": "DentistaApi\\Models\\Dashboard\\Dashbords.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAArAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-02T12:15:54.417Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-02T12:15:54.417Z"
             },
             {
               "$type": "Document",
@@ -67,8 +62,7 @@
               "RelativeToolTip": "DentistaApi\\Controllers\\DentistaController.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAACsAAAAiAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-02T12:14:25.115Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-02T12:14:25.115Z"
             },
             {
               "$type": "Document",
@@ -80,8 +74,7 @@
               "RelativeToolTip": "DentistaApi\\Controllers\\ConsultaController.cs",
               "ViewState": "AQIAAGsAAAAAAAAAAAAgwI0AAAAEAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-27T22:39:53.005Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-27T22:39:53.005Z"
             },
             {
               "$type": "Document",
@@ -131,6 +124,10 @@
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAANAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-09-05T00:28:20.541Z"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
             }
           ]
         }
