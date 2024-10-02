@@ -33,7 +33,9 @@ namespace DentistaApi.Models
 
             public DateTime? Inicio { get; set; }
             public DateTime? Fim { get; set; }
-            public List<Dentista> DentistasList { get; set; } 
+            public List<Dentista> DentistasList { get; set; }
+
+            public List<Dentista> DentistasFiltrados { get; set; }
             public List<ConsultaEspecialidade> Procedimentos { get; set; }
             public List<Especialidade> Especialidades { get; set; }
         
