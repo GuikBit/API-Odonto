@@ -17,7 +17,7 @@ public class CargoController : ControllerBase
 
         var cargos = db.Cargos
             .Where(x => x.OrganizacaoId == idOrg)
-            .OrderBy(p => p.Titulo)
+            .OrderBy(p => p.Nome)
             .ToList();
 
         return Ok(cargos);

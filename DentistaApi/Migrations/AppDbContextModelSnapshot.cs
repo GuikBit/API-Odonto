@@ -117,38 +117,63 @@ namespace DentistaApi.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<double>("Bonificacao")
-                        .HasColumnType("double");
+                    b.Property<string>("CargaHoraria")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.Property<DateTime>("DataCadastro")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<DateTime>("DataUpdate")
+                    b.Property<DateTime?>("DataUpdate")
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("Descricao")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<string>("HrSemanais")
-                        .IsRequired()
-                        .HasColumnType("longtext");
+                    b.Property<bool?>("GymPass")
+                        .HasColumnType("tinyint(1)");
 
-                    b.Property<int>("IdUserUpdade")
+                    b.Property<int?>("IdUserUpdade")
                         .HasColumnType("int");
 
                     b.Property<int>("IdUsercriacao")
                         .HasColumnType("int");
 
+                    b.Property<string>("NivelHierarquico")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
                     b.Property<int>("OrganizacaoId")
                         .HasColumnType("int");
 
-                    b.Property<double>("Salario")
-                        .HasColumnType("double");
+                    b.Property<bool?>("PLR")
+                        .HasColumnType("tinyint(1)");
 
-                    b.Property<string>("Titulo")
+                    b.Property<bool?>("PlanoSaude")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<bool?>("Premiacao")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("Requisitos")
                         .IsRequired()
                         .HasColumnType("longtext");
+
+                    b.Property<double>("SalarioBase")
+                        .HasColumnType("double");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<bool?>("ValeAR")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<bool?>("ValeTrans")
+                        .HasColumnType("tinyint(1)");
 
                     b.HasKey("Id");
 
@@ -195,9 +220,6 @@ namespace DentistaApi.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<int?>("OrganizacaoId")
-                        .HasColumnType("int");
-
                     b.Property<int?>("PacienteId")
                         .HasColumnType("int");
 
@@ -218,8 +240,6 @@ namespace DentistaApi.Migrations
                     b.HasIndex("ConsultaEspecialidadeId");
 
                     b.HasIndex("DentistaId");
-
-                    b.HasIndex("OrganizacaoId");
 
                     b.HasIndex("PacienteId");
 
@@ -270,9 +290,6 @@ namespace DentistaApi.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<int?>("CargoId")
-                        .HasColumnType("int");
-
                     b.Property<string>("CorDentista")
                         .IsRequired()
                         .HasColumnType("longtext");
@@ -318,8 +335,6 @@ namespace DentistaApi.Migrations
                         .HasColumnType("longtext");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CargoId");
 
                     b.HasIndex("EspecialidadeId");
 
@@ -948,10 +963,6 @@ namespace DentistaApi.Migrations
                         .WithMany("Consultas")
                         .HasForeignKey("DentistaId");
 
-                    b.HasOne("DentistaApi.Models.Organizacao", null)
-                        .WithMany("Consultas")
-                        .HasForeignKey("OrganizacaoId");
-
                     b.HasOne("DentistaApi.Models.Paciente", "Paciente")
                         .WithMany("Consultas")
                         .HasForeignKey("PacienteId");
@@ -971,10 +982,6 @@ namespace DentistaApi.Migrations
 
             modelBuilder.Entity("DentistaApi.Models.Dentista", b =>
                 {
-                    b.HasOne("DentistaApi.Models.Cargo", "Cargo")
-                        .WithMany()
-                        .HasForeignKey("CargoId");
-
                     b.HasOne("DentistaApi.Models.Especialidade", "Especialidade")
                         .WithMany()
                         .HasForeignKey("EspecialidadeId");
@@ -984,8 +991,6 @@ namespace DentistaApi.Migrations
                         .HasForeignKey("OrganizacaoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Cargo");
 
                     b.Navigation("Especialidade");
 
@@ -1142,8 +1147,6 @@ namespace DentistaApi.Migrations
             modelBuilder.Entity("DentistaApi.Models.Organizacao", b =>
                 {
                     b.Navigation("Cargos");
-
-                    b.Navigation("Consultas");
 
                     b.Navigation("Dentistas");
 

@@ -9,9 +9,6 @@ namespace DentistaApi.Models
         public string CRO { get; set; }
         public int? EspecialidadeId { get; set; }
         public Especialidade? Especialidade { get; set; }
-        public int? CargoId { get; set; }
-        public Cargo? Cargo { get; set; }
-
         public string CorDentista { get; set; } = "";
 
         public void SetRole()
@@ -22,9 +19,6 @@ namespace DentistaApi.Models
             }
 
         }
-        //public void SetConsulta(List<Consulta> lista)
-        //{
-        //    con
-        //}
+
     }
 }

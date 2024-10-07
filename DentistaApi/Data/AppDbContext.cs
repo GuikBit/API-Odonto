@@ -50,6 +50,7 @@ namespace DentistaApi.Data
             //    .WithOne(p => p.IdOrganizacao)
             //    .HasForeignKey(p => p.OrganizacaoId);
 
+
             modelBuilder.Entity<Organizacao>()
                  .HasOne(o => o.Endereco)
                  .WithMany()
@@ -60,10 +61,10 @@ namespace DentistaApi.Data
                 .WithMany()
                 .HasForeignKey(f => f.IdCargo);
 
-            modelBuilder.Entity<Dentista>()
-                .HasOne(d => d.Cargo)
-                .WithMany()
-                .HasForeignKey(d => d.CargoId);
+            //modelBuilder.Entity<Dentista>()
+            //    .HasOne(d => d.Cargo)
+            //    .WithMany()
+            //    .HasForeignKey(d => d.CargoId);
 
             modelBuilder.Entity<Dentista>()
                 .HasOne(d => d.Especialidade)

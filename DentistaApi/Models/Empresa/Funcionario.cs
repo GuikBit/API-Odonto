@@ -20,7 +20,12 @@ public class Funcionario : User
             else if (nivelAcesso == 3)
             {
                 this.Role = "Fatumento";
-            }else
+            }
+            else if (nivelAcesso == 4)
+            {
+                this.Role = "Dentista";
+            }
+            else
             {
                 this.Role = "SemAcessoSistema";
             }

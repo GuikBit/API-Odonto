@@ -26,7 +26,7 @@ public class Organizacao
 
     public ICollection<Paciente>? Pacientes { get; set; }
 
-    public ICollection<Consulta>? Consultas { get; set; }
+    //public ICollection<Consulta>? Consultas { get; set; }
 
 
 
