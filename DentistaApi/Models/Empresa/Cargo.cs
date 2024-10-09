@@ -11,6 +11,7 @@ public class Cargo
     public int Id { get; set; }
     public required int OrganizacaoId { get; set; }
     public required string Nome { get; set; }
+    public required string Departamento { get; set; }
     public string? Descricao { get; set; }
     public required string NivelHierarquico { get; set; }
     public required string Requisitos { get; set; }

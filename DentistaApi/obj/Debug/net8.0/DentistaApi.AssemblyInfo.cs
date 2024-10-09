@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("DentistaApi")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e7a42c3f279dcfd9bf194a5902e3866e4d94409a")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+46fe82710e949d7d1703b9d2e9163df8e55f8ed1")]
 [assembly: System.Reflection.AssemblyProductAttribute("DentistaApi")]
 [assembly: System.Reflection.AssemblyTitleAttribute("DentistaApi")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
