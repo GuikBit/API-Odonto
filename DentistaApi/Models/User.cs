@@ -26,9 +26,10 @@ namespace DentistaApi.Models
         public DateTime DataCadastro { get; set; } = DateTime.Now;
         public bool Ativo { get; set; } = true;
         public string Role { get; set; } = "";
+        public int NivelAcesso { get; set; } = 1;
 
-        public int OrganizacaoId { get; set; }
-        public Organizacao IdOrganizacao { get; set; }
+        public int? OrganizacaoId { get; set; }
+        public Organizacao? IdOrganizacao { get; set; }
 
         public void SetSenhaHash()
         {

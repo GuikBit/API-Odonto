@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DentistaApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("v1/[controller]")]
     [ApiController]
     [Authorize]
     public class OrganizacaoController : ControllerBase
@@ -108,7 +108,43 @@ namespace DentistaApi.Controllers
             }
         }
 
-        
+
+        [HttpGet]
+        [Route("funcionarios")]
+        public ActionResult<List<Funcionario>> GetFuncionarios([FromBody] int idOrg)
+        {
+            try
+            {
+                var listFunc = db.Funcionarios.Where( f => f.Id == idOrg).ToList();
+
+                if( listFunc == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(listFunc);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest();
+            }
+
+        }
+        [HttpGet("funcionario/{id}")]
+        public ActionResult<Funcionario> GetByIdFuncionario([FromBody] int idOrg)
+        {
+            try
+            {
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest();
+            }
+        }
+
+
+
         [HttpDelete("{id}")]
         public ActionResult Delete(int id)
         {

@@ -46,6 +46,9 @@ namespace DentistaApi.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<int>("NivelAcesso")
+                        .HasColumnType("int");
+
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasColumnType("longtext");
@@ -319,6 +322,9 @@ namespace DentistaApi.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<int>("NivelAcesso")
+                        .HasColumnType("int");
+
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasColumnType("longtext");
@@ -432,9 +438,24 @@ namespace DentistaApi.Migrations
                     b.Property<bool>("Ativo")
                         .HasColumnType("tinyint(1)");
 
+                    b.Property<string>("CTPSN")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("CTPSSerie")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("CTPSUF")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
                     b.Property<string>("Cpf")
                         .IsRequired()
                         .HasColumnType("longtext");
+
+                    b.Property<DateTime>("DataAdmissao")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<DateTime>("DataCadastro")
                         .HasColumnType("datetime(6)");
@@ -442,23 +463,55 @@ namespace DentistaApi.Migrations
                     b.Property<DateTime>("DataNascimento")
                         .HasColumnType("datetime(6)");
 
+                    b.Property<DateTime>("DataRescisao")
+                        .HasColumnType("datetime(6)");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<int>("EnderecoId")
+                        .HasColumnType("int");
+
                     b.Property<int>("IdCargo")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdEndereco")
                         .HasColumnType("int");
 
                     b.Property<string>("Login")
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<int>("NivelAcesso")
+                        .HasColumnType("int");
+
                     b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("OrgEmissor")
                         .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<int>("OrganizacaoId")
                         .HasColumnType("int");
+
+                    b.Property<string>("PisPasep")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("RG")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("RegistroN")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("RgUF")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Role")
                         .IsRequired()
@@ -473,6 +526,8 @@ namespace DentistaApi.Migrations
                         .HasColumnType("longtext");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("EnderecoId");
 
                     b.HasIndex("IdCargo");
 
@@ -559,6 +614,9 @@ namespace DentistaApi.Migrations
                     b.Property<string>("Login")
                         .IsRequired()
                         .HasColumnType("longtext");
+
+                    b.Property<int>("NivelAcesso")
+                        .HasColumnType("int");
 
                     b.Property<string>("Nome")
                         .IsRequired()
@@ -1022,6 +1080,12 @@ namespace DentistaApi.Migrations
 
             modelBuilder.Entity("DentistaApi.Models.Funcionario", b =>
                 {
+                    b.HasOne("DentistaApi.Models.Endereco", "Endereco")
+                        .WithMany()
+                        .HasForeignKey("EnderecoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("DentistaApi.Models.Cargo", "cargo")
                         .WithMany()
                         .HasForeignKey("IdCargo")
@@ -1033,6 +1097,8 @@ namespace DentistaApi.Migrations
                         .HasForeignKey("OrganizacaoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Endereco");
 
                     b.Navigation("IdOrganizacao");
 

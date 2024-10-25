@@ -72,6 +72,16 @@ public class HomeController : ControllerBase
     {
         try
         {
+            Administrador adm = new Administrador();
+
+            adm.Nome = "admin";
+            adm.Email = "admin.@gmail.com";
+            adm.Login = "admin";
+            //adm.SetSenhaHash("123");
+
+
+
+
             // Data atual
             DateTime dataAtual = DateTime.Now;
 

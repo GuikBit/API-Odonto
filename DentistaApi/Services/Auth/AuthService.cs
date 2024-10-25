@@ -21,7 +21,7 @@ public class AuthService : IAuthService{
 
        // int orgId = usuario.IdOrganizacao.Id;
 
-        int orgId2 = usuario.OrganizacaoId;
+        int orgId2 = (int)(usuario?.OrganizacaoId);
 
         if (usuario == null)
             return new Return<string>(EReturnStatus.Error, null,

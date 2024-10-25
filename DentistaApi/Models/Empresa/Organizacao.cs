@@ -16,7 +16,7 @@ public class Organizacao
     public required string Email {  get; set; }
     public bool Ativo {  get; set; } = true;
     public int EnderecoId { get; set; }
-    public Endereco? Endereco { get; set; }
+    public Endereco Endereco { get; set; }
 
     public ICollection<Funcionario>? Funcionarios { get; set;}
 

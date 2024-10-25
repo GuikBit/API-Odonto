@@ -3,28 +3,48 @@
   "WorkspaceRootPath": "C:\\Users\\Pluri Sistemas\\Desktop\\Guikbit\\Repository\\API-Odonto\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{1BD5CF94-4307-4AB2-807C-0A5412EC96B4}|DentistaApi\\DentistaApi.csproj|c:\\users\\pluri sistemas\\desktop\\guikbit\\repository\\api-odonto\\dentistaapi\\controllers\\organizacaocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1BD5CF94-4307-4AB2-807C-0A5412EC96B4}|DentistaApi\\DentistaApi.csproj|solutionrelative:dentistaapi\\controllers\\organizacaocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1BD5CF94-4307-4AB2-807C-0A5412EC96B4}|DentistaApi\\DentistaApi.csproj|c:\\users\\pluri sistemas\\desktop\\guikbit\\repository\\api-odonto\\dentistaapi\\controllers\\funcionariocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1BD5CF94-4307-4AB2-807C-0A5412EC96B4}|DentistaApi\\DentistaApi.csproj|solutionrelative:dentistaapi\\controllers\\funcionariocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1BD5CF94-4307-4AB2-807C-0A5412EC96B4}|DentistaApi\\DentistaApi.csproj|c:\\users\\pluri sistemas\\desktop\\guikbit\\repository\\api-odonto\\dentistaapi\\controllers\\dentistacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1BD5CF94-4307-4AB2-807C-0A5412EC96B4}|DentistaApi\\DentistaApi.csproj|solutionrelative:dentistaapi\\controllers\\dentistacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{1BD5CF94-4307-4AB2-807C-0A5412EC96B4}|DentistaApi\\DentistaApi.csproj|c:\\users\\pluri sistemas\\desktop\\guikbit\\repository\\api-odonto\\dentistaapi\\services\\auth\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1BD5CF94-4307-4AB2-807C-0A5412EC96B4}|DentistaApi\\DentistaApi.csproj|solutionrelative:dentistaapi\\services\\auth\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{1BD5CF94-4307-4AB2-807C-0A5412EC96B4}|DentistaApi\\DentistaApi.csproj|c:\\users\\pluri sistemas\\desktop\\guikbit\\repository\\api-odonto\\dentistaapi\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{1BD5CF94-4307-4AB2-807C-0A5412EC96B4}|DentistaApi\\DentistaApi.csproj|solutionrelative:dentistaapi\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{1BD5CF94-4307-4AB2-807C-0A5412EC96B4}|DentistaApi\\DentistaApi.csproj|c:\\users\\pluri sistemas\\desktop\\guikbit\\repository\\api-odonto\\dentistaapi\\migrations\\20241009130305_initialcreate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1BD5CF94-4307-4AB2-807C-0A5412EC96B4}|DentistaApi\\DentistaApi.csproj|solutionrelative:dentistaapi\\migrations\\20241009130305_initialcreate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{1BD5CF94-4307-4AB2-807C-0A5412EC96B4}|DentistaApi\\DentistaApi.csproj|c:\\users\\pluri sistemas\\desktop\\guikbit\\repository\\api-odonto\\dentistaapi\\controllers\\organizacaocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1BD5CF94-4307-4AB2-807C-0A5412EC96B4}|DentistaApi\\DentistaApi.csproj|solutionrelative:dentistaapi\\controllers\\organizacaocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1BD5CF94-4307-4AB2-807C-0A5412EC96B4}|DentistaApi\\DentistaApi.csproj|c:\\users\\pluri sistemas\\desktop\\guikbit\\repository\\api-odonto\\dentistaapi\\models\\administrador.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1BD5CF94-4307-4AB2-807C-0A5412EC96B4}|DentistaApi\\DentistaApi.csproj|solutionrelative:dentistaapi\\models\\administrador.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1BD5CF94-4307-4AB2-807C-0A5412EC96B4}|DentistaApi\\DentistaApi.csproj|c:\\users\\pluri sistemas\\desktop\\guikbit\\repository\\api-odonto\\dentistaapi\\models\\empresa\\organizacao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1BD5CF94-4307-4AB2-807C-0A5412EC96B4}|DentistaApi\\DentistaApi.csproj|solutionrelative:dentistaapi\\models\\empresa\\organizacao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1BD5CF94-4307-4AB2-807C-0A5412EC96B4}|DentistaApi\\DentistaApi.csproj|c:\\users\\pluri sistemas\\desktop\\guikbit\\repository\\api-odonto\\dentistaapi\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1BD5CF94-4307-4AB2-807C-0A5412EC96B4}|DentistaApi\\DentistaApi.csproj|solutionrelative:dentistaapi\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1BD5CF94-4307-4AB2-807C-0A5412EC96B4}|DentistaApi\\DentistaApi.csproj|c:\\users\\pluri sistemas\\desktop\\guikbit\\repository\\api-odonto\\dentistaapi\\controllers\\pacientecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1BD5CF94-4307-4AB2-807C-0A5412EC96B4}|DentistaApi\\DentistaApi.csproj|solutionrelative:dentistaapi\\controllers\\pacientecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1BD5CF94-4307-4AB2-807C-0A5412EC96B4}|DentistaApi\\DentistaApi.csproj|c:\\users\\pluri sistemas\\desktop\\guikbit\\repository\\api-odonto\\dentistaapi\\controllers\\funcionariocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1BD5CF94-4307-4AB2-807C-0A5412EC96B4}|DentistaApi\\DentistaApi.csproj|solutionrelative:dentistaapi\\controllers\\funcionariocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1BD5CF94-4307-4AB2-807C-0A5412EC96B4}|DentistaApi\\DentistaApi.csproj|c:\\users\\pluri sistemas\\desktop\\guikbit\\repository\\api-odonto\\dentistaapi\\models\\empresa\\funcionario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1BD5CF94-4307-4AB2-807C-0A5412EC96B4}|DentistaApi\\DentistaApi.csproj|solutionrelative:dentistaapi\\models\\empresa\\funcionario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{1BD5CF94-4307-4AB2-807C-0A5412EC96B4}|DentistaApi\\DentistaApi.csproj|c:\\users\\pluri sistemas\\desktop\\guikbit\\repository\\api-odonto\\dentistaapi\\models\\empresa\\cargo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{1BD5CF94-4307-4AB2-807C-0A5412EC96B4}|DentistaApi\\DentistaApi.csproj|solutionrelative:dentistaapi\\models\\empresa\\cargo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1BD5CF94-4307-4AB2-807C-0A5412EC96B4}|DentistaApi\\DentistaApi.csproj|c:\\users\\pluri sistemas\\desktop\\guikbit\\repository\\api-odonto\\dentistaapi\\controllers\\dentistacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1BD5CF94-4307-4AB2-807C-0A5412EC96B4}|DentistaApi\\DentistaApi.csproj|solutionrelative:dentistaapi\\controllers\\dentistacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{1BD5CF94-4307-4AB2-807C-0A5412EC96B4}|DentistaApi\\DentistaApi.csproj|c:\\users\\pluri sistemas\\desktop\\guikbit\\repository\\api-odonto\\dentistaapi\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -35,10 +55,6 @@
       "RelativeMoniker": "D:0:0:{1BD5CF94-4307-4AB2-807C-0A5412EC96B4}|DentistaApi\\DentistaApi.csproj|solutionrelative:dentistaapi\\controllers\\cargocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{1BD5CF94-4307-4AB2-807C-0A5412EC96B4}|DentistaApi\\DentistaApi.csproj|c:\\users\\pluri sistemas\\desktop\\guikbit\\repository\\api-odonto\\dentistaapi\\models\\empresa\\organizacao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1BD5CF94-4307-4AB2-807C-0A5412EC96B4}|DentistaApi\\DentistaApi.csproj|solutionrelative:dentistaapi\\models\\empresa\\organizacao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{1BD5CF94-4307-4AB2-807C-0A5412EC96B4}|DentistaApi\\DentistaApi.csproj|c:\\users\\pluri sistemas\\desktop\\guikbit\\repository\\api-odonto\\dentistaapi\\models\\dashboard\\dashbords.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{1BD5CF94-4307-4AB2-807C-0A5412EC96B4}|DentistaApi\\DentistaApi.csproj|solutionrelative:dentistaapi\\models\\dashboard\\dashbords.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -47,16 +63,8 @@
       "RelativeMoniker": "D:0:0:{1BD5CF94-4307-4AB2-807C-0A5412EC96B4}|DentistaApi\\DentistaApi.csproj|solutionrelative:dentistaapi\\models\\dentista\\dentista.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{1BD5CF94-4307-4AB2-807C-0A5412EC96B4}|DentistaApi\\DentistaApi.csproj|c:\\users\\pluri sistemas\\desktop\\guikbit\\repository\\api-odonto\\dentistaapi\\models\\empresa\\funcionario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1BD5CF94-4307-4AB2-807C-0A5412EC96B4}|DentistaApi\\DentistaApi.csproj|solutionrelative:dentistaapi\\models\\empresa\\funcionario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{1BD5CF94-4307-4AB2-807C-0A5412EC96B4}|DentistaApi\\DentistaApi.csproj|c:\\users\\pluri sistemas\\desktop\\guikbit\\repository\\api-odonto\\dentistaapi\\models\\paciente\\paciente.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{1BD5CF94-4307-4AB2-807C-0A5412EC96B4}|DentistaApi\\DentistaApi.csproj|solutionrelative:dentistaapi\\models\\paciente\\paciente.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1BD5CF94-4307-4AB2-807C-0A5412EC96B4}|DentistaApi\\DentistaApi.csproj|c:\\users\\pluri sistemas\\desktop\\guikbit\\repository\\api-odonto\\dentistaapi\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1BD5CF94-4307-4AB2-807C-0A5412EC96B4}|DentistaApi\\DentistaApi.csproj|solutionrelative:dentistaapi\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{1BD5CF94-4307-4AB2-807C-0A5412EC96B4}|DentistaApi\\DentistaApi.csproj|c:\\users\\pluri sistemas\\desktop\\guikbit\\repository\\api-odonto\\dentistaapi\\controllers\\dashbordcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -65,10 +73,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{1BD5CF94-4307-4AB2-807C-0A5412EC96B4}|DentistaApi\\DentistaApi.csproj|c:\\users\\pluri sistemas\\desktop\\guikbit\\repository\\api-odonto\\dentistaapi\\controllers\\consultacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{1BD5CF94-4307-4AB2-807C-0A5412EC96B4}|DentistaApi\\DentistaApi.csproj|solutionrelative:dentistaapi\\controllers\\consultacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1BD5CF94-4307-4AB2-807C-0A5412EC96B4}|DentistaApi\\DentistaApi.csproj|c:\\users\\pluri sistemas\\desktop\\guikbit\\repository\\api-odonto\\dentistaapi\\services\\auth\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1BD5CF94-4307-4AB2-807C-0A5412EC96B4}|DentistaApi\\DentistaApi.csproj|solutionrelative:dentistaapi\\services\\auth\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -78,72 +82,128 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 5,
           "Children": [
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "HomeController.cs",
-              "DocumentMoniker": "C:\\Users\\Pluri Sistemas\\Desktop\\Guikbit\\Repository\\API-Odonto\\DentistaApi\\Controllers\\HomeController.cs",
-              "RelativeDocumentMoniker": "DentistaApi\\Controllers\\HomeController.cs",
-              "ToolTip": "C:\\Users\\Pluri Sistemas\\Desktop\\Guikbit\\Repository\\API-Odonto\\DentistaApi\\Controllers\\HomeController.cs",
-              "RelativeToolTip": "DentistaApi\\Controllers\\HomeController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Title": "Administrador.cs",
+              "DocumentMoniker": "C:\\Users\\Pluri Sistemas\\Desktop\\Guikbit\\Repository\\API-Odonto\\DentistaApi\\Models\\Administrador.cs",
+              "RelativeDocumentMoniker": "DentistaApi\\Models\\Administrador.cs",
+              "ToolTip": "C:\\Users\\Pluri Sistemas\\Desktop\\Guikbit\\Repository\\API-Odonto\\DentistaApi\\Models\\Administrador.cs",
+              "RelativeToolTip": "DentistaApi\\Models\\Administrador.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAiAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-10T16:31:03.59Z"
+              "WhenOpened": "2024-10-25T14:38:54.344Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "FuncionarioController.cs",
-              "DocumentMoniker": "C:\\Users\\Pluri Sistemas\\Desktop\\Guikbit\\Repository\\API-Odonto\\DentistaApi\\Controllers\\FuncionarioController.cs",
-              "RelativeDocumentMoniker": "DentistaApi\\Controllers\\FuncionarioController.cs",
-              "ToolTip": "C:\\Users\\Pluri Sistemas\\Desktop\\Guikbit\\Repository\\API-Odonto\\DentistaApi\\Controllers\\FuncionarioController.cs",
-              "RelativeToolTip": "DentistaApi\\Controllers\\FuncionarioController.cs",
-              "ViewState": "AQIAACAAAAAAAAAAAAAAwAAAAAAAAAAA",
+              "DocumentIndex": 6,
+              "Title": "PacienteController.cs",
+              "DocumentMoniker": "C:\\Users\\Pluri Sistemas\\Desktop\\Guikbit\\Repository\\API-Odonto\\DentistaApi\\Controllers\\PacienteController.cs",
+              "RelativeDocumentMoniker": "DentistaApi\\Controllers\\PacienteController.cs",
+              "ToolTip": "C:\\Users\\Pluri Sistemas\\Desktop\\Guikbit\\Repository\\API-Odonto\\DentistaApi\\Controllers\\PacienteController.cs",
+              "RelativeToolTip": "DentistaApi\\Controllers\\PacienteController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAAA2AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-10T16:30:44.946Z"
+              "WhenOpened": "2024-10-25T13:31:07.469Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
               "Title": "OrganizacaoController.cs",
               "DocumentMoniker": "C:\\Users\\Pluri Sistemas\\Desktop\\Guikbit\\Repository\\API-Odonto\\DentistaApi\\Controllers\\OrganizacaoController.cs",
               "RelativeDocumentMoniker": "DentistaApi\\Controllers\\OrganizacaoController.cs",
               "ToolTip": "C:\\Users\\Pluri Sistemas\\Desktop\\Guikbit\\Repository\\API-Odonto\\DentistaApi\\Controllers\\OrganizacaoController.cs",
               "RelativeToolTip": "DentistaApi\\Controllers\\OrganizacaoController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAAAIAAAA",
+              "ViewState": "AQIAAGIAAAAAAAAAAAAkwHEAAABTAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-10T12:35:31.485Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "User.cs",
+              "DocumentMoniker": "C:\\Users\\Pluri Sistemas\\Desktop\\Guikbit\\Repository\\API-Odonto\\DentistaApi\\Models\\User.cs",
+              "RelativeDocumentMoniker": "DentistaApi\\Models\\User.cs",
+              "ToolTip": "C:\\Users\\Pluri Sistemas\\Desktop\\Guikbit\\Repository\\API-Odonto\\DentistaApi\\Models\\User.cs",
+              "RelativeToolTip": "DentistaApi\\Models\\User.cs",
+              "ViewState": "AQIAABUAAAAAAAAAAAAowB4AAAATAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-03T20:34:35.356Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "HomeController.cs",
+              "DocumentMoniker": "C:\\Users\\Pluri Sistemas\\Desktop\\Guikbit\\Repository\\API-Odonto\\DentistaApi\\Controllers\\HomeController.cs",
+              "RelativeDocumentMoniker": "DentistaApi\\Controllers\\HomeController.cs",
+              "ToolTip": "C:\\Users\\Pluri Sistemas\\Desktop\\Guikbit\\Repository\\API-Odonto\\DentistaApi\\Controllers\\HomeController.cs",
+              "RelativeToolTip": "DentistaApi\\Controllers\\HomeController.cs",
+              "ViewState": "AQIAAJ4AAAAAAAAAAAAIwN0AAAAtAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-10T16:31:03.59Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "AuthService.cs",
+              "DocumentMoniker": "C:\\Users\\Pluri Sistemas\\Desktop\\Guikbit\\Repository\\API-Odonto\\DentistaApi\\Services\\Auth\\AuthService.cs",
+              "RelativeDocumentMoniker": "DentistaApi\\Services\\Auth\\AuthService.cs",
+              "ToolTip": "C:\\Users\\Pluri Sistemas\\Desktop\\Guikbit\\Repository\\API-Odonto\\DentistaApi\\Services\\Auth\\AuthService.cs",
+              "RelativeToolTip": "DentistaApi\\Services\\Auth\\AuthService.cs",
+              "ViewState": "AQIAAAsAAAAAAAAAAAA+wBcAAAAzAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-17T23:03:09.957Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "FuncionarioController.cs",
+              "DocumentMoniker": "C:\\Users\\Pluri Sistemas\\Desktop\\Guikbit\\Repository\\API-Odonto\\DentistaApi\\Controllers\\FuncionarioController.cs",
+              "RelativeDocumentMoniker": "DentistaApi\\Controllers\\FuncionarioController.cs",
+              "ToolTip": "C:\\Users\\Pluri Sistemas\\Desktop\\Guikbit\\Repository\\API-Odonto\\DentistaApi\\Controllers\\FuncionarioController.cs",
+              "RelativeToolTip": "DentistaApi\\Controllers\\FuncionarioController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-10T16:30:44.946Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "20241009130305_InitialCreate.cs",
-              "DocumentMoniker": "C:\\Users\\Pluri Sistemas\\Desktop\\Guikbit\\Repository\\API-Odonto\\DentistaApi\\Migrations\\20241009130305_InitialCreate.cs",
-              "RelativeDocumentMoniker": "DentistaApi\\Migrations\\20241009130305_InitialCreate.cs",
-              "ToolTip": "C:\\Users\\Pluri Sistemas\\Desktop\\Guikbit\\Repository\\API-Odonto\\DentistaApi\\Migrations\\20241009130305_InitialCreate.cs",
-              "RelativeToolTip": "DentistaApi\\Migrations\\20241009130305_InitialCreate.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAABFAAAA",
+              "Title": "Organizacao.cs",
+              "DocumentMoniker": "C:\\Users\\Pluri Sistemas\\Desktop\\Guikbit\\Repository\\API-Odonto\\DentistaApi\\Models\\Empresa\\Organizacao.cs",
+              "RelativeDocumentMoniker": "DentistaApi\\Models\\Empresa\\Organizacao.cs",
+              "ToolTip": "C:\\Users\\Pluri Sistemas\\Desktop\\Guikbit\\Repository\\API-Odonto\\DentistaApi\\Models\\Empresa\\Organizacao.cs",
+              "RelativeToolTip": "DentistaApi\\Models\\Empresa\\Organizacao.cs",
+              "ViewState": "AQIAAAoAAAAAAAAAAAAzwBEAAAAZAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-09T13:53:03.376Z"
+              "WhenOpened": "2024-10-04T11:27:58.804Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "Paciente.cs",
-              "DocumentMoniker": "C:\\Users\\Pluri Sistemas\\Desktop\\Guikbit\\Repository\\API-Odonto\\DentistaApi\\Models\\Paciente\\Paciente.cs",
-              "RelativeDocumentMoniker": "DentistaApi\\Models\\Paciente\\Paciente.cs",
-              "ToolTip": "C:\\Users\\Pluri Sistemas\\Desktop\\Guikbit\\Repository\\API-Odonto\\DentistaApi\\Models\\Paciente\\Paciente.cs",
-              "RelativeToolTip": "DentistaApi\\Models\\Paciente\\Paciente.cs",
-              "ViewState": "AQIAAAsAAAAAAAAAAAAgwB4AAAAJAAAA",
+              "DocumentIndex": 8,
+              "Title": "Funcionario.cs",
+              "DocumentMoniker": "C:\\Users\\Pluri Sistemas\\Desktop\\Guikbit\\Repository\\API-Odonto\\DentistaApi\\Models\\Empresa\\Funcionario.cs",
+              "RelativeDocumentMoniker": "DentistaApi\\Models\\Empresa\\Funcionario.cs",
+              "ToolTip": "C:\\Users\\Pluri Sistemas\\Desktop\\Guikbit\\Repository\\API-Odonto\\DentistaApi\\Models\\Empresa\\Funcionario.cs",
+              "RelativeToolTip": "DentistaApi\\Models\\Empresa\\Funcionario.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAuwAIAAAAfAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-04T11:21:31.151Z"
+              "WhenOpened": "2024-10-03T20:32:00.382Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 11,
               "Title": "AppDbContext.cs",
               "DocumentMoniker": "C:\\Users\\Pluri Sistemas\\Desktop\\Guikbit\\Repository\\API-Odonto\\DentistaApi\\Data\\AppDbContext.cs",
               "RelativeDocumentMoniker": "DentistaApi\\Data\\AppDbContext.cs",
@@ -155,7 +215,32 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 15,
+              "Title": "Paciente.cs",
+              "DocumentMoniker": "C:\\Users\\Pluri Sistemas\\Desktop\\Guikbit\\Repository\\API-Odonto\\DentistaApi\\Models\\Paciente\\Paciente.cs",
+              "RelativeDocumentMoniker": "DentistaApi\\Models\\Paciente\\Paciente.cs",
+              "ToolTip": "C:\\Users\\Pluri Sistemas\\Desktop\\Guikbit\\Repository\\API-Odonto\\DentistaApi\\Models\\Paciente\\Paciente.cs",
+              "RelativeToolTip": "DentistaApi\\Models\\Paciente\\Paciente.cs",
+              "ViewState": "AQIAAAsAAAAAAAAAAAAgwB4AAAAJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-04T11:21:31.151Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Cargo.cs",
+              "DocumentMoniker": "C:\\Users\\Pluri Sistemas\\Desktop\\Guikbit\\Repository\\API-Odonto\\DentistaApi\\Models\\Empresa\\Cargo.cs",
+              "RelativeDocumentMoniker": "DentistaApi\\Models\\Empresa\\Cargo.cs",
+              "ToolTip": "C:\\Users\\Pluri Sistemas\\Desktop\\Guikbit\\Repository\\API-Odonto\\DentistaApi\\Models\\Empresa\\Cargo.cs",
+              "RelativeToolTip": "DentistaApi\\Models\\Empresa\\Cargo.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAAzAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-05T00:34:57.893Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
               "Title": "DentistaController.cs",
               "DocumentMoniker": "C:\\Users\\Pluri Sistemas\\Desktop\\Guikbit\\Repository\\API-Odonto\\DentistaApi\\Controllers\\DentistaController.cs",
               "RelativeDocumentMoniker": "DentistaApi\\Controllers\\DentistaController.cs",
@@ -167,31 +252,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "Organizacao.cs",
-              "DocumentMoniker": "C:\\Users\\Pluri Sistemas\\Desktop\\Guikbit\\Repository\\API-Odonto\\DentistaApi\\Models\\Empresa\\Organizacao.cs",
-              "RelativeDocumentMoniker": "DentistaApi\\Models\\Empresa\\Organizacao.cs",
-              "ToolTip": "C:\\Users\\Pluri Sistemas\\Desktop\\Guikbit\\Repository\\API-Odonto\\DentistaApi\\Models\\Empresa\\Organizacao.cs",
-              "RelativeToolTip": "DentistaApi\\Models\\Empresa\\Organizacao.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-04T11:27:58.804Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "User.cs",
-              "DocumentMoniker": "C:\\Users\\Pluri Sistemas\\Desktop\\Guikbit\\Repository\\API-Odonto\\DentistaApi\\Models\\User.cs",
-              "RelativeDocumentMoniker": "DentistaApi\\Models\\User.cs",
-              "ToolTip": "C:\\Users\\Pluri Sistemas\\Desktop\\Guikbit\\Repository\\API-Odonto\\DentistaApi\\Models\\User.cs",
-              "RelativeToolTip": "DentistaApi\\Models\\User.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-03T20:34:35.356Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 14,
               "Title": "Dentista.cs",
               "DocumentMoniker": "C:\\Users\\Pluri Sistemas\\Desktop\\Guikbit\\Repository\\API-Odonto\\DentistaApi\\Models\\Dentista\\Dentista.cs",
               "RelativeDocumentMoniker": "DentistaApi\\Models\\Dentista\\Dentista.cs",
@@ -203,19 +264,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "Funcionario.cs",
-              "DocumentMoniker": "C:\\Users\\Pluri Sistemas\\Desktop\\Guikbit\\Repository\\API-Odonto\\DentistaApi\\Models\\Empresa\\Funcionario.cs",
-              "RelativeDocumentMoniker": "DentistaApi\\Models\\Empresa\\Funcionario.cs",
-              "ToolTip": "C:\\Users\\Pluri Sistemas\\Desktop\\Guikbit\\Repository\\API-Odonto\\DentistaApi\\Models\\Empresa\\Funcionario.cs",
-              "RelativeToolTip": "DentistaApi\\Models\\Empresa\\Funcionario.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAIAAAAfAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-03T20:32:00.382Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 13,
               "Title": "Dashbords.cs",
               "DocumentMoniker": "C:\\Users\\Pluri Sistemas\\Desktop\\Guikbit\\Repository\\API-Odonto\\DentistaApi\\Models\\Dashboard\\Dashbords.cs",
               "RelativeDocumentMoniker": "DentistaApi\\Models\\Dashboard\\Dashbords.cs",
@@ -227,19 +276,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "Cargo.cs",
-              "DocumentMoniker": "C:\\Users\\Pluri Sistemas\\Desktop\\Guikbit\\Repository\\API-Odonto\\DentistaApi\\Models\\Empresa\\Cargo.cs",
-              "RelativeDocumentMoniker": "DentistaApi\\Models\\Empresa\\Cargo.cs",
-              "ToolTip": "C:\\Users\\Pluri Sistemas\\Desktop\\Guikbit\\Repository\\API-Odonto\\DentistaApi\\Models\\Empresa\\Cargo.cs",
-              "RelativeToolTip": "DentistaApi\\Models\\Empresa\\Cargo.cs",
-              "ViewState": "AQIAAA0AAAAAAAAAAAAzwA0AAAA1AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-05T00:34:57.893Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 17,
               "Title": "ConsultaController.cs",
               "DocumentMoniker": "C:\\Users\\Pluri Sistemas\\Desktop\\Guikbit\\Repository\\API-Odonto\\DentistaApi\\Controllers\\ConsultaController.cs",
               "RelativeDocumentMoniker": "DentistaApi\\Controllers\\ConsultaController.cs",
@@ -252,18 +289,6 @@
             {
               "$type": "Document",
               "DocumentIndex": 16,
-              "Title": "AuthService.cs",
-              "DocumentMoniker": "C:\\Users\\Pluri Sistemas\\Desktop\\Guikbit\\Repository\\API-Odonto\\DentistaApi\\Services\\Auth\\AuthService.cs",
-              "RelativeDocumentMoniker": "DentistaApi\\Services\\Auth\\AuthService.cs",
-              "ToolTip": "C:\\Users\\Pluri Sistemas\\Desktop\\Guikbit\\Repository\\API-Odonto\\DentistaApi\\Services\\Auth\\AuthService.cs",
-              "RelativeToolTip": "DentistaApi\\Services\\Auth\\AuthService.cs",
-              "ViewState": "AQIAAAIAAAAAAAAAAAAowBMAAAAHAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-17T23:03:09.957Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
               "Title": "DashBordController.cs",
               "DocumentMoniker": "C:\\Users\\Pluri Sistemas\\Desktop\\Guikbit\\Repository\\API-Odonto\\DentistaApi\\Controllers\\DashBordController.cs",
               "RelativeDocumentMoniker": "DentistaApi\\Controllers\\DashBordController.cs",
@@ -275,7 +300,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 12,
               "Title": "CargoController.cs",
               "DocumentMoniker": "C:\\Users\\Pluri Sistemas\\Desktop\\Guikbit\\Repository\\API-Odonto\\DentistaApi\\Controllers\\CargoController.cs",
               "RelativeDocumentMoniker": "DentistaApi\\Controllers\\CargoController.cs",
