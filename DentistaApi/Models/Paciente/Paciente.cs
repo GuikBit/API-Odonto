@@ -25,7 +25,7 @@ namespace DentistaApi.Models
         {
             if (string.IsNullOrEmpty(Role))
             {
-                Role = "Paciente";
+                Role = "PACIENTE";
             }
 
         }

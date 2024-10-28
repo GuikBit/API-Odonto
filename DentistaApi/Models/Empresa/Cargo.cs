@@ -24,6 +24,7 @@ public class Cargo
     public Boolean? ValeAR { get; set; }
     public Boolean? PlanoSaude { get; set; }
     public Boolean? Premiacao { get; set; }
+    public Double? ValorPremiacao { get; set; }
     public Boolean? GymPass { get; set; }
     public Boolean? PLR { get; set; }
     public DateTime? DataUpdate { get; set; }

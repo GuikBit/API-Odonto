@@ -143,6 +143,38 @@ namespace DentistaApi.Controllers
             }
         }
 
+        [HttpPost("funcionario")]
+        public ActionResult<Funcionario> PostFuncionario(Funcionario func)
+        {
+            try
+            {
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpGet("funcionario/login")]
+        public ActionResult GetLoginFuncionario(string login)
+        {
+            try
+            {
+                var isLogin = db.Funcionarios.FirstOrDefault(x => x.Login == login);
+
+                if (isLogin != null)
+                {
+                    return BadRequest(false);
+                }
+                return Ok(true);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = "Erro no servidor", details = ex.Message });
+            }
+        }
+
 
 
         [HttpDelete("{id}")]

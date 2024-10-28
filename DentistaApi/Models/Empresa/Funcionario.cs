@@ -19,25 +19,25 @@ public class Funcionario : User
     public int IdCargo { get; set; }
     public Cargo cargo { get; set; }
 
-    public void SetRole(int nivelAcesso)
+    public void SetRole(int perfil)
     {
         if (string.IsNullOrEmpty(Role))
         {
-            if (nivelAcesso == 1)
+            if (perfil == 1)
             {
-                this.Role = "Recepcao";
+                this.Role = "RECEPCAO";
             }
-            else if (nivelAcesso == 2)
+            else if (perfil == 2)
             {
-                this.Role = "Financeiro";
+                this.Role = "FINANCEIRO";
             }
-            else if (nivelAcesso == 3)
+            else if (perfil == 3)
             {
-                this.Role = "Fatumento";
+                this.Role = "FATURAMENTO";
             }
-            else if (nivelAcesso == 4)
+            else if (perfil == 4)
             {
-                this.Role = "Dentista";
+                this.Role = "DENTISTA";
             }
             else
             {

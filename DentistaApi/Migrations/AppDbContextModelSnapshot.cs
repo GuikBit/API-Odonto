@@ -53,7 +53,7 @@ namespace DentistaApi.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<int>("OrganizacaoId")
+                    b.Property<int?>("OrganizacaoId")
                         .HasColumnType("int");
 
                     b.Property<string>("Role")
@@ -181,6 +181,9 @@ namespace DentistaApi.Migrations
 
                     b.Property<bool?>("ValeTrans")
                         .HasColumnType("tinyint(1)");
+
+                    b.Property<double?>("ValorPremiacao")
+                        .HasColumnType("double");
 
                     b.HasKey("Id");
 
@@ -329,7 +332,7 @@ namespace DentistaApi.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<int>("OrganizacaoId")
+                    b.Property<int?>("OrganizacaoId")
                         .HasColumnType("int");
 
                     b.Property<string>("Role")
@@ -494,7 +497,7 @@ namespace DentistaApi.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<int>("OrganizacaoId")
+                    b.Property<int?>("OrganizacaoId")
                         .HasColumnType("int");
 
                     b.Property<string>("PisPasep")
@@ -625,7 +628,7 @@ namespace DentistaApi.Migrations
                     b.Property<string>("NumPasta")
                         .HasColumnType("longtext");
 
-                    b.Property<int>("OrganizacaoId")
+                    b.Property<int?>("OrganizacaoId")
                         .HasColumnType("int");
 
                     b.Property<int>("ResponsavelId")
@@ -999,9 +1002,7 @@ namespace DentistaApi.Migrations
                 {
                     b.HasOne("DentistaApi.Models.Organizacao", "IdOrganizacao")
                         .WithMany()
-                        .HasForeignKey("OrganizacaoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("OrganizacaoId");
 
                     b.Navigation("IdOrganizacao");
                 });
@@ -1050,9 +1051,7 @@ namespace DentistaApi.Migrations
 
                     b.HasOne("DentistaApi.Models.Organizacao", "IdOrganizacao")
                         .WithMany("Dentistas")
-                        .HasForeignKey("OrganizacaoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("OrganizacaoId");
 
                     b.Navigation("Especialidade");
 
@@ -1094,9 +1093,7 @@ namespace DentistaApi.Migrations
 
                     b.HasOne("DentistaApi.Models.Organizacao", "IdOrganizacao")
                         .WithMany("Funcionarios")
-                        .HasForeignKey("OrganizacaoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("OrganizacaoId");
 
                     b.Navigation("Endereco");
 
@@ -1132,9 +1129,7 @@ namespace DentistaApi.Migrations
 
                     b.HasOne("DentistaApi.Models.Organizacao", "IdOrganizacao")
                         .WithMany("Pacientes")
-                        .HasForeignKey("OrganizacaoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("OrganizacaoId");
 
                     b.HasOne("DentistaApi.Models.Responsavel", "Responsavel")
                         .WithMany()
