@@ -115,7 +115,7 @@ namespace DentistaApi.Controllers
         {
             try
             {
-                var listFunc = db.Funcionarios.Where( f => f.Id == idOrg).ToList();
+                var listFunc = db.Funcionarios.Where( f => f.Id == idOrg).Include(x => x.cargo).ToList();
 
                 if( listFunc == null)
                 {
@@ -212,7 +212,11 @@ namespace DentistaApi.Controllers
                 {
                     return BadRequest(false);
                 }
-                return Ok(true);
+                else
+                {
+                    return Ok(true);
+                }
+                
             }
             catch (Exception ex)
             {
