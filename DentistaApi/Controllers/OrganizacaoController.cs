@@ -111,7 +111,7 @@ namespace DentistaApi.Controllers
 
         [HttpGet]
         [Route("funcionarios")]
-        public ActionResult<List<Funcionario>> GetFuncionarios([FromBody] int idOrg)
+        public ActionResult<List<Funcionario>> GetFuncionarios( int idOrg)
         {
             try
             {
@@ -135,6 +135,7 @@ namespace DentistaApi.Controllers
         {
             try
             {
+                
                 return Ok();
             }
             catch (Exception ex)
@@ -144,15 +145,59 @@ namespace DentistaApi.Controllers
         }
 
         [HttpPost("funcionario")]
-        public ActionResult<Funcionario> PostFuncionario(Funcionario func)
+        public ActionResult<Funcionario> PostFuncionario([FromBody] Funcionario func)
         {
             try
             {
-                return Ok();
+                Funcionario novo = new Funcionario
+                {
+                    Nome = func.Nome,
+                    Email = func.Email,
+                    Login = func.Login,
+                    Senha = func.Senha,
+                    Telefone = func.Telefone,
+                    Cpf = func.Cpf,
+                    DataNascimento = func.DataNascimento,
+                    DataCadastro = DateTime.Now,
+                    Role = func.Role,
+                    NivelAcesso = func.NivelAcesso,
+                    OrganizacaoId = func.OrganizacaoId,
+                    IdOrganizacao = func.IdOrganizacao,
+                    RG = func.RG,
+                    RgUF = func.RgUF,
+                    OrgEmissor = func.OrgEmissor,
+                    PisPasep = func.PisPasep,
+                    CTPSN = func.CTPSN,
+                    CTPSSerie = func.CTPSSerie,
+                    CTPSUF = func.CTPSUF,
+                    DataAdmissao = func.DataAdmissao,
+                    RegistroN = func.RegistroN
+                };
+
+                Endereco endNovo = func.Endereco;
+                db.Endereco.Add(endNovo);
+                db.SaveChanges();
+
+                novo.Endereco = endNovo;
+                novo.IdEndereco = endNovo.Id;
+
+                var cargoExistente = db.Cargos.Find(func.cargo.Id);
+                if (cargoExistente == null)
+                {
+                    return BadRequest("Cargo não encontrado.");
+                }
+
+                novo.cargo = cargoExistente;
+                novo.IdCargo = cargoExistente.Id;
+
+                db.Funcionarios.Add(novo);
+                db.SaveChanges();
+
+                return Ok(novo);
             }
             catch (Exception ex)
             {
-                return BadRequest();
+                return BadRequest(ex);
             }
         }
 
