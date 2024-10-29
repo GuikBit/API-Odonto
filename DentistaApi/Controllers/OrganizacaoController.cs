@@ -18,7 +18,7 @@ namespace DentistaApi.Controllers
         {
             try
             {
-                var organizacao = db.Organizacao.ToList();
+                var organizacao = db.Organizacao.Include(x => x.Endereco).ToList();
                    
 
                 if(organizacao == null)
@@ -115,7 +115,7 @@ namespace DentistaApi.Controllers
         {
             try
             {
-                var listFunc = db.Funcionarios.Where( f => f.Id == idOrg).Include(x => x.cargo).ToList();
+                var listFunc = db.Funcionarios.Where( f => f.OrganizacaoId == idOrg).Include(x => x.cargo).ToList();
 
                 if( listFunc == null)
                 {
@@ -161,8 +161,7 @@ namespace DentistaApi.Controllers
                     DataCadastro = DateTime.Now,
                     Role = func.Role,
                     NivelAcesso = func.NivelAcesso,
-                    OrganizacaoId = func.OrganizacaoId,
-                    IdOrganizacao = func.IdOrganizacao,
+
                     RG = func.RG,
                     RgUF = func.RgUF,
                     OrgEmissor = func.OrgEmissor,
@@ -173,6 +172,7 @@ namespace DentistaApi.Controllers
                     DataAdmissao = func.DataAdmissao,
                     RegistroN = func.RegistroN
                 };
+                novo.SetSenhaHash();
 
                 Endereco endNovo = func.Endereco;
                 db.Endereco.Add(endNovo);
@@ -189,6 +189,16 @@ namespace DentistaApi.Controllers
 
                 novo.cargo = cargoExistente;
                 novo.IdCargo = cargoExistente.Id;
+
+                var orgExiste = db.Organizacao.FirstOrDefault(x => x.Id == func.OrganizacaoId);
+                if(orgExiste == null)
+                {
+                    return BadRequest("Empresa não encontrada.");
+                }
+                orgExiste.Funcionarios = null;
+
+                novo.OrganizacaoId = orgExiste.Id;
+                novo.IdOrganizacao = orgExiste;
 
                 db.Funcionarios.Add(novo);
                 db.SaveChanges();
