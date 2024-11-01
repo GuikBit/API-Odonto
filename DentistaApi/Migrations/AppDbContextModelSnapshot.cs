@@ -239,6 +239,9 @@ namespace DentistaApi.Migrations
                     b.Property<string>("Procedimentos")
                         .HasColumnType("longtext");
 
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
                     b.Property<string>("Telefone")
                         .HasColumnType("longtext");
 

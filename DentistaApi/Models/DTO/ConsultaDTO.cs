@@ -25,7 +25,7 @@ namespace DentistaApi.Models
         public int ConsultaEspecialidadeId { get; set; }
         //public ConsultaEspecialidade ConsultaEspecialidade { get; set; }
 
-
+        public int Status {  get; set; }
        
 
     }

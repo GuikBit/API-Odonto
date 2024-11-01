@@ -96,9 +96,9 @@ namespace DentistaApi.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_Administrador_Organizacao_OrganizacaoId",
-                table: "Administrador");
+            //migrationBuilder.DropForeignKey(
+            //    name: "FK_Administrador_Organizacao_OrganizacaoId",
+            //    table: "Administrador");
 
             migrationBuilder.DropForeignKey(
                 name: "FK_Dentistas_Organizacao_OrganizacaoId",

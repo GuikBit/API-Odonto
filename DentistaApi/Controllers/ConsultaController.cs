@@ -185,6 +185,7 @@ public class ConsultaController : ControllerBase
             nova.TempoPrevisto = obj.TempoPrevisto;
             nova.setTempoPrevisto(obj.TempoPrevisto);
             nova.CorDentista = dentista.CorDentista;
+            nova.setStatus(3);
 
             nova.Pagamento = new Pagamento();
             Parcela novo = new Parcela();
@@ -202,7 +203,6 @@ public class ConsultaController : ControllerBase
         }
         catch (Exception)
         {
-
             return BadRequest("Erro ao salvar ao consulta.");
         }
 
@@ -388,9 +388,9 @@ public class ConsultaController : ControllerBase
         return NoContent();
     }
 
-    [HttpGet]
+    [HttpPatch]
     [Route("/v1/consulta/iniciar/{id}")]
-    public ActionResult<Consulta> iniciarConsulta( int id)
+    public ActionResult<Consulta> IniciarConsulta( int id )
     {
         if (id == 0 || id == null)
         {
@@ -402,7 +402,7 @@ public class ConsultaController : ControllerBase
         {
             return BadRequest();
         }
-
+        consulta.setStatus(4);
         consulta.setIniciarConsulta();        
         db.SaveChanges();
 
@@ -411,9 +411,9 @@ public class ConsultaController : ControllerBase
         return Ok(consulta);
     }
 
-    [HttpGet]
+    [HttpPatch]
     [Route("/v1/consulta/finalizar/{id}")]
-    public ActionResult finalizarConsulta(int id)
+    public ActionResult FinalizarConsulta(int id)
     {
         if (id == 0 || id == null)
         {
@@ -425,16 +425,15 @@ public class ConsultaController : ControllerBase
         {
             return BadRequest();
         }
-
+        consulta.setStatus(5);
         consulta.setFinalizarConsulta();
         db.SaveChanges();
 
         return Ok();
     }
-
-    [HttpGet]
-    [Route("/v1/consulta/ausentar/{id}")]
-    public ActionResult ausentarPaciente(int id)
+    [HttpPatch]
+    [Route("/v1/consulta/aguardando/{id}")]
+    public ActionResult AguardandoConsulta(int id)
     {
         if (id == 0 || id == null)
         {
@@ -446,15 +445,36 @@ public class ConsultaController : ControllerBase
         {
             return BadRequest();
         }
+        consulta.setStatus(1);
+        consulta.setFinalizarConsulta();
+        db.SaveChanges();
+
+        return Ok();
+    }
+    [HttpPatch]
+    [Route("/v1/consulta/ausentar/{id}")]
+    public ActionResult AusentarPaciente(int id)
+    {
+        if (id == 0 || id == null)
+        {
+            return BadRequest();
+        }
+        var consulta = db.Consultas.FirstOrDefault(x => x.Id.Equals(id));
+
+        if (consulta == null)
+        {
+            return BadRequest();
+        }
+        consulta.setStatus(6);
         consulta.setAusentarPaciente();
         db.SaveChanges();
 
         return Ok();
     }
 
-    [HttpGet]
+    [HttpPatch]
     [Route("/v1/consulta/presenca/{id}")]
-    public ActionResult presencaPaciente(int id)
+    public ActionResult PresencaPaciente(int id)
     {
         if (id == 0 || id == null)
         {
@@ -466,6 +486,7 @@ public class ConsultaController : ControllerBase
         {
             return BadRequest();
         }
+        consulta.setStatus(1);
         consulta.setPresencaPaciente();
         db.SaveChanges();
 

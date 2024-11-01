@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace DentistaApi.Models;
 
@@ -27,6 +28,7 @@ public class Consulta
     public string CorDentista { get; set; }
     public int? ConsultaEspecialidadeId { get; set; }
     public ConsultaEspecialidade ConsultaEspecialidade { get; set; }
+    public int Status { get; set; }
 
 
     public void setIniciarConsulta()
@@ -67,6 +69,19 @@ public class Consulta
     public void setPresencaPaciente()
     {
         Ausente = false;
+    }
+
+    public void setStatus(int status)
+    {
+        switch (status)
+        {
+            case 1: { this.Status = status; break; }
+            case 2: { this.Status = status; break; }
+            case 3: { this.Status = status; break; }
+            case 4: { this.Status = status; break; }
+            case 5: { this.Status = status; break; }
+            case 6: { this.Status = status; break; }
+        }
     }
 }
 
