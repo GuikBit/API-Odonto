@@ -34,9 +34,10 @@ public class DashBordController : Controller
         {
             var atual = DateTime.Now;
             var dtInicio = filtros.DtInicio ?? new DateTime(atual.Year, atual.Month - 3, 1);
-            var dtFim = filtros.DtFim ?? new DateTime(atual.Year, atual.Month + 1, atual.Day, 23, 59, 59);
+            var dtFim = filtros.DtFim ?? new DateTime(atual.Year, atual.Month, 1).AddMonths(1).AddSeconds(-1);
 
-            if( dtFim > atual || filtros.DtFim != null ) 
+
+            if ( dtFim > atual || filtros.DtFim != null ) 
             {
                 var consultas = db.Consultas
                .Include(c => c.Pagamento)
