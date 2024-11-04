@@ -412,6 +412,44 @@ public class ConsultaController : ControllerBase
     }
 
     [HttpPatch]
+    [Route("/v1/consulta/status/{id}")]
+    public ActionResult AlteraStatusConsulta(int id, [FromBody] int status)
+    {
+        if (id == 0 || id == null)
+        {
+            return BadRequest();
+        }
+        var consulta = db.Consultas.FirstOrDefault(x => x.Id.Equals(id));
+
+
+        if (consulta == null)
+        {
+            return BadRequest();
+        }
+
+        consulta.setStatus(status);
+
+        if (status == 1)
+        {            
+            consulta.setIniciarConsulta();
+        }
+        else if (status == 5)
+        {           
+            consulta.setFinalizarConsulta();
+        }
+        else if(status == 6)
+        {            
+            consulta.setAusentarPaciente();
+        }
+        else 
+
+        db.Consultas.Update(consulta);
+        db.SaveChanges();
+
+        return Ok();
+    }
+
+    [HttpPatch]
     [Route("/v1/consulta/finalizar/{id}")]
     public ActionResult FinalizarConsulta(int id)
     {
