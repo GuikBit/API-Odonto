@@ -1,4 +1,4 @@
-# ApiDentista - C# Swegger
+# ApiDentista - ASP NET Core, Swegger
 
 
 
