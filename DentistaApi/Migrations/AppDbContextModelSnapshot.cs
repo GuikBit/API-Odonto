@@ -542,6 +542,43 @@ namespace DentistaApi.Migrations
                     b.ToTable("Funcionarios");
                 });
 
+            modelBuilder.Entity("DentistaApi.Models.JustificativaPonto", b =>
+                {
+                    b.Property<int?>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int>("AvaliadoPor")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DataAvaliacao")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("FuncionarioId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Motivo")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("OrganizacaoId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RegistroPontoId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrganizacaoId");
+
+                    b.HasIndex("RegistroPontoId");
+
+                    b.ToTable("JustificativaPonto");
+                });
+
             modelBuilder.Entity("DentistaApi.Models.Organizacao", b =>
                 {
                     b.Property<int>("Id")
@@ -787,6 +824,54 @@ namespace DentistaApi.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Produto");
+                });
+
+            modelBuilder.Entity("DentistaApi.Models.RegistroPonto", b =>
+                {
+                    b.Property<int?>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Controle")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("varchar(1)")
+                        .HasDefaultValue("A");
+
+                    b.Property<DateTime>("DataCriacao")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime>("DataRegistro")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("FuncionarioId")
+                        .HasColumnType("int");
+
+                    b.Property<TimeSpan>("HoraRegistro")
+                        .HasColumnType("time(6)");
+
+                    b.Property<string>("Observacao")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("OrganizacaoId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Registro")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FuncionarioId");
+
+                    b.HasIndex("OrganizacaoId");
+
+                    b.ToTable("RegistroPonto");
                 });
 
             modelBuilder.Entity("DentistaApi.Models.Responsavel", b =>
@@ -1105,6 +1190,25 @@ namespace DentistaApi.Migrations
                     b.Navigation("cargo");
                 });
 
+            modelBuilder.Entity("DentistaApi.Models.JustificativaPonto", b =>
+                {
+                    b.HasOne("DentistaApi.Models.Organizacao", "Organizacao")
+                        .WithMany()
+                        .HasForeignKey("OrganizacaoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DentistaApi.Models.RegistroPonto", "RegistroPonto")
+                        .WithMany()
+                        .HasForeignKey("RegistroPontoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Organizacao");
+
+                    b.Navigation("RegistroPonto");
+                });
+
             modelBuilder.Entity("DentistaApi.Models.Organizacao", b =>
                 {
                     b.HasOne("DentistaApi.Models.Endereco", "Endereco")
@@ -1154,6 +1258,25 @@ namespace DentistaApi.Migrations
                     b.HasOne("DentistaApi.Models.Pagamento", null)
                         .WithMany("Parcelas")
                         .HasForeignKey("PagamentoId");
+                });
+
+            modelBuilder.Entity("DentistaApi.Models.RegistroPonto", b =>
+                {
+                    b.HasOne("DentistaApi.Models.Funcionario", "Funcionario")
+                        .WithMany()
+                        .HasForeignKey("FuncionarioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DentistaApi.Models.Organizacao", "Organizacao")
+                        .WithMany()
+                        .HasForeignKey("OrganizacaoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Funcionario");
+
+                    b.Navigation("Organizacao");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

@@ -22,6 +22,11 @@ namespace DentistaApi.Data
         public DbSet<Organizacao> Organizacao { get; set; }
         public DbSet<Funcionario> Funcionarios { get; set; }
         public DbSet<Cargo> Cargos { get; set; }
+        public DbSet<JustificativaPonto> JustificativaPonto { get; set; }
+        public DbSet<RegistroPonto> RegistroPonto { get; set; }
+
+
+
         //public DbSet<Produto> Produtos { get; set; }
         //public DbSet<Categoria> Categorias { get; set; }
         //public DbSet<Fornecedor> Fornecedores { get; set; }
@@ -49,6 +54,31 @@ namespace DentistaApi.Data
             //    .HasMany(o => o.Pacientes)
             //    .WithOne(p => p.IdOrganizacao)
             //    .HasForeignKey(p => p.OrganizacaoId);
+
+            modelBuilder.Entity<RegistroPonto>()
+                .Property(rp => rp.DataRegistro)
+                .HasConversion(
+                    date => date.ToDateTime(TimeOnly.MinValue), // Converter DateOnly para DateTime
+                    datetime => DateOnly.FromDateTime(datetime)); // Converter DateTime para DateOnly
+
+            modelBuilder.Entity<RegistroPonto>()
+                .Property(rp => rp.HoraRegistro)
+                .HasConversion(
+                    time => time.ToTimeSpan(), // Converter TimeOnly para TimeSpan
+                    timespan => TimeOnly.FromTimeSpan(timespan)); // Converter TimeSpan para TimeOnly
+
+            modelBuilder.Entity<RegistroPonto>()
+                .Property(rp => rp.Status)
+                .HasConversion<string>();
+
+            modelBuilder.Entity<RegistroPonto>()
+                .Property(rp => rp.Registro)
+                .HasConversion<string>();
+
+            modelBuilder.Entity<RegistroPonto>()
+                .Property(rp => rp.Controle)
+                .HasDefaultValue('A'); // Valor padrão no banco
+
 
 
             modelBuilder.Entity<Organizacao>()

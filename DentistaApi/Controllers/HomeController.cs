@@ -72,12 +72,13 @@ public class HomeController : ControllerBase
     {
         try
         {
-            Administrador adm = new Administrador();
+            //Administrador adm = new Administrador();
 
-            adm.Nome = "admin";
-            adm.Email = "admin.@gmail.com";
-            adm.Login = "admin";
-            //adm.SetSenhaHash("123");
+            //adm.Nome = "admin";
+            //adm.Email = "admin.@gmail.com";
+            //adm.Login = "admin";
+            //adm.Senha = "123";
+            //adm.SetSenhaHash();
 
 
 
@@ -86,31 +87,31 @@ public class HomeController : ControllerBase
             DateTime dataAtual = DateTime.Now;
 
             // Gerar 50 registros de consultas
-            for (int i = 0; i < 38; i++)
+            for (int i = 0; i < 87 ; i++)
             {
                 Random random = new Random();
 
                 // Randomização de alguns campos
-                int randDentista = random.Next(4, 9);  // ID de dentista aleatório
-                int randPaciente = random.Next(10, 26);  // ID de paciente aleatório
+                int randDentista = random.Next(1, 4);  // ID de dentista aleatório
+                int randPaciente = random.Next(1, 5);  // ID de paciente aleatório
                 int randonDia = random.Next(1, 30); // Dia aleatório entre 1 e 28
                 int randHora = random.Next(8, 18);   // Hora aleatória entre 8h e 18h
                 int randMinuto = random.Next(0, 59); // Minuto aleatório
-                int randEspec = random.Next(1, 7);
+                int randEspec = random.Next(1, 5);
                 // Cria uma nova consulta
                 Consulta novaConsulta = new Consulta();
 
                 // Buscar dentista e paciente aleatórios
                 var dentista = db.Dentistas.First(x => x.Id == randDentista);
                 var paciente = db.Pacientes.First(x => x.Id == randPaciente);
-                var consEspec = db.ConsultaEspecialidades.First(x => x.Id == 3); // Procedimento aleatório
+                var consEspec = db.ConsultaEspecialidades.First(x => x.Id == randEspec); // Procedimento aleatório
 
                 novaConsulta.Paciente = paciente;
                 novaConsulta.Dentista = dentista;
                 novaConsulta.ConsultaEspecialidade = consEspec;
 
                 // Data da consulta no mês atual com dia e hora aleatórios
-                DateTime dataConsulta = new DateTime(dataAtual.Year, dataAtual.Month - 1, randonDia, randHora, randMinuto, 0);
+                DateTime dataConsulta = new DateTime(dataAtual.Year, dataAtual.Month - 3, randonDia, randHora, randMinuto, 0);
                 novaConsulta.DataConsulta = dataConsulta;
 
                 // Definir tempo previsto de forma aleatória

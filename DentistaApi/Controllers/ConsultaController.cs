@@ -325,20 +325,17 @@ public class ConsultaController : ControllerBase
         }
     }
 
-
-    [HttpPatch]
-    [Route("procedimento")]
-    public ActionResult PostProcedimento([FromBody] ProcedimentoRequest request)
+    [HttpPatch("procedimento/{id}")]
+    public ActionResult PostProcedimento(int id, [FromBody] string procedimento)
     {
         try
         {
-            var consulta = db.Consultas.FirstOrDefault(c => c.Id == request.Id);
+            var consulta = db.Consultas.FirstOrDefault(c => c.Id == id);
             if (consulta == null)
             {
                 return BadRequest("Consulta não encontrada.");
             }
-            consulta.Procedimentos = request.Procedimentos;
-            consulta.setFinalizarConsulta();
+            consulta.Procedimentos = procedimento;
             db.SaveChanges();
 
             return Ok();

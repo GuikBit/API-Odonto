@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\buildMultiTargeting\PontoEletronicoAPI.props" />
+</Project>

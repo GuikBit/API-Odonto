@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "pAKjYqsfZgWx0iAGcnPnb+pC+QiAIEwftGunGYdDfGgGk4Eg85NNitK6fH2ojvvfhXmlXfbsv4k42vmJxCkJaQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Guilherme\\Desktop\\MyRepo\\GitHub\\OdontoAPI\\PontoEletronico\\PontoEletronico.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Guilherme\\.nuget\\packages\\json.net\\1.0.33\\json.net.1.0.33.nupkg.sha512"
+  ],
+  "logs": []
+}
