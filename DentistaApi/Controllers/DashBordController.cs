@@ -33,7 +33,11 @@ public class DashBordController : Controller
         try
         {
             var atual = DateTime.Now;
-            var dtInicio = filtros.DtInicio ?? new DateTime(atual.Year, atual.Month - 3, 1);
+
+            // Subtrai 3 meses da data atual e define como o primeiro dia do mês
+            var dtInicio = filtros.DtInicio ?? new DateTime(atual.AddMonths(-3).Year, atual.AddMonths(-3).Month, 1);
+
+            // Define a data final como o último dia do mês atual
             var dtFim = filtros.DtFim ?? new DateTime(atual.Year, atual.Month, 1).AddMonths(1).AddSeconds(-1);
 
 

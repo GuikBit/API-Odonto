@@ -87,17 +87,17 @@ public class HomeController : ControllerBase
             DateTime dataAtual = DateTime.Now;
 
             // Gerar 50 registros de consultas
-            for (int i = 0; i < 87 ; i++)
+            for (int i = 0; i < 37 ; i++)
             {
                 Random random = new Random();
 
                 // Randomização de alguns campos
-                int randDentista = random.Next(1, 4);  // ID de dentista aleatório
+                int randDentista = random.Next(1, 1);  // ID de dentista aleatório
                 int randPaciente = random.Next(1, 5);  // ID de paciente aleatório
-                int randonDia = random.Next(1, 30); // Dia aleatório entre 1 e 28
+                //int randonDia = random.Next(1, 28); // Dia aleatório entre 1 e 28
                 int randHora = random.Next(8, 18);   // Hora aleatória entre 8h e 18h
                 int randMinuto = random.Next(0, 59); // Minuto aleatório
-                int randEspec = random.Next(1, 5);
+                int randEspec = random.Next(1, 1);
                 // Cria uma nova consulta
                 Consulta novaConsulta = new Consulta();
 
@@ -111,7 +111,18 @@ public class HomeController : ControllerBase
                 novaConsulta.ConsultaEspecialidade = consEspec;
 
                 // Data da consulta no mês atual com dia e hora aleatórios
-                DateTime dataConsulta = new DateTime(dataAtual.Year, dataAtual.Month - 3, randonDia, randHora, randMinuto, 0);
+
+                DateTime dataConsulta;
+
+                // Subtrai 3 meses da data atual
+                DateTime dataBase = dataAtual;
+
+                // Garante que o dia aleatório não exceda o último dia do mês
+                int ultimoDiaMes = DateTime.DaysInMonth(dataBase.Year, dataBase.Month);
+                int randonDia = random.Next(1, ultimoDiaMes + 1);
+
+                // Cria a data com o dia, hora e minuto aleatórios
+                dataConsulta = new DateTime(dataBase.Year, dataBase.Month, randonDia, randHora, randMinuto, 0);
                 novaConsulta.DataConsulta = dataConsulta;
 
                 // Definir tempo previsto de forma aleatória
@@ -121,10 +132,13 @@ public class HomeController : ControllerBase
 
                 // Configuração de pagamento
                 novaConsulta.Pagamento = new Pagamento();
+
                 Parcela novaParcela = new Parcela
                 {
                     ValorParcela = consEspec.ValorBase,  // Valor base do procedimento
-                    DataVencimento = dataConsulta.AddDays(7)  // Vencimento após 7 dias da consulta
+                    DataVencimento = dataConsulta.AddDays(7), // Vencimento após 7 dias da consulta
+                    Pago = true,
+                    DataPagamento = dataConsulta.AddDays(4)
                 };
                 novaConsulta.Pagamento.Parcelas.Add(novaParcela);
 
